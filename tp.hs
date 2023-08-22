@@ -8,34 +8,6 @@
 
 -- Para sostener este modelo se cuenta con las siguientes entidades:
 
-module Point ( Point, newP, difP)
-   where
-
-data Point = Poi Int Int deriving (Eq, Show)
-
-newP :: Int -> Int -> Point
-newP x y = Poi x y
-
-difP :: Point -> Point -> Float  -- distancia absoluta
-difP (Poi x1 y1) (Poi x2 y2) = sqrt $ fromIntegral $ (x1 - x2)^2 + (y1 - y2)^2
-
-test = [ newP 1 2 == Poi 1 2,
-         difP (newP 1 2) (newP 0 0) == sqrt 5,
-         True]
-{-
------------------
-module City ( City, newC, nameC, distanceC )
-   where
-
-data City = Cit String Point deriving (Eq, Show)
-
-newC :: String -> Point -> City
-newC name point = Cit name point
-
-nameC :: City -> String
-nameC Cit name point = name
-
-distanceC :: City -> City -> Float
 -----------------
 module Quality ( Quality, newQ, capacityQ, delayQ )
    where
@@ -79,6 +51,3 @@ connectedR :: Region -> City -> City -> Bool -- indica si estas dos ciudades est
 linkedR :: Region -> City -> City -> Bool -- indica si estas dos ciudades estan enlazadas
 delayR :: Region -> City -> City -> Float -- dadas dos ciudades conectadas, indica la demora
 availableCapacityForR :: Region -> City -> City -> Int -- indica la capacidad disponible entre dos ciudades
-
-
--}
