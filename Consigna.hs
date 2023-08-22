@@ -1,23 +1,13 @@
--- Telco
+Telco
 
--- Es una compañia que se dedica a comunicar las ciudades que se susbcriben a su servicio.
--- Primero las ingresa al mapa de la región. 
--- Luego establece vínculos entre ellas de cierta calidad y capacidad.
--- Finalmente establece canales que conectan distintas ciudades ocupando una unidad de 
--- capacidad por cada enlace recorrido.
+Es una compañia que se dedica a comunicar las ciudades que se susbcriben a su servicio.
+Primero las ingresa al mapa de la región. 
+Luego establece vínculos entre ellas de cierta calidad y capacidad.
+Finalmente establece canales que conectan distintas ciudades ocupando una unidad de 
+capacidad por cada enlace recorrido.
 
--- Para sostener este modelo se cuenta con las siguientes entidades:
+Para sostener este modelo se cuenta con las siguientes entidades:
 
------------------
-module Quality ( Quality, newQ, capacityQ, delayQ )
-   where
-
-data Quality = Qua String Int Float deriving (Eq, Show)
-
-newQ :: String -> Int -> Float -> Quality
-capacityQ :: Quality -> Int -- cuantos túneles puede tolerar esta conexión
-delayQ :: Quality -> Float  -- la demora por unidad de distancia que sucede en las conexiones de este canal
--------------------
 module Link ( Link, newL, linksL, connectsL, capacityL, delayL )
    where
 
