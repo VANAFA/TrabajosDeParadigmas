@@ -1,13 +1,12 @@
-{-Telco
+-- Telco
 
-Es una compañia que se dedica a comunicar las ciudades que se susbcriben a su servicio.
-Primero las ingresa al mapa de la región. 
-Luego establece vínculos entre ellas de cierta calidad y capacidad.
-Finalmente establece canales que conectan distintas ciudades ocupando una unidad de 
-capacidad por cada enlace recorrido.
+-- Es una compañia que se dedica a comunicar las ciudades que se susbcriben a su servicio.
+-- Primero las ingresa al mapa de la región. 
+-- Luego establece vínculos entre ellas de cierta calidad y capacidad.
+-- Finalmente establece canales que conectan distintas ciudades ocupando una unidad de 
+-- capacidad por cada enlace recorrido.
 
-Para sostener este modelo se cuenta con las siguientes entidades:
--}
+-- Para sostener este modelo se cuenta con las siguientes entidades:
 
 module Point ( Point, newP, difP)
    where
@@ -18,12 +17,12 @@ newP :: Int -> Int -> Point
 newP x y = Poi x y
 
 difP :: Point -> Point -> Float  -- distancia absoluta
-difP a b = 2
+difP (Poi x1 y1) (Poi x2 y2) = sqrt ((fromIntegral (x1 - x2) ^ 2) + (fromIntegral (y1 - y2) ^ 2))
 
 test = [ newP 1 2 == Poi 1 2,
-    
-    True]
-
+         difP (newP 1 2) (newP 0 0) == sqrt 5,
+         True]
+{-
 -----------------
 module City ( City, newC, nameC, distanceC )
    where
@@ -31,9 +30,11 @@ module City ( City, newC, nameC, distanceC )
 data City = Cit String Point deriving (Eq, Show)
 
 newC :: String -> Point -> City
-newC =
+newC name point = Cit name point
 
 nameC :: City -> String
+nameC Cit name point = name
+
 distanceC :: City -> City -> Float
 -----------------
 module Quality ( Quality, newQ, capacityQ, delayQ )
@@ -78,5 +79,6 @@ connectedR :: Region -> City -> City -> Bool -- indica si estas dos ciudades est
 linkedR :: Region -> City -> City -> Bool -- indica si estas dos ciudades estan enlazadas
 delayR :: Region -> City -> City -> Float -- dadas dos ciudades conectadas, indica la demora
 availableCapacityForR :: Region -> City -> City -> Int -- indica la capacidad disponible entre dos ciudades
+
 
 -}
