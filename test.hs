@@ -10,14 +10,13 @@ city2 = newC "Liberty City" point2
 qua = newQ "deAaB" 3 0.5
 ab = newL city1 city2 qua
 
-test = [ newP 1 2 == 1 2,
-         difP (newP 1 2) (newP 0 0) == sqrt 5,
-         newC "Vice City" point1 == Cit "Vice City" (newP 1 2),
-         nameC city1 == "Vice City",
-         distanceC city1 city2 == sqrt 5,
-         qua == Qua "deAaB" 3 0.5,
-         capacityQ qua == 3,
-         delayQ qua == 0.5,
-         ab == Lin (newC "A" (Poi 1 2)) (newC "B" (Poi 0 0)) (newQ "deAaB" 3 0.5),
-
-         True]
+test = [difP (newP 1 2) (newP 0 0) == sqrt 5,
+        nameC city1 == "Vice City",
+        distanceC city1 city2 == sqrt 5,
+        capacityQ qua == 3,
+        delayQ qua == 0.5,
+        connectsL city1 ab,
+        linksL city2 city1 ab,
+        capacityL ab == 3,
+        delayL ab == 0.5,
+        True]

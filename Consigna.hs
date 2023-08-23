@@ -8,15 +8,6 @@ capacidad por cada enlace recorrido.
 
 Para sostener este modelo se cuenta con las siguientes entidades:
 
-module Tunel ( Tunel, newT, connectsT, usesT, delayT )
-   where
-
-data Tunel = Tun [Link] deriving (Eq, Show)
-
-newT :: [Link] -> Tunel
-connectsT :: City -> City -> Tunel -> Bool -- inidca si este tunel conceta estas dos ciudades distintas
-usesT :: Link -> Tunel -> Bool  -- indica si este tunel atraviesa ese link
-delayT :: Tunel -> Float -- la demora que sufre una conexion en este tunel
 -------------------
 module Region ( Region, newR, foundR, linkR, tunelR, pathR, linksForR, connectedR, linkedR, delayR, availableCapacityForR, usedCapacityForR )
    where
