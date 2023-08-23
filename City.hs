@@ -14,7 +14,10 @@ nameC (Cit name _) = name
 distanceC :: City -> City -> Float
 distanceC (Cit _ p1) (Cit _ p2) = difP p1 p2
 
-test = [ newC "Andalgalá" (newP 1 2) == Cit "Andalgalá" (newP 1 2),
-         nameC (newC "Vice City" (newP 1 2)) == "Vice City",
-         distanceC (newC "Vice City" (newP 1 2)) (newC "Liberty City" (newP 0 0)) == sqrt 5,
+city1 = newC "Vice City" (newP 1 2)
+city2 = newC "Liberty City" (newP 0 0)
+
+test = [ city1 == Cit "Vice City" (newP 1 2),
+         nameC city1 == "Vice City",
+         distanceC city1 city2 == sqrt 5,
          True]

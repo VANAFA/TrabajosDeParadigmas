@@ -12,7 +12,9 @@ capacityQ (Qua _ tunnels _) = tunnels
 delayQ :: Quality -> Float  -- la demora por unidad de distancia que sucede en las conexiones de este canal
 delayQ (Qua _ _ delay) = delay
 
-test = [ newQ "deAaB" 3 0.5 == Qua "deAaB" 3 0.5,
-         capacityQ (Qua "deAaB" 3 0.5) == 3,
-         delayQ (Qua "deAaB" 3 0.5) == 0.5,
+qua = newQ "deAaB" 3 0.5
+
+test = [ qua == Qua "deAaB" 3 0.5,
+         capacityQ qua == 3,
+         delayQ qua == 0.5,
          True]
