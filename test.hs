@@ -3,7 +3,7 @@ import Link
 import Point
 import Quality
 import City
-import Data.Text.Array (new)
+import Region
 
 
 point1 = newP 1 2
@@ -18,6 +18,7 @@ qua = newQ "qua1" 3 0.5
 viceToLiberty = newL city1 city2 qua
 libertyToSantos = newL city2 city3 qua
 tunel = newT [viceToLiberty, libertyToSantos]
+gta = newR [city1, city2, city3] [viceToLiberty, libertyToSantos] [tunel]
 
 test = [difP (newP 1 2) (newP 0 0) == sqrt 5,
         nameC city1 == "Vice City",
