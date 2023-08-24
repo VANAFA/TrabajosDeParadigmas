@@ -30,4 +30,5 @@ test = [difP (newP 1 2) (newP 0 0) == sqrt 5,
         delayL viceToLiberty == 0.5,
         connectsT city3 city1 tunel,
         usesT libertyToSantos tunel,
+        delayT tunel == 1 ,
         True]

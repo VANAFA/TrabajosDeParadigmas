@@ -18,11 +18,6 @@ usesT :: Link -> Tunel -> Bool  -- indica si este tunel atraviesa ese link
 usesT link (Tun links) | elem link links = True
                        | otherwise = False
 
---temp
-delayT :: Float -> Float
-delayT x = x
-
-{-
 delayT :: Tunel -> Float -- la demora que sufre una conexion en este tunel
-delayT tunel = 12.2 --temp 
--}
+delayT (Tun []) = 0
+delayT (Tun (l:ls)) = delayL l + delayT (Tun ls)
