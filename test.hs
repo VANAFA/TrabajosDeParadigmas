@@ -18,7 +18,8 @@ qua = newQ "qua1" 3 0.5
 viceToLiberty = newL city1 city2 qua
 libertyToSantos = newL city2 city3 qua
 tunel = newT [viceToLiberty, libertyToSantos]
-gta = newR [city1, city2, city3] [viceToLiberty, libertyToSantos] [tunel]
+gta = linkR (foundR (foundR (foundR newR city1) city2) city3) city1 city2 qua
+
 
 test = [difP (newP 1 2) (newP 0 0) == sqrt 5,
         nameC city1 == "Vice City",
@@ -32,4 +33,5 @@ test = [difP (newP 1 2) (newP 0 0) == sqrt 5,
         connectsT city3 city1 tunel,
         usesT libertyToSantos tunel,
         delayT tunel == 1 ,
+
         True]
