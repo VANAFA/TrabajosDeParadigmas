@@ -11,6 +11,3 @@ capacityQ (Qua _ tunnels _) = tunnels
 
 delayQ :: Quality -> Float  -- la demora por unidad de distancia que sucede en las conexiones de este canal
 delayQ (Qua _ _ delay) = delay
-
-
-ddjhddjd
