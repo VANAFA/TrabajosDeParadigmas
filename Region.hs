@@ -19,13 +19,15 @@ linkR (Reg cs ls ts ) city1 city2 qua | distanceC city1 city2 /= 0 = error "Una 
                                       | not (elem city1 cs && elem city2 cs) = error "Las 2 ciudades deben de estar en la región."
                                       | otherwise = Reg cs (newL city1 city2 qua : ls) ts
 
-pathR :: City -> City -> [ Link ] -> [ Link ]
+pathR :: City -> City -> [ Link ] -> [ Link ] --Esto lo creamos nosotros para ayudarnos, lo podemos usar
+pathR city1 city2 ls | city1 == city2 = error "no papi" --temp
+
 
 tunelR :: Region -> [ City ] -> Region -- genera una comunicación entre dos ciudades distintas de la región
-tunelR (Reg cs ls ts) cities | --Revisar que en la lista sólo hay 2 ciudades
+tunelR (Reg cs ls ts) cities -- | --Revisar que en la lista sólo hay 2 ciudades
                              | cities `elem` cs = error "Las ciudades no están en la misma región."
-                             | --Revisar si existen links que unan a las 2 ciudades
-                             | --Crear una lista con los links que conecten la primera ciudad con la segunda
+                             -- | --Revisar si existen links que unan a las 2 ciudades
+                             -- | --Crear una lista con los links que conecten la primera ciudad con la segunda
                              | otherwise = Reg cs ls $ newT $ --Aquí falta la lista con los links
                              
 -- temp, only for testing

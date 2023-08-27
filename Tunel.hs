@@ -7,16 +7,13 @@ import City
 data Tunel = Tun [Link] deriving (Eq, Show)
 
 newT :: [Link] -> Tunel
-newT = Tun
+newT links = Tun links
 
 connectsT :: City -> City -> Tunel -> Bool -- inidca si este tunel conceta estas dos ciudades distintas
-connectsT city1 city2 (Tun links) | distanceC city1 city2 == 0 = error "El túnel no puede conectar una ciudad con sí misma."
-                                  | (connectsL city1 (head links) && connectsL city2 (last links)) || connectsL city1 (last links) && connectsL city2 (head links) = True
-                                  | otherwise = False
+connectsT c1 c2 (Tun ls) = (connectsL c1 (head ls) && connectsL c2 (last ls)) || connectsL c1 (last ls) && connectsL c2 (head ls)
 
 usesT :: Link -> Tunel -> Bool  -- indica si este tunel atraviesa ese link
-usesT link (Tun links) | elem link links = True
-                       | otherwise = False
+usesT link (Tun ls) = elem link ls
 
 delayT :: Tunel -> Float -- la demora que sufre una conexion en este tunel
 delayT (Tun []) = 0
