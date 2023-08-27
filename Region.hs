@@ -40,6 +40,7 @@ delayR a = a
 availableCapacityForR :: a -> a
 availableCapacityForR a = a
 
+
 {-
 
 connectedR :: Region -> City -> City -> Bool -- indica si estas dos ciudades estan conectadas por un tunel
