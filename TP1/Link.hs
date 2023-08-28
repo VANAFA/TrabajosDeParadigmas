@@ -11,7 +11,7 @@ newL city1 city2 quality | distanceC city1 city2 == 0 = error "Una ciudad no pue
                          | otherwise = Lin city1 city2 quality
 
 connectsL :: City -> Link -> Bool   -- indica si esta ciudad es parte de este link
-connectsL city (Lin c1 c2 _) = (city == c1) || (city == c2)
+connectsL city (Lin city1 city2 _) = (city == city1) || (city == city2)
 
 linksL :: City -> City -> Link -> Bool -- indica si estas dos ciudades distintas estan conectadas mediante este link
 linksL city1 city2 (Lin c1 c2 _) = city1 == c1 || city1 == c2 && city2 == c1 || city2 == c2
