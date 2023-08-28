@@ -18,13 +18,15 @@ cobre = newQ "cobre" 3 0.5
 viceToLiberty = newL city1 city2 cobre
 libertyToSantos = newL city2 city3 cobre
 tunel = newT [viceToLiberty, libertyToSantos]
-gta = linkR (foundR (foundR (foundR newR city1) city2) city3) city1 city2 cobre
 reg0 = newR
 reg1 = foundR reg0 city1
 reg2 = foundR reg1 city2
 reg3 = foundR reg2 city3
 reg4 = foundR reg3 city4
-
+reg5 = linkR reg4 city1 city2 cobre
+reg6 = linkR reg5 city2 city3 cobre
+reg7 = linkR reg6 city3 city4 cobre
+reg8 = tunelR reg7 [city1, city2, city3]
 
 test = [difP point1 point2 == sqrt 5,
         nameC city1 == "Vice City",
@@ -38,12 +40,8 @@ test = [difP point1 point2 == sqrt 5,
         connectsT city3 city1 tunel,
         usesT libertyToSantos tunel,
         delayT tunel == 1,
-        connectedR reg4 city1 city3, --error
-        linkedR reg4 city2 city3, 
-        delayR reg4 city1 city3 == 1, --error
-        availableCapacityForR reg4 city2 city3 == 2, --empty list
+        connectedR reg8 city1 city3,
+        linkedR reg5 city1 city2,
+        delayR reg8 city1 city3 == 1,
+        availableCapacityForR reg8 city1 city3 == 2,
         True]
-{-
- tenemos un error en cuanto al reconocimiento de tuneles, puede ser una falla en crearlos, o tan solo en encontrarlos para formar una lista
- pero dicho error causa que el codigo falle al reconocer la existencia de los tuneles (el delay es indeterminado 0/0, el availablecapacity es lista vacia, connectedR no reconoce los tuneles)
--}
