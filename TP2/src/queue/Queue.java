@@ -1,35 +1,61 @@
 package queue;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 public class Queue {
 
-  public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		if (this.size() == 0) {
-			return true;
-		}
-		// else {
-		// 	return false;
-		// }
+	private List<String> queue;
+
+	public Queue() {
+		queue = new LinkedList<String>();
 	}
 
-	public Queue add( Object  cargo ) {
-		// TODO Auto-generated method stub
+    public boolean isEmpty() {
+		if (queue.size() == 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public Queue add( String cargo ) {
+		// if (this.isEmpty()) {
+		// 	this.add((String) cargo);
+		// }
+		// else {
+		// 	this.add((String) cargo);
+		// }
+		queue.add((String) cargo);
 		return this;
 	}
 
 	public Object take() {
-    // TODO Auto-generated method stub
-		return null;
+		if (this.isEmpty()) {
+			return null;
+		}
+		else {
+			return queue.remove(0);
+		}
 	}
 
 	public Object head() {
-		// TODO Auto-generated method stub
-    return null;
+		if (this.isEmpty()) {
+    		return null;
+		}
+		else {
+			return queue.get(0);
+		}
 	}
 
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		if (this.isEmpty()) {
+			return 0;
+		}
+		else {
+			return queue.size();
+		}
 	}
 
 }
