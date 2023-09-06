@@ -1,14 +1,13 @@
 package queue;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 public class Queue {
 
 	private List<String> queue;
 
 	public Queue() {
-		queue = new LinkedList<String>();
+		queue = new ArrayList<String>();
 	}
 
     public boolean isEmpty() {
@@ -21,19 +20,13 @@ public class Queue {
 	}
 
 	public Queue add( String cargo ) {
-		// if (this.isEmpty()) {
-		// 	this.add((String) cargo);
-		// }
-		// else {
-		// 	this.add((String) cargo);
-		// }
 		queue.add((String) cargo);
 		return this;
 	}
 
 	public Object take() {
 		if (this.isEmpty()) {
-			return null;
+			throw new Error("Queue is empty");
 		}
 		else {
 			return queue.remove(0);
@@ -42,7 +35,7 @@ public class Queue {
 
 	public Object head() {
 		if (this.isEmpty()) {
-    		return null;
+    		throw new Error("Queue is empty");
 		}
 		else {
 			return queue.get(0);
