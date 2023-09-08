@@ -1,8 +1,7 @@
 package queue;
 
 // import java.util.ArrayList;
-import java.util.LinkedList;
-//import java.util.List;
+import java.util.ArrayList;
 
 public class Queue {
 
@@ -11,7 +10,7 @@ public class Queue {
 	}
 	
 	public Queue add( String cargo ) {
-		return new BusyQueue( cargo );
+		return new BusyQueue( cargo ); //
 	}
 
 	public Object take() {
@@ -27,27 +26,31 @@ public class Queue {
 
 class BusyQueue extends Queue {
 
-	private LinkedList<String> queue;
+	private ArrayList<String> queue;
 
 	public BusyQueue( String cargo ) {
-		queue = new LinkedList<String>();
+		queue = new ArrayList<String>();
 		this.add( cargo );
 	}
 
-	@Override Queue add( String cargo ) { 
+	@Override public boolean isEmpty() {
+		return false;
+	}
+
+	@Override public Queue add( String cargo ) { 
 		queue.add(cargo);
 		return this;
 	}
 
-	@Override Object take() {
+	@Override public Object take() {
 		return queue.remove(0);
 	}
 
-	@Override Object head() {
+	@Override public Object head() {
 		return queue.get(0);
 	}
 
-	@Override int size() {
+	@Override public int size() {
 			return queue.size();
 	}
 }

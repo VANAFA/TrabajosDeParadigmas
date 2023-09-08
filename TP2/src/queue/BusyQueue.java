@@ -1,16 +1,35 @@
 package queue;
 
-// public class BusyQueue extends Queue {
+import java.util.ArrayList;
 
-// 	public Object take() {
-//         return queue.remove(0);
-// 	}
+class BusyQueue extends Queue {
 
-// 	public Object head() {
-//         return queue.get(0);
-// 	}
+	private ArrayList<String> queue;
 
-// 	public int size() {
-// 			return queue.size();
-// 	}
-// }
+	public BusyQueue( String cargo ) {
+		queue = new ArrayList<String>();
+		this.add( cargo );
+	}
+
+	@Override public boolean isEmpty() {
+		return false;
+	}
+
+	@Override public Queue add( String cargo ) { 
+		queue.add(cargo);
+		return this;
+	}
+
+	@Override public Object take() {
+		return queue.remove(0);
+	}
+
+	@Override public Object head() {
+		return queue.get(0);
+	}
+
+	@Override public int size() {
+			return queue.size();
+	}
+}
+
