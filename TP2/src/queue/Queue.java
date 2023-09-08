@@ -1,48 +1,54 @@
 package queue;
 
-import java.util.ArrayList;
-import java.util.List;
+// import java.util.ArrayList;
+import java.util.LinkedList;
+//import java.util.List;
 
 public class Queue {
 
-	protected List<String> queue;
-
-	public Queue() {
-		queue = new ArrayList<String>();
-	}
-
 	public boolean isEmpty() {
-		if (queue.size() == 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return true;
+	}
+	
+	public Queue add( String cargo ) {
+		return new BusyQueue( cargo );
 	}
 
-	public Queue add(String cargo) {
+	public Object take() {
+			throw new Error("Queue is empty");
+	}
+	public Object head() {
+			throw new Error("Queue is empty");
+	}
+	public int size() {
+			return 0;
+	}
+}
+
+class BusyQueue extends Queue {
+
+	private LinkedList<String> queue;
+
+	public BusyQueue( String cargo ) {
+		queue = new LinkedList<String>();
+		this.add( cargo );
+	}
+
+	@Override Queue add( String cargo ) { 
 		queue.add(cargo);
 		return this;
 	}
 
-	public Object take() {
-		if (this.isEmpty()) {
-			throw new Error("Queue is empty");
-		} else {
-			return queue.remove(0);
-		}
+	@Override Object take() {
+		return queue.remove(0);
 	}
-	public Object head() {
-		if (this.isEmpty()) {
-			throw new Error("Queue is empty");
-		} else {
-			return queue.get(0);
-		}
+
+	@Override Object head() {
+		return queue.get(0);
 	}
-	public int size() {
-		if (this.isEmpty()) {
-			return 0;
-		} else {
+
+	@Override int size() {
 			return queue.size();
-		}
 	}
 }
+
