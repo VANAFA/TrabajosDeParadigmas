@@ -1,7 +1,7 @@
 package queue;
 
-// import java.util.ArrayList;
 import java.util.ArrayList;
+// import java.util.List;
 
 public class Queue {
 
@@ -10,7 +10,7 @@ public class Queue {
 	}
 	
 	public Queue add( String cargo ) {
-		return new BusyQueue( cargo ); //
+		return new BusyQueue().add(cargo);
 	}
 
 	public Object take() {
@@ -22,15 +22,18 @@ public class Queue {
 	public int size() {
 			return 0;
 	}
+
+	protected Object give( Object head ) {
+		return head;
+	}
 }
 
 class BusyQueue extends Queue {
+	
+	public ArrayList<String> internalQueue; // change to private
 
-	private ArrayList<String> queue;
-
-	public BusyQueue( String cargo ) {
-		queue = new ArrayList<String>();
-		this.add( cargo );
+	public BusyQueue() {
+		internalQueue = new ArrayList<String>();
 	}
 
 	@Override public boolean isEmpty() {
@@ -38,20 +41,20 @@ class BusyQueue extends Queue {
 	}
 
 	@Override public Queue add( String cargo ) { 
-		queue.add(cargo);
+		internalQueue.add( cargo );
 		return this;
 	}
 
-	@Override public Object take() {
-		return queue.remove(0);
+	@Override public Object take() { // send to Queue class
+		Object head = internalQueue.remove(0);
+		return new Queue().give( head );
 	}
 
 	@Override public Object head() {
-		return queue.get(0);
+		return internalQueue.get(0);
 	}
 
 	@Override public int size() {
-			return queue.size();
+			return internalQueue.size();
 	}
 }
-
