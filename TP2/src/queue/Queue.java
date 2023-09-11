@@ -1,35 +1,33 @@
 package queue;
 
 import java.util.ArrayList;
-// import java.util.List;
-
-public class Queue {
+import java.util.List;
+class Queue {
 
 	public boolean isEmpty() {
 		return true;
 	}
-	
+
 	public Queue add( String cargo ) {
-		return new BusyQueue().add(cargo);
+		return new BusyQueue().add( cargo );
 	}
 
 	public Object take() {
-			throw new Error("Queue is empty");
-	}
-	public Object head() {
-			throw new Error("Queue is empty");
-	}
-	public int size() {
-			return 0;
+		throw new Error("Queue is empty");
 	}
 
-	protected Object give( Object head ) {
-		return head;
+	public Object head() {
+		throw new Error("Queue is empty");
 	}
+
+	public int size() {
+		return 0;
+	}
+	
 }
 
 class BusyQueue extends Queue {
-	
+
 	public ArrayList<String> internalQueue; // change to private
 
 	public BusyQueue() {
@@ -46,8 +44,7 @@ class BusyQueue extends Queue {
 	}
 
 	@Override public Object take() { // send to Queue class
-		Object head = internalQueue.remove(0);
-		return new Queue().give( head );
+		return internalQueue.remove(0);
 	}
 
 	@Override public Object head() {
@@ -58,3 +55,28 @@ class BusyQueue extends Queue {
 			return internalQueue.size();
 	}
 }
+
+// class EmptyQueue extends Queue {
+	
+// 	public boolean isEmpty() {
+// 		return true;
+// 	}
+	
+// 	public Queue add( String cargo ) {
+// 		return new BusyQueue().add(cargo);
+// 	}
+
+// 	public Object take() {
+// 			throw new Error("Queue is empty");
+// 	}
+// 	public Object head() {
+// 			throw new Error("Queue is empty");
+// 	}
+// 	public int size() {
+// 			return 0;
+// 	}
+
+// 	protected Object give( Object head ) {
+// 		return head;
+// 	}
+// }
