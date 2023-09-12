@@ -2,7 +2,7 @@ package queue;
 
 import java.util.ArrayList;
 
-// el primer elemeto va a tener el comportamiento de vacío, la lista tiene un solo elemento cuando vacía, que no suma.
+// el primer elemento va a tener el comportamiento de vacío, la lista tiene un solo elemento cuando vacía, que no suma.
 
 public class Queue { // esta clase no es superclase
 	
