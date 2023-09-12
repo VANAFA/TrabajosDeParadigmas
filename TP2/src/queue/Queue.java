@@ -6,17 +6,19 @@ import java.util.ArrayList;
 
 public class Queue { // esta clase no es superclase
 	
-	protected ArrayList<String> internalQueue;
+	protected ArrayList<Object> internalQueue;
 	
+	Element Empty = new EmptyElement();
+
 	public Queue() {
-		internalQueue = new ArrayList<String>();
+		internalQueue = new ArrayList<Object>();
 	}
 	
 	public boolean isEmpty() {
 		return true;
 	}
 
-	public Queue add( String cargo ) {
+	public Queue add( Object cargo ) {
 		return new BusyQueue().add( cargo );
 	}
 
@@ -40,7 +42,7 @@ class BusyQueue extends Queue {
 		return false;
 	}
 
-	@Override public Queue add( String cargo ) { 
+	@Override public Queue add( Object cargo ) { 
 		internalQueue.add( cargo );
 		return this;
 	}
