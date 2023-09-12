@@ -13,24 +13,35 @@ public abstract class Element { // super class for EmptyElement and BusyElement
 		internalQueue = new ArrayList<Object>();
 	}
 	
-	public boolean isEmpty() {
-		return true;
-	}
 
-	public Queue add( Object cargo ) {
-		return new BusyQueue().add( cargo );
+	class EmptyElement extends Element {
+		public boolean isEmpty() {
+			return false;
+		}
+		// aca solo que tire el error de "queue is empty" si llaman a la queue que tiene esto
 	}
-
-	public Object take() {
-		throw new Error("Queue is empty");
+	class BusyElement extends Element {
+		public boolean isEmpty() {
+			return false;
+		}
+	
+		public Queue add( Object cargo ) { 
+			// aca no se si hay que ponerle para que agregue especificamente BusyElements  
+			internalQueue.add( cargo );
+			return this;
+		}
+	
+		public Object take() {
+			return internalQueue.remove(0);
+		}
+	
+		public Object head() {
+			return internalQueue.get(0);
+		}
+	
+		public int size() {
+			return internalQueue.size();
+		}
 	}
-
-	public Object head() {
-		throw new Error("Queue is empty");
-	}
-
-	public int size() {
-		return 0;
-	}
-
 }
+	
