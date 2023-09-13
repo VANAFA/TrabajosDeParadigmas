@@ -1,13 +1,9 @@
 package queue;
 
 public class BusyElement extends Element {
+
     public boolean isEmpty() {
 		return false;
-	}
-
-	public Queue add( Object  cargo ) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public Object take() {
@@ -16,8 +12,7 @@ public class BusyElement extends Element {
 	}
 
 	public Object head() {
-		// TODO Auto-generated method stub
-    return null;
+    return thing;
 	}
 
 	public int size() {

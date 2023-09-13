@@ -1,13 +1,12 @@
 package queue;
 
 import java.util.ArrayList;
-// import java.util.List;
 
 public class Queue {
 
-	protected ArrayList<Element> internalQueue =  new ArrayList<Element>();
+	private ArrayList<Element> internalQueue =  new ArrayList<Element>();
 
-	protected Element element; // ver si alguno puede ser private
+	private Element element;
 
 	public Queue() {
 		element = new EmptyElement();
@@ -15,27 +14,28 @@ public class Queue {
 	}
 
 	public boolean isEmpty() {
-		element = internalQueue.get(0);
+		element = internalQueue.get( this.size() );
 		return element.isEmpty();
 	}
 
 	public Queue add( Object cargo ) {
-		internalQueue.add( new BusyElement() );
 		element = new BusyElement();
-		return element.add( cargo );
+		internalQueue.add( element );
+		element.add( cargo );
+		return this;
 	}
 
-	public Object take() {
-		return element.take();
+	public Object take() { // fix this
+		element = internalQueue.remove( this.size() );
+		return element.head();
 	}
 
 	public Object head() {
-		internalQueue.get(0);
+		element = internalQueue.get( this.size() );
 		return element.head();
 	}
 
 	public int size() {
-		element = internalQueue.get(0);
-		return element.size();
+		return internalQueue.size() - 1;
 	}
 }

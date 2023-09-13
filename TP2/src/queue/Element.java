@@ -1,11 +1,15 @@
 package queue;
 
-public abstract class Element { // super class for EmptyElement and BusyElement
+public abstract class Element {
+	
+	protected Object thing;
+
+	public void add( Object  cargo ) {
+		thing = cargo;
+	}
 
 	public abstract boolean isEmpty();
-	public abstract Queue add( Object cargo );
 	public abstract Object take();
 	public abstract Object head();
 	public abstract int size();
 }
-	

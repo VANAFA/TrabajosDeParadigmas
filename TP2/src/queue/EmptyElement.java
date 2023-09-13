@@ -6,10 +6,6 @@ public class EmptyElement extends Element {
 		return true;
 	}
 
-	public Queue add( Object  cargo ) {
-		return null;
-	}
-
 	public Object take() {
 		throw new Error("Queue is empty");
 	}
