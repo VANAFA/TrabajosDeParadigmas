@@ -1,107 +1,41 @@
 package queue;
 
 import java.util.ArrayList;
+// import java.util.List;
 
-// el primer elemento va a tener el comportamiento de vacío, la lista tiene un solo elemento cuando vacía, que no suma.
+public class Queue {
 
-public class Queue { // esta clase no es superclase
-	
-	protected ArrayList<Object> internalQueue;
-	
-	Element Empty = new EmptyElement();
+	protected ArrayList<Element> internalQueue =  new ArrayList<Element>();
+
+	protected Element element; // ver si alguno puede ser private
 
 	public Queue() {
-		internalQueue = new ArrayList<Object>();
+		element = new EmptyElement();
+		internalQueue.add( element );
 	}
-	
+
 	public boolean isEmpty() {
-		return true;
+		element = internalQueue.get(0);
+		return element.isEmpty();
 	}
 
 	public Queue add( Object cargo ) {
-		return new BusyQueue().add( cargo );
+		internalQueue.add( new BusyElement() );
+		element = new BusyElement();
+		return element.add( cargo );
 	}
 
 	public Object take() {
-		throw new Error("Queue is empty");
+		return element.take();
 	}
 
 	public Object head() {
-		throw new Error("Queue is empty");
+		internalQueue.get(0);
+		return element.head();
 	}
 
 	public int size() {
-		return 0;
-	}
-	
-}
-
-class BusyQueue extends Queue {
-	
-	@Override public boolean isEmpty() {
-		return false;
-	}
-
-	@Override public Queue add( Object cargo ) { 
-		internalQueue.add( cargo );
-		return this;
-	}
-
-	@Override public Object take() {
-		return internalQueue.remove(0);
-	}
-
-	@Override public Object head() {
-		return internalQueue.get(0);
-	}
-
-	@Override public int size() {
-			return internalQueue.size();
+		element = internalQueue.get(0);
+		return element.size();
 	}
 }
-
-// class Elements extends Queue { // esta clase es superclase de EmptyQueue y BusyQueue
-	
-// 	protected boolean isEmpty() {
-// 		return true;
-// 	}
-
-// 	@Override public Queue add( String cargo ) {
-// 			return new BusyQueue().add( cargo );
-// 	}
-
-// 	@Override public Object take() {
-// 		throw new Error("Queue is empty");
-// 	}
-
-// 	@Override public Object head() {
-// 		throw new Error("Queue is empty");
-// 	}
-
-// 	@Override public int size() {
-// 		return 0;
-// 	}
-// }
-	
-// class EmptyQueue extends Elements {
-		
-// 	protected boolean isEmpty() {
-// 		return true;
-// 	}
-
-// 		@Override public Queue add( String cargo ) {
-// 			return new BusyQueue().add( cargo );
-// 	}
-
-// 	@Override public Object take() {
-// 		throw new Error("Queue is empty, you attemted take()"); // antes de entregar, eliminar todo después de la coma
-// 	}
-
-// 	@Override public Object head() {
-// 		throw new Error("Queue is empty, you attemted head()"); // antes de entregar, eliminar todo después de la coma
-// 	}
-
-// 	@Override public int size() {
-// 		return 0;
-// 	}
-// }
