@@ -25,13 +25,13 @@ public class Queue {
 		return this;
 	}
 
-	public Object take() { // fix this
-		element = internalQueue.remove( this.size() );
-		return element.head();
+	public Object take() { // fix, preguntar Emilio/Julio
+		element = internalQueue.remove( 1 );
+		return element.take();
 	}
 
-	public Object head() {
-		element = internalQueue.get( this.size() );
+	public Object head() { // fix, preguntar Emilio/Julio
+		element = internalQueue.get( 1 );
 		return element.head();
 	}
 

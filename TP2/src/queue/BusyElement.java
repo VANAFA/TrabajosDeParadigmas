@@ -7,8 +7,7 @@ public class BusyElement extends Element {
 	}
 
 	public Object take() {
-    // TODO Auto-generated method stub
-		return null;
+		return thing; // maybe get rid of this
 	}
 
 	public Object head() {

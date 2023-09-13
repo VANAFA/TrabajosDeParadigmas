@@ -54,7 +54,7 @@ public class QueueTest {
 
     queue.add( firstAddedObject );
     queue.add( "Second" );
-
+    
     assertEquals( queue.head(), firstAddedObject );
   }
 
