@@ -5,16 +5,14 @@ import java.util.ArrayList;
 public class Queue {
 
 	private ArrayList<Element> internalQueue =  new ArrayList<Element>();
-
 	private Element element;
 
 	public Queue() {
-		element = new EmptyElement();
-		internalQueue.add( element );
+		internalQueue.add( new EmptyElement() );
 	}
 
 	public boolean isEmpty() {
-		element = internalQueue.get( this.size() );
+		element = internalQueue.get( size() );
 		return element.isEmpty();
 	}
 
@@ -25,13 +23,14 @@ public class Queue {
 		return this;
 	}
 
-	public Object take() { // fix, preguntar Emilio/Julio
-		element = internalQueue.remove( 1 );
-		return element.take();
+	public Object take() {
+		System.out.println( "size: " + size() + " " + internalQueue); // debug only
+		element = internalQueue.remove( 1 % ( size() + 1 ) );
+		return element.head();
 	}
 
-	public Object head() { // fix, preguntar Emilio/Julio
-		element = internalQueue.get( 1 );
+	public Object head() {
+		element = internalQueue.get( 1 % ( size() + 1 ) );
 		return element.head();
 	}
 

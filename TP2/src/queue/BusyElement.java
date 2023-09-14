@@ -6,12 +6,8 @@ public class BusyElement extends Element {
 		return false;
 	}
 
-	public Object take() {
-		return thing; // maybe get rid of this
-	}
-
 	public Object head() {
-    return thing;
+    	return thing;
 	}
 
 	public int size() {

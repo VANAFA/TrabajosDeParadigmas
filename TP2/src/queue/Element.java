@@ -9,7 +9,6 @@ public abstract class Element {
 	}
 
 	public abstract boolean isEmpty();
-	public abstract Object take();
 	public abstract Object head();
 	public abstract int size();
 }

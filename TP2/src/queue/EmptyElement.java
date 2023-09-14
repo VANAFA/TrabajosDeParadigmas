@@ -6,10 +6,6 @@ public class EmptyElement extends Element {
 		return true;
 	}
 
-	public Object take() {
-		throw new Error("Queue is empty");
-	}
-
 	public Object head() {
 		throw new Error("Queue is empty");
 	}
