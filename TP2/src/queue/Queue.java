@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Queue {
 
 	private ArrayList<Element> internalQueue =  new ArrayList<Element>();
-	private Element element;
+	private static Element element;
 
 	public Queue() {
 		internalQueue.add( new EmptyElement() );
