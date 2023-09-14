@@ -1,7 +1,7 @@
 package queue;
 
 import java.util.ArrayList;
-
+// TODO: pasar a formato de eclipse
 public class Queue {
 
 	private ArrayList<Element> internalQueue =  new ArrayList<Element>();
@@ -24,7 +24,7 @@ public class Queue {
 	}
 
 	public Object take() {
-		System.out.println( "size: " + size() + " " + internalQueue); // debug only
+		System.out.println( "size: " + size() + " " + internalQueue); // debug only TODO: remove
 		element = internalQueue.remove( 1 % ( size() + 1 ) );
 		return element.head();
 	}
