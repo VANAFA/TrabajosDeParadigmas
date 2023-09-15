@@ -5,32 +5,26 @@ import java.util.ArrayList;
 public class Queue {
 
 	private ArrayList<Element> internalQueue =  new ArrayList<Element>();
-	private static Element element;
 
 	public Queue() {
 		internalQueue.add( new EmptyElement() );
 	}
-
+	
 	public boolean isEmpty() {
-		element = internalQueue.get( size() );
-		return element.isEmpty();
+		return internalQueue.get( size() ).isEmpty();
 	}
 
 	public Queue add( Object cargo ) {
-		element = new BusyElement();
-		internalQueue.add( 1, element );
-		element.add( cargo );
+		internalQueue.add( 1, new BusyElement( cargo ) );
 		return this;
 	}
 
 	public Object take() {
-		element = internalQueue.remove( size() );
-		return element.head();
+		return internalQueue.remove( size() ).getName();
 	}
 
 	public Object head() {
-		element = internalQueue.get( size() );
-		return element.head();
+		return internalQueue.get( size() ).getName();
 	}
 
 	public int size() {

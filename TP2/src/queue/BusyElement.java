@@ -2,13 +2,15 @@ package queue;
 
 public class BusyElement extends Element {
 
+	private Object name;
+
+	public BusyElement( Object cargo ) {
+		name = cargo;
+	}
     public boolean isEmpty() {
 		return false;
 	}
-	public Object head() {
+	public Object getName() {
     	return name;
-	}
-	public int size() {
-		return 0;
 	}
 }
