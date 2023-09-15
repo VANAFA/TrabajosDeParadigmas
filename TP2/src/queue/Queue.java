@@ -18,19 +18,19 @@ public class Queue {
 
 	public Queue add( Object cargo ) {
 		element = new BusyElement();
-		internalQueue.add( element );
+		// internalQueue.add( element ); // add the new element to index: 1
+		internalQueue.add( 1, element );
 		element.add( cargo );
 		return this;
 	}
 
 	public Object take() {
-		System.out.println( "size: " + size() + " " + internalQueue); // debug only TODO: remove
-		element = internalQueue.remove( 1 % ( size() + 1 ) );
+		element = internalQueue.remove( size() );
 		return element.head();
 	}
 
 	public Object head() {
-		element = internalQueue.get( 1 % ( size() + 1 ) );
+		element = internalQueue.get( size() );
 		return element.head();
 	}
 

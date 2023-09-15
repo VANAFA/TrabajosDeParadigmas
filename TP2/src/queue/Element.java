@@ -2,10 +2,10 @@ package queue;
 
 public abstract class Element {
 	
-	protected Object thing;
+	protected Object name;
 
 	public void add( Object  cargo ) {
-		thing = cargo;
+		name = cargo;
 	}
 	public abstract boolean isEmpty();
 	public abstract Object head();
