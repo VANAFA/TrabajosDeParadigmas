@@ -80,7 +80,7 @@ public class QueueTest {
     }
   }
 
-  @Test public void test09CanNotTakeWhenThereAreNoObjectsInTheQueueAndTheQueueHadObjects() {
+  @Test public void test11CanNotTakeWhenThereAreNoObjectsInTheQueueAndTheQueueHadObjects() {
     Queue queue = new Queue();
     queue.add( "Something" );
     queue.take();
@@ -92,7 +92,7 @@ public class QueueTest {
     }
   }
 
-  @Test public void test10CanNotHeadWhenThereAreNoObjectsInTheQueue() {
+  @Test public void test12CanNotHeadWhenThereAreNoObjectsInTheQueue() {
     Queue queue = new Queue();
     try {
       queue.head();
@@ -102,5 +102,3 @@ public class QueueTest {
     }
   }
 }
-
-// testeando IntelliJ
