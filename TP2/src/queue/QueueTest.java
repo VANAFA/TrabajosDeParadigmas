@@ -72,12 +72,6 @@ public class QueueTest {
   @Test public void test10CanNotTakeWhenThereAreNoObjectsInTheQueue() {
     Queue queue = new Queue();
     errorThrowingTester(queue::take, "Queue is empty");
-//    try {
-//      queue.take();
-//      fail( "Expected Error was not thrown." );
-//    } catch (Error e) {
-//      assertTrue( e.getMessage().equals( "Queue is empty" ) );
-//    }
   }
 
   @Test public void test09CanNotTakeWhenThereAreNoObjectsInTheQueueAndTheQueueHadObjects() {
@@ -85,23 +79,11 @@ public class QueueTest {
     queue.add( "Something" );
     queue.take();
     errorThrowingTester(queue::take, "Queue is empty");
-//    try {
-//      queue.take();
-//      fail( "Expected Error was not thrown." );
-//    } catch (Error e) {
-//      assertTrue( e.getMessage().equals( "Queue is empty" ) );
-//    }
   }
 
   @Test public void test10CanNotHeadWhenThereAreNoObjectsInTheQueue() {
     Queue queue = new Queue();
     errorThrowingTester(queue::head, "Queue is empty");
-//    try {
-//      queue.head();
-//      fail( "Expected Error was not thrown." );
-//    } catch (Error e) {
-//      assertTrue( e.getMessage().equals( "Queue is empty" ) );
-//    }
   }
   private void errorThrowingTester(Executable runnable_function, String error_message) {
     Throwable thrown = assertThrows(Throwable.class, runnable_function);
