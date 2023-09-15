@@ -1,7 +1,7 @@
 package queue;
 
 import java.util.ArrayList;
-// TODO: pasar a formato de eclipse
+
 public class Queue {
 
 	private ArrayList<Element> internalQueue =  new ArrayList<Element>();
@@ -18,7 +18,6 @@ public class Queue {
 
 	public Queue add( Object cargo ) {
 		element = new BusyElement();
-		// internalQueue.add( element ); // add the new element to index: 1
 		internalQueue.add( 1, element );
 		element.add( cargo );
 		return this;
