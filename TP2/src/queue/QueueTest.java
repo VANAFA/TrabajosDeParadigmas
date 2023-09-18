@@ -58,13 +58,13 @@ public class QueueTest {
     errorThrowingTester(queue::take);
   }
 
-  @Test public void test09CanNotTakeWhenThereAreNoObjectsInTheQueueAndTheQueueHadObjects() {
+  @Test public void test11CanNotTakeWhenThereAreNoObjectsInTheQueueAndTheQueueHadObjects() {
     Queue queue = queueWithThingOne();
     queue.take();
     errorThrowingTester(queue::take);
   }
 
-  @Test public void test10CanNotHeadWhenThereAreNoObjectsInTheQueue() {
+  @Test public void test12CanNotHeadWhenThereAreNoObjectsInTheQueue() {
     Queue queue = new Queue();
     errorThrowingTester(queue::head);
   }
@@ -77,7 +77,7 @@ public class QueueTest {
   }
   private void errorThrowingTester(Executable runnable_function) {
     Throwable thrown = assertThrows(Throwable.class, runnable_function);
-    assertEquals(QueueTest.errorMessage, thrown.getMessage());
+    assertEquals( errorMessage, thrown.getMessage() );
   }
   private static final String thingOne = "First";
   private static final String thingTwo = "Second";
