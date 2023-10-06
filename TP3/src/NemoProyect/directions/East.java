@@ -4,7 +4,7 @@ import NemoProyect.Position;
 
 public class East extends Position {
     
-    public void go() {
+    public void goFoward() {
         xCoord += 1;
     }
     public South turnRight() {
