@@ -62,6 +62,7 @@ public class SubmarineTest {
     @Test public void test11frflfCommandMakesItGoToOneTwo() {
         Submarine sub = new Submarine();
         sub.go("frflf");
-        assertEquals(sub.getPosition(), new ArrayList<Integer>() {{ add(1); add(2); }} ); 
+        assertEquals(sub.getPosition(), new ArrayList<Integer>() {{ add(1); add(2); }} );
+    
     }
 }
