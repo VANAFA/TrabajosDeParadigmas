@@ -15,22 +15,22 @@ abstract public class Position {
         return coords;
     }
 
-    public int getDepth() { //TODO: sacar este metodo
+    public int getDepth() { //TODO: optimize
         return depth;
     }
 
-    public int goDown() { //TODO: sacar este metodo
+    public int goDown() { //TODO: optimize
         return depth += 1;
     }
 
-    public int goUp() { //TODO: sacar este metodo
+    public int goUp() { //TODO: fix the if
         if (depth > 0) {
             return depth -= 1;
         }
         return depth;
     }
 
-    public String getDirection() {
+    public String getDirection() { // TODO: Make it simpler
         return getClass().getSimpleName().toUpperCase();
     }
 

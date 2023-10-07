@@ -59,10 +59,14 @@ public class SubmarineTest {
         sub.go("ff");
         assertEquals(sub.getPosition(), new ArrayList<Integer>() {{ add(0); add(2); add(0); }} ); 
     }
-    // @Test public void test11frflfCommandMakesItGoToOneTwo() {
-    //     Submarine sub = new Submarine();
-    //     sub.go("frflf");
-    //     assertEquals(sub.getPosition(), new ArrayList<Integer>() {{ add(1); add(2); }} );
-    
-    // }
+    @Test public void test11frflfCommandMakesItGoToOneTwo() {
+        Submarine sub = new Submarine();
+        sub.go("frflf");
+        assertEquals(sub.getPosition(), new ArrayList<Integer>() {{ add(1); add(2); add(0); }} );
+    }
+    @Test public void test12frflffCommandMakesItGoToOneThree() {
+        Submarine sub = new Submarine();
+        sub.go("frflff");
+        assertEquals(sub.getPosition(), new ArrayList<Integer>() {{ add(1); add(3); add(0); }} );
+    }
 }
