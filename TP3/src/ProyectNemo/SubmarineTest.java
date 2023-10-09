@@ -1,6 +1,8 @@
 package ProyectNemo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
@@ -16,7 +18,7 @@ public class SubmarineTest {
     }
     @Test public void test02SubStartsLookingNorth() {
         Submarine sub = new Submarine();
-        assertEquals(sub.getDirection(), "NORTH");
+        assertEquals(sub.getDirection(), "North");
     }
     @Test public void test03GetNoCommandDoesntMoveAndDoesntChangeDirection() {
         Submarine sub = new Submarine();
@@ -42,12 +44,12 @@ public class SubmarineTest {
     @Test public void test07rCommandMakesItTurnRight() {
         Submarine sub = new Submarine();
         sub.go("r");
-        assertEquals(sub.getDirection(), "EAST"); 
+        assertEquals(sub.getDirection(), "East"); 
     }
     @Test public void test08lCommandMakesItTurnLeft() {
         Submarine sub = new Submarine();
         sub.go("l");
-        assertEquals(sub.getDirection(), "WEST"); 
+        assertEquals(sub.getDirection(), "West"); 
     }
     @Test public void test09fCommandMakesItGoForward() {
         Submarine sub = new Submarine();
@@ -68,5 +70,23 @@ public class SubmarineTest {
         Submarine sub = new Submarine();
         sub.go("frflff");
         assertEquals(sub.getPosition(), new ArrayList<Integer>() {{ add(1); add(3); add(0); }} );
+    }
+    @Test public void test13mCommandDropsTheCapsule() {
+        Submarine sub = new Submarine();
+        assertTrue(sub.hasCapsule());
+        sub.go("m");
+        assertFalse(sub.hasCapsule());
+    }
+    @Test public void test14theSubIsDestroyedIfTheCapsuleIsDropedAboveDepthLimit() {
+        Submarine sub = new Submarine();
+        sub.go("ddddm");
+        assertEquals(sub.getDepth(), 4);
+        assertFalse(sub.isAlive());
+    }
+    @Test public void test15theSubDoesntMoveNoMoreIfDestroyed() {
+        Submarine sub = new Submarine();
+        sub.go("ddddffmff");
+        assertFalse(sub.isAlive());
+        assertEquals(sub.getPosition(), new ArrayList<Integer>() {{ add(0); add(2); add(4); }} );
     }
 }
