@@ -21,55 +21,34 @@ public class SubmarineTest {
         assertEquals(sub.getDirection(), "North");
     }
     @Test public void test03GetNoCommandDoesntMoveAndDoesntChangeDirection() {
-        Submarine sub = new Submarine();
-        sub.go("");
-        assertEquals(sub.getDepth(), 0); 
+        assertEquals(moveNewSubmarine("").getDepth(), 0);
     }
     @Test public void test04dCommandMakesItGoDown() {
-        Submarine sub = new Submarine();
-        sub.go("d");
-        assertEquals(sub.getDepth(), 1); 
+        assertEquals(moveNewSubmarine("d").getDepth(), 1);
     }
-    @Test public void test05uCommandAtSurfaceLevelDoentChangeDepth() {
-        Submarine sub = new Submarine();
-        sub.go("u");
-        assertEquals(sub.getDepth(), 0); 
+    @Test public void test05uCommandAtSurfaceLevelDoesntChangeDepth() {
+        assertEquals(moveNewSubmarine("u").getDepth(), 0);
     }
-    @Test public void test06uCommandMakesItGoUp() {
-        Submarine sub = new Submarine();
-        sub.go("d");
-        sub.go("u");
-        assertEquals(sub.getDepth(), 0); 
+    @Test public void test06ddduddCommandMakesItGoToDepth4() {
+        assertEquals(moveNewSubmarine("dddudd").getDepth(), 4);
     }
     @Test public void test07rCommandMakesItTurnRight() {
-        Submarine sub = new Submarine();
-        sub.go("r");
-        assertEquals(sub.getDirection(), "East"); 
+        assertEquals(moveNewSubmarine("r").getDirection(), "East");
     }
-    @Test public void test08lCommandMakesItTurnLeft() {
-        Submarine sub = new Submarine();
-        sub.go("l");
-        assertEquals(sub.getDirection(), "West"); 
+    @Test public void test08FourEqualTurnsItGoToTheSameDirection() {
+        assertEquals(moveNewSubmarine("rllll").getDirection(),moveNewSubmarine("rrrrr").getDirection() ,moveNewSubmarine("r").getDirection());
     }
     @Test public void test09fCommandMakesItGoForward() {
-        Submarine sub = new Submarine();
-        sub.go("f");
-        assertEquals(sub.getPosition(), new ArrayList<Integer>() {{ add(0); add(1); add(0); }} ); 
+        assertEquals(moveNewSubmarine("f").getPosition(), new ArrayList<Integer>() {{ add(0); add(1); add(0); }} );
     }
-    @Test public void test10ffCommandMakesItGoFowardTwice() {
-        Submarine sub = new Submarine();
-        sub.go("ff");
-        assertEquals(sub.getPosition(), new ArrayList<Integer>() {{ add(0); add(2); add(0); }} ); 
+    @Test public void test10ffCommandMakesItGoForwardSixTimes() {
+        assertEquals(moveNewSubmarine("ffffff").getPosition(), new ArrayList<Integer>() {{ add(0); add(6); add(0); }} );
     }
     @Test public void test11frflfCommandMakesItGoToOneTwo() {
-        Submarine sub = new Submarine();
-        sub.go("frflf");
-        assertEquals(sub.getPosition(), new ArrayList<Integer>() {{ add(1); add(2); add(0); }} );
+        assertEquals(moveNewSubmarine("frflf").getPosition(), new ArrayList<Integer>() {{ add(1); add(2); add(0); }} );
     }
     @Test public void test12frflffCommandMakesItGoToOneThree() {
-        Submarine sub = new Submarine();
-        sub.go("frflff");
-        assertEquals(sub.getPosition(), new ArrayList<Integer>() {{ add(1); add(3); add(0); }} );
+        assertEquals(moveNewSubmarine("frflff").getPosition(), new ArrayList<Integer>() {{ add(1); add(3); add(0); }} );
     }
     @Test public void test13mCommandDropsTheCapsule() {
         Submarine sub = new Submarine();
@@ -88,5 +67,10 @@ public class SubmarineTest {
         sub.go("ddddffmff");
         assertFalse(sub.isAlive());
         assertEquals(sub.getPosition(), new ArrayList<Integer>() {{ add(0); add(2); add(4); }} );
+    }
+    private Submarine moveNewSubmarine(String command) {
+        Submarine sub = new Submarine();
+        sub.go(command);
+        return sub;
     }
 }

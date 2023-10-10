@@ -50,7 +50,7 @@ public class Submarine {
             } else if (command.charAt(i) == 'l' && alive ) {
                 position = position.turnLeft();
             } else if (command.charAt(i) == 'f' && alive ) {
-                coords = position.goFoward( coords );
+                coords = position.goForward( coords );
             } else if (command.charAt(i) == 'm' && alive ) {
                 if ( coords.get(2) > depthLimit ){
                     alive = false;
@@ -73,7 +73,7 @@ public class Submarine {
 // actions.put('u', () -> coords.set(2, position.goUp( coords.get(2))));
             // actions.put('r', () -> position = position.turnRight());
             // actions.put('l', () -> position = position.turnLeft());
-            // actions.put('f', () -> coords = position.goFoward( coords ));
+            // actions.put('f', () -> coords = position.goForward( coords ));
             // actions.put('m', () -> capsuleWasDropped = position.dropCapsule( depthLimit, coords.get(2), alive ));
     
             // command.chars().forEach(c -> actions.get((char) c).run());

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class East extends Position {
     
-    public List<Integer> goFoward( List<Integer> position ) {
+    public List<Integer> goForward( List<Integer> position ) {
         position.set(0, position.get(0) + 1);
         return position;
     }
