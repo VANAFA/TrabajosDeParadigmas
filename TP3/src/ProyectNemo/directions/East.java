@@ -9,9 +9,11 @@ public class East extends Position {
         position.set(0, position.get(0) + 1);
         return position;
     }
+
     public Position turnRight() {
         return new South();
     }
+    
     public Position turnLeft() {
         return new North();
     }

@@ -14,7 +14,7 @@ public class Submarine {
         add( 0 );
         add( 0 );
     }};
-    private final static int DEPTH_LIMIT = 3; // this var is temp
+    private final static int DEPTH_LIMIT = 3; // this var is temp TODO: Preguntar cómo se implementa DEPTH_LIMIT
     
     public Boolean isAlive() {
         return alive;
