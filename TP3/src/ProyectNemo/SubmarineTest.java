@@ -47,8 +47,8 @@ public class SubmarineTest {
     @Test public void test11frflfCommandMakesItGoToOneTwo() {
         assertEquals(moveNewSubmarine("frflf").getPosition(), new ArrayList<Integer>() {{ add(1); add(2); add(0); }} );
     }
-    @Test public void test12frflffCommandMakesItGoToOneThree() { // TODO: Si esto es muy parecido, sacarlo.
-        assertEquals(moveNewSubmarine("frflff").getPosition(), new ArrayList<Integer>() {{ add(1); add(3); add(0); }} );
+    @Test public void test12frfrfrfrCommandMakesItGoToStartingPoint() {
+        assertEquals(moveNewSubmarine("frfrfrfr").getPosition(), new ArrayList<Integer>() {{ add(0); add(0); add(0); }} );
     }
     @Test public void test13mCommandDropsTheCapsule() {
         Submarine sub = new Submarine();

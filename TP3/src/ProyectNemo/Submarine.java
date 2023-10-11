@@ -1,4 +1,4 @@
-package ProyectNemo;
+package ProyectNemo; // TODO: hay que poder elegir las coordenadas que los test quieran, mirando a la dirección que quiera
 
 import java.util.ArrayList; // preferably use list // TODO: Preguntar si podemos usar sólo ArrayList
 import java.util.List;
@@ -46,7 +46,7 @@ public class Submarine {
         actions['f'] = () -> coords = position.goForward(coords);
         actions['m'] = () -> {
             alive = coords.get(2) <= DEPTH_LIMIT; // Esto es una forma más compleja de if. TODO: Preguntar si esto es válido
-            capsuleWasDropped = true;
+            capsuleWasDropped = true; // TODO: si el submarino explota, tirar error
         };
 
         command.chars()
