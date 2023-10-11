@@ -35,7 +35,12 @@ public class Submarine {
     public Boolean hasCapsule() {
         return !capsuleWasDropped;
     }
-
+    // hacer un métdo que ejecute comandos, el go
+    // hacer un método que chequee un movimiento, el caracter
+    // n vas al norte y recibís r, vas al este.
+    // give error message if command is not valid
+    // calse posición, dirección, y comando
+    
     public void go( String command ) {
 
         Runnable[] actions = new Runnable[128];
@@ -45,7 +50,7 @@ public class Submarine {
         actions['l'] = () -> position = position.turnLeft();
         actions['f'] = () -> coords = position.goForward(coords);
         actions['m'] = () -> {
-            alive = coords.get(2) <= DEPTH_LIMIT; // Esto es una forma más compleja de if. TODO: Preguntar si esto es válido
+            alive = coords.get(2) <= DEPTH_LIMIT; // TODO: Preguntar si esto es válido
             capsuleWasDropped = true; // TODO: si el submarino explota, tirar error
         };
 
@@ -55,3 +60,5 @@ public class Submarine {
                 .forEach(c -> actions[c].run());
     }
 }
+
+// de las clases de direcciones, salen la clase Command (no extiende a nadie) (métodos ,can handle, go move), y de ahí los comandos.
