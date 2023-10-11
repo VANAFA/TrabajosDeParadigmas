@@ -2,8 +2,6 @@ package ProyectNemo;
 
 import java.util.ArrayList; // preferably use list
 import java.util.List;
-// import java.util.HashMap;
-// import java.util.Map;
 
 import ProyectNemo.directions.North;
 
@@ -40,40 +38,28 @@ public class Submarine {
 
     public void go( String command ) {
 
-        for (int i = 0; i < command.length(); i++) {
-            if (command.charAt(i) == 'd' && alive ) {
-                coords.set(2, coords.get(2) + 1 );
-            } else if (command.charAt(i) == 'u' && coords.get(2) > 0 && alive ) {
-                coords.set(2, coords.get(2) - 1 );
-            } else if (command.charAt(i) == 'r' && alive ) {
-                position = position.turnRight();
-            } else if (command.charAt(i) == 'l' && alive ) {
-                position = position.turnLeft();
-            } else if (command.charAt(i) == 'f' && alive ) {
-                coords = position.goForward( coords );
-            } else if (command.charAt(i) == 'm' && alive ) {
-                if ( coords.get(2) > depthLimit ){
-                    alive = false;
-                }
-                capsuleWasDropped = true;
+        Runnable[] actions = new Runnable[128];
+        actions['d'] = () -> coords.set(2, coords.get(2) + 1);
+        actions['u'] = () -> { 
+            if (coords.get(2) > 0) {
+                coords.set(2, coords.get(2) - 1);
             }
-            
-            // perharps we can use a list of commands and a list of actions, and then iterate over them
-            // but we need to find a way to make the actions work with the commands
+        };
+        actions['r'] = () -> position = position.turnRight();
+        actions['l'] = () -> position = position.turnLeft();
+        actions['f'] = () -> coords = position.goForward(coords);
+        actions['m'] = () -> {
+            if (coords.get(2) > depthLimit) {
+                alive = false;
+            }
+            capsuleWasDropped = true;
+        };
+
+        for (int i = 0; i < command.length(); i++) {
+            char c = command.charAt(i);
+            if (actions[c] != null && alive) {
+                actions[c].run();
+            }
         }
     }
 }
-
-
-
-// cant use hashmap nor ifs nor switch case. We need to find another way.
-
-// Map<Character, Runnable> actions = new HashMap<>();
-// actions.put('d', () -> coords.set(2, position.goDown( coords.get(2))));
-// actions.put('u', () -> coords.set(2, position.goUp( coords.get(2))));
-            // actions.put('r', () -> position = position.turnRight());
-            // actions.put('l', () -> position = position.turnLeft());
-            // actions.put('f', () -> coords = position.goForward( coords ));
-            // actions.put('m', () -> capsuleWasDropped = position.dropCapsule( depthLimit, coords.get(2), alive ));
-    
-            // command.chars().forEach(c -> actions.get((char) c).run());
