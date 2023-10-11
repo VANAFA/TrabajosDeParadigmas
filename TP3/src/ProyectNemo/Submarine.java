@@ -1,22 +1,22 @@
 package ProyectNemo;
 
-import java.util.ArrayList; // preferably use list
+import java.util.ArrayList; // preferably use list // TODO: Preguntar si podemos usar sólo ArrayList
 import java.util.List;
 
-import ProyectNemo.directions.North;
+import ProyectNemo.directions.North; // TODO: Preguntar si es válido usar tantos importes, en directions también
 
 public class Submarine {
     private Position position = new North();
     private Boolean capsuleWasDropped = false;
-    private boolean alive = true;
+    private Boolean alive = true;
     private List<Integer> coords = new ArrayList<Integer>() {{
         add( 0 );
         add( 0 );
         add( 0 );
     }};
     private final static int DEPTH_LIMIT = 3; // this var is temp TODO: Preguntar cómo se implementa DEPTH_LIMIT
-    
-    public Boolean isAlive() {
+
+    public Boolean isAlive() { // TODO: Fijarse si se puede hacer la variable y el método para llamarla directamente en el método init (Submarine())
         return alive;
     }
 
