@@ -40,12 +40,12 @@ public class Submarine {
 
         Runnable[] actions = new Runnable[128];
         actions['d'] = () -> coords.set(2, coords.get(2) + 1);
-        actions['u'] = () -> coords.set(2, Math.max(coords.get(2) - 1, 0)); // esto es una forma más compleja de hacer un if. TODO: Preguntar si esto es válido
+        actions['u'] = () -> coords.set(2, Math.max(coords.get(2) - 1, 0)); // Math.max impide que el valor sea negativo TODO: Preguntar si esto es válido
         actions['r'] = () -> position = position.turnRight();
         actions['l'] = () -> position = position.turnLeft();
         actions['f'] = () -> coords = position.goForward(coords);
         actions['m'] = () -> {
-            alive = coords.get(2) <= DEPTH_LIMIT; // TODO: same here
+            alive = coords.get(2) <= DEPTH_LIMIT; // Esto es una forma más compleja de if. TODO: Preguntar si esto es válido
             capsuleWasDropped = true;
         };
 
