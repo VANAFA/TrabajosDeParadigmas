@@ -1,25 +1,22 @@
 package ProyectNemo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
-import java.util.List;
 import ProyectNemo.directions.*;
 public class SubmarineTest {
     
     @Test public void test00SubStartsOnSurface() {
-        Submarine sub = new Submarine( List.of(0, 0), new North() );
+        Submarine sub = new Submarine( basicCoords, new North() , 3);
         assertEquals(sub.getDepth(), 0);
     }
     @Test public void test01SubStartsAt00() {
-        Submarine sub = new Submarine( List.of(0, 0), new North() );
-        assertEquals(sub.getPosition(), new ArrayList<Integer>() {{ add(0); add(0); }} );
+        Submarine sub = new Submarine( basicCoords, new North(), 3 );
+        assertEquals(sub.getPosition(), basicCoords );
     }
     @Test public void test02SubStartsLookingNorth() {
-        Submarine sub = new Submarine( List.of(0, 0), new North() );
+        Submarine sub = new Submarine( basicCoords, new North(), 3 );
         assertEquals(sub.getDirection(), "North");
     }
     @Test public void test03GetNoCommandDoesntMoveAndDoesntChangeDirection() {
@@ -41,31 +38,39 @@ public class SubmarineTest {
         assertEquals(moveNewSubmarine("rllll").getDirection(),moveNewSubmarine("rrrrr").getDirection() ,moveNewSubmarine("r").getDirection());
     }
     @Test public void test09fCommandMakesItGoForward() {
-        assertEquals(moveNewSubmarine("f").getPosition(), new ArrayList<Integer>() {{ add(0); add(1); }} );
+        assertEquals(moveNewSubmarine("f").getPosition(), getPoint(0,1) );
     }
     @Test public void test10ffCommandMakesItGoForwardSixTimes() {
-        assertEquals(moveNewSubmarine("ffffff").getPosition(), new ArrayList<Integer>() {{ add(0); add(6); }} );
+        assertEquals(moveNewSubmarine("ffffff").getPosition(), getPoint(0,6) );
     }
     @Test public void test11frflfCommandMakesItGoToOneTwo() {
-        assertEquals(moveNewSubmarine("frflf").getPosition(), new ArrayList<Integer>() {{ add(1); add(2); }} );
+        assertEquals(moveNewSubmarine("frflf").getPosition(), getPoint(1,2) );
     }
     @Test public void test12frfrfrfrCommandMakesItGoToStartingPoint() {
-        assertEquals(moveNewSubmarine("frfrfrfr").getPosition(), new ArrayList<Integer>() {{ add(0); add(0); }} );
+        assertEquals(moveNewSubmarine("frfrfrfr").getPosition(), basicCoords );
     }
     @Test public void test13mCommandDropsTheCapsule() {
-        Submarine sub = new Submarine( List.of(0, 0), new North() );
+        Submarine sub = new Submarine( basicCoords, new North(), 3 );
         assertTrue(sub.hasCapsule());
         sub.go("m");
         assertFalse(sub.hasCapsule());
     }
     @Test public void test14theSubThrowsDestroyedErrorIfTheCapsuleIsDropedAboveDepthLimit() {
-        Submarine sub = new Submarine( List.of(0, 0), new North() );
-        assertThrows(Submarine.Destroyed.class, () -> sub.go("dddm"));
+        Submarine sub = new Submarine( basicCoords, new North(), 3 );
+        assertThrows(RuntimeException.class, () -> sub.go("ddddm"));
     }
 
     private Submarine moveNewSubmarine(String command) {
-        Submarine sub = new Submarine( List.of(0, 0), new North() );
+        Submarine sub = new Submarine( basicCoords, new North(), 3 );
         sub.go(command);
         return sub;
     }
+    private ArrayList<Integer> getPoint(Integer x, Integer y) {
+        ArrayList<Integer> point = new ArrayList<Integer>();
+        point.add(x);
+        point.add(y);
+        return point;
+    }
+
+    private ArrayList<Integer> basicCoords = getPoint(0, 0);
 }

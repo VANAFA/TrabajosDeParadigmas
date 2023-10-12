@@ -1,28 +1,28 @@
-package ProyectNemo; // TODO: hay que poder elegir las coordenadas que los test quieran, mirando a la dirección que quiera
+package ProyectNemo;
 
 //import java.util.ArrayList; // preferably use list // TODO: Preguntar si podemos usar sólo ArrayList
-import java.util.List;
+import java.util.ArrayList;
 
-import ProyectNemo.directions.*; // TODO: Preguntar si es válido usar tantos importes, en directions también
+// TODO: Preguntar si es válido usar tantos importes, en directions también
 
 public class Submarine {
     
-    private List<Integer> coords;
+    private ArrayList<Integer> coords;
     private Direction direction;
     private Boolean capsuleWasDropped = false;
+    private Integer depthLimit;
     private Integer depth = 0;
-        //private final static int DEPTH_LIMIT = 3; // this var is temp
 
-        // we need to have the posibility to start the sub anywhere, and looking at any direction
-        // how? we need to have a constructor that receives the coords and the direction:
+    // we need to have the posibility to start the sub anywhere, and looking at any direction
+    // how? we need to have a constructor that receives the coords and the direction:
 
-    public Submarine( List<Integer> coords, Direction direction ) {
+    public Submarine( ArrayList<Integer> coords, Direction direction, Integer depthLimit ) {
         this.coords = coords;
         this.direction = direction;
+        this.depthLimit = depthLimit;
     }
 
-
-    public List<Integer> getPosition() {
+    public ArrayList<Integer> getPosition() {
         return coords;
     }
     
@@ -44,21 +44,26 @@ public class Submarine {
     // calse posición, dirección, y comando
     
     public void go( String command ) {
+        // I have to make a way to make a specific character to be a specific action class
 
         // this needs replacement
-        // Runnable[] actions = new Runnable[128];
-        // actions['d'] = () -> coords.set(2, coords.get(2) + 1);
-        // actions['u'] = () -> coords.set(2, Math.max(coords.get(2) - 1, 0)); // Math.max impide que el valor sea negativo TODO: Preguntar si esto es válido
-        // actions['r'] = () -> direction = direction.turnRight();
-        // actions['l'] = () -> direction = direction.turnLeft();
-        // actions['f'] = () -> coords = direction.goForward(coords);
-        // actions['m'] = () -> capsuleWasDropped = true; // This command just destroys the sub if executed surpassing the depth limit TODO: si el submarino explota, tirar error
+        
+        Runnable[] actions = new Runnable[128];
+        actions['d'] = () -> depth += 1;
+        actions['u'] = () -> depth = Math.max(depth - 1, 0); // Math.max impide que el valor sea negativo TODO: Preguntar si esto es válido
+        actions['r'] = () -> direction = direction.turnRight();
+        actions['l'] = () -> direction = direction.turnLeft();
+        actions['f'] = () -> coords = direction.goForward(coords);
+        actions['m'] = () -> {if (depth > depthLimit) {
+                throw new RuntimeException("The sub was destroyed!"); // Try to get rid of the if
+            } else {
+                capsuleWasDropped = true;
+            }
+        };
 
-        // command.chars()
-        //         .mapToObj(c -> (char) c)
-        //         .filter(c -> actions[c] != null )
-        //         .forEach(c -> actions[c].run());
+        command.chars()
+                .mapToObj(c -> (char) c)
+                .filter(c -> actions[c] != null )
+                .forEach(c -> actions[c].run());
     }
 }
-
-// de las clases de direcciones, salen la clase Command (no extiende a nadie) (métodos ,can handle, go move), y de ahí los comandos.

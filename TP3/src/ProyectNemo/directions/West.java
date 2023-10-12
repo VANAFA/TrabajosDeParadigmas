@@ -1,13 +1,14 @@
 package ProyectNemo.directions;
 
 import ProyectNemo.Direction;
-import java.util.List;
+
+import java.util.ArrayList;
 
 public class West extends Direction {
 
-    public List<Integer> goForward( List<Integer> position ) {
-        position.set(0, position.get(0) - 1);
-        return position;
+    public ArrayList<Integer> goForward( ArrayList<Integer> coords ) {
+        coords.set(0, coords.get(0) - 1);
+        return coords;
     }
 
     public Direction turnRight() {
