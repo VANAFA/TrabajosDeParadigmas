@@ -1,20 +1,20 @@
 package ProyectNemo.directions;
 
-import ProyectNemo.Position;
+import ProyectNemo.Direction;
 import java.util.List;
 
-public class South extends Position {
+public class South extends Direction {
 
     public List<Integer> goForward( List<Integer> position ) {
         position.set(1, position.get(1) - 1);
         return position;
     }
 
-    public Position turnRight() {
+    public Direction turnRight() {
         return new West();
     }
     
-    public Position turnLeft() {
+    public Direction turnLeft() {
         return new East();
     }
 }
