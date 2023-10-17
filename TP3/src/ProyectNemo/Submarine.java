@@ -38,56 +38,51 @@ public class Submarine {
     public Boolean hasCapsule() {
         return !capsuleWasDropped;
     }
-    // hacer un métdo que ejecute comandos, el go
-    // hacer un método que chequee un movimiento, el caracter
-    // n vas al norte y recibís r, vas al este.
-    // give error message if command is not valid
-    // calse posición, dirección, y comando
     
-    public void go(String command) { // this method for each character on the command string, associates it with a class.
+    public void go(String command) {
+        // trasform list command to a list of actions
+        // command = "rfflffm" equals to [Right, Forward, Forward, Left, Forward, Forward, Capsule]
+        // then, for each action, execute it
+        // LETS DO IT:
 
-    Runnable[] actions = new Runnable[128];
-    actions['d'] = () -> depth += 1;
-    actions['u'] = () -> depth = Math.max(depth - 1, 0); // Math.max impide que el valor sea negativo TODO: Preguntar si esto es válido
-    actions['r'] = () -> direction = direction.turnRight();
-    actions['l'] = () -> direction = direction.turnLeft();
-    actions['f'] = () -> coords = direction.goForward(coords);
-    actions['m'] = () -> {if (depth > depthLimit) {
-            throw new RuntimeException("The sub was destroyed!"); // Try to get rid of the if
-        } else {
-            capsuleWasDropped = true;
+        Action forward = new Forward();
+        Action left = new Left();
+        Action right = new Right();
+        Action capsule = new DropCapsule();
+        Action down = new Down();
+        Action up = new Up();
+
+        // command = "rfflffm" equals to [Right, Forward, Forward, Left, Forward, Forward, Capsule]
+
+        ArrayList<Character> commandList = new ArrayList<Character>();
+        for (int i = 0; i < command.length(); i++) {
+            commandList.add(command.charAt(i));
         }
-    };
-    
-    command.chars()
-            .mapToObj(c -> (char) c)
-            .filter(c -> actions[c] != null )
-            .forEach(c -> actions[c].run()); 
-    }
 
-    private Action readOrder( Char order ) { // this cant use switch case nor if. this must make the order into a class. like a factory
-        // this method must return a class, that will be executed by the go method. like d must be class Down
-        
-        if (order == 'd') {
-            return new Down();
-        } else if (order == 'u') {
-            return new Up();
-        } else if (order == 'r') {
-            return new Right();
-        } else if (order == 'l') {
-            return new Left();
-        } else if (order == 'f') {
-            return new Forward();
-        } else if (order == 'm') {
-            return new Drop();
-        } else {
-            return new Error();
+        // Define a map of characters to actions
+        Map<Character, Action> actionsMap = new HashMap<>();
+        actionsMap.put('f', forward);
+        actionsMap.put('l', left);
+        actionsMap.put('r', right);
+        actionsMap.put('m', capsule);
+        actionsMap.put('d', down);
+        actionsMap.put('u', up);
 
+        // Replace each char with its associated action
+        ArrayList<Action> actions = new ArrayList<Action>();
+        for (char c : commandList) {
+            Action action = actionsMap.get(c);
+            if (action != null) {
+                actions.add(action);
+            }
         }
-        
+
+        // Execute each action
+        for (Action action : actions) {
+            action.run(this);
+        }
     }
 }
-
 // Runnable[] actions = new Runnable[128];
 // actions['d'] = () -> depth += 1;
 // actions['u'] = () -> depth = Math.max(depth - 1, 0); // Math.max impide que el valor sea negativo TODO: Preguntar si esto es válido
@@ -106,6 +101,9 @@ public class Submarine {
         //         .filter(c -> actions[c] != null )
         //         .forEach(c -> actions[c].run());
         
+        
+
+
         
 // // Define an array of classes, where each index corresponds to a specific character
 // Class<?>[] actions = new Class<?>[128];
@@ -127,5 +125,23 @@ public class Submarine {
 //             Action action = (Action) actionClass.newInstance();
 //             action.run(this);
 //         } catch (InstantiationException | IllegalAccessException e) {
-//             // Handle any exceptions that may occur
-//             e.printStackTrace();
+    //             // Handle any exceptions that may occur
+    //             e.printStackTrace();
+    
+    // Runnable[] actions = new Runnable[128];
+    // actions['d'] = () -> depth += 1;
+    // actions['u'] = () -> depth = Math.max(depth - 1, 0); // Math.max impide que el valor sea negativo TODO: Preguntar si esto es válido
+    // actions['r'] = () -> direction = direction.turnRight();
+    // actions['l'] = () -> direction = direction.turnLeft();
+    // actions['f'] = () -> coords = direction.goForward(coords);
+    // actions['m'] = () -> {if (depth > depthLimit) {
+    //         throw new RuntimeException("The sub was destroyed!"); // Try to get rid of the if
+    //     } else {
+    //         capsuleWasDropped = true;
+    //     }
+    // };
+    
+    // command.chars()
+    //         .mapToObj(c -> (char) c)
+    //         .filter(c -> actions[c] != null )
+    //         .forEach(c -> actions[c].run()); 

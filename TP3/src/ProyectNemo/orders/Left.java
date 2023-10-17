@@ -1,5 +1,12 @@
 package ProyectNemo.orders;
 
-public class Left {
-    
+import java.util.ArrayList;
+import ProyectNemo.Action;
+import ProyectNemo.Direction;
+
+public class Left extends Action {
+
+    public void go( ArrayList<Integer> coords, Direction direction ) {
+        direction = direction.turnLeft();
+    }
 }
