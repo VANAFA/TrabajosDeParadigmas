@@ -4,19 +4,18 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import ProyectNemo.directions.*;
 public class SubmarineTest {
     
     @Test public void test00SubStartsOnSurface() {
-        Submarine sub = new Submarine( basicCoords, new North() , 3);
+        Submarine sub = new Submarine( basicCoords, new North());
         assertEquals(sub.getDepth(), 0);
     }
     @Test public void test01SubStartsAt00() {
-        Submarine sub = new Submarine( basicCoords, new North(), 3 );
+        Submarine sub = new Submarine( basicCoords, new North());
         assertEquals(sub.getPosition(), basicCoords );
     }
     @Test public void test02SubStartsLookingNorth() {
-        Submarine sub = new Submarine( basicCoords, new North(), 3 );
+        Submarine sub = new Submarine( basicCoords, new North());
         assertEquals(sub.getDirection(), "North");
     }
     @Test public void test03GetNoCommandDoesntMoveAndDoesntChangeDirection() {
@@ -49,19 +48,19 @@ public class SubmarineTest {
     @Test public void test12frfrfrfrCommandMakesItGoToStartingPoint() {
         assertEquals(moveNewSubmarine("frfrfrfr").getPosition(), basicCoords );
     }
-    @Test public void test13mCommandDropsTheCapsule() {
-        Submarine sub = new Submarine( basicCoords, new North(), 3 );
-        assertTrue(sub.hasCapsule());
-        sub.go("m");
-        assertFalse(sub.hasCapsule());
+    @Test public void test13ifCapsuleIsDroppedUnderTheDepthLimitNothingHappensToPositionNorDirection() {
+        Submarine sub = moveNewSubmarine( "fflffddfrfuf" );
+        assertEquals(sub.getPosition(), getPoint(-3, 4));
+        assertEquals(sub.getDirection(), "East");
+        assertEquals(sub.getDepth(), 1);
     }
     @Test public void test14theSubThrowsDestroyedErrorIfTheCapsuleIsDropedAboveDepthLimit() {
-        Submarine sub = new Submarine( basicCoords, new North(), 3 );
+        Submarine sub = new Submarine( basicCoords, new North());
         assertThrows(RuntimeException.class, () -> sub.go("ddddm"));
     }
 
     private Submarine moveNewSubmarine(String command) {
-        Submarine sub = new Submarine( basicCoords, new North(), 3 );
+        Submarine sub = new Submarine( basicCoords, new North());
         sub.go(command);
         return sub;
     }
@@ -69,8 +68,10 @@ public class SubmarineTest {
         ArrayList<Integer> point = new ArrayList<Integer>();
         point.add(x);
         point.add(y);
+        // point.add(0);
         return point;
     }
 
     private ArrayList<Integer> basicCoords = getPoint(0, 0);
 }
+// TODO: chequear que si tiras la capsula, no pasa nada-3

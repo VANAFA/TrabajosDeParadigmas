@@ -4,8 +4,6 @@ package ProyectNemo;
 import java.util.ArrayList;
 import java.util.Arrays; // TODO: preguntar si esto el legal
 
-import ProyectNemo.actions.*;
-
 // we can't use hash map, nor if statements nor switch statements
 // TODO: depth is a bad name, we need to medir the capacity of the sub to shoot or not
 
@@ -15,35 +13,29 @@ public class Submarine {
     
     private ArrayList<Integer> coords;
     private Direction direction;
-    private Boolean capsuleWasDropped = false;
-    private Integer depthLimit;
-    private Integer depth = 0;
+    private DepthState depthState;
 
-    // we need to have the posibility to start the sub anywhere, and looking at any direction
-    // how? we need to have a constructor that receives the coords and the direction:
-
-    public Submarine( ArrayList<Integer> coords, Direction direction, Integer depthLimit ) {
-        this.coords = coords;
+    public Submarine( ArrayList<Integer> coords, Direction direction ) {
         this.direction = direction;
-        this.depthLimit = depthLimit;
-    }
+        this.depthState = new SurfaceLevel();
+        // this.depthLimit = depthLimit;
+        // this.coords = new ArrayList<>(coords);
+        // coords.add(0);
+    } // TODO: la cápsula se puede tirar en la superficie o en el niverl 1 de profundidad
+    // superficie, nivel1, muy profundo
 
     public ArrayList<Integer> getPosition() {
         return coords;
     }
     
     public int getDepth() {
-        return depth;
+        return depthState.getDepth();
     }
 
     public String getDirection() {
         return direction.getClass().getSimpleName();
     }
 
-    
-    public Boolean hasCapsule() {
-        return !capsuleWasDropped;
-    }
      // use can handdle to make the commands
     public void go(String command) {
         Action[] actions = {new Forward(), new Left(), new Right(), new DropCapsule(), new Down(), new Up()};
@@ -53,12 +45,8 @@ public class Submarine {
             .forEach(c -> Arrays.stream(actions)
                 .filter(action -> action.canHandle(c))
                 .findFirst()
-                .ifPresent(action -> direction = action.run(coords, direction, depth, depthLimit, capsuleWasDropped)));
+                .ifPresent(action -> direction = action.run(coords, direction)));
     }
-
-    // private Direction getRawDirection() {
-    //     return direction;
-    // }
 }
 
 // Runnable[] actions = new Runnable[128];
