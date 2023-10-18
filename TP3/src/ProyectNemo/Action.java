@@ -3,11 +3,7 @@ package ProyectNemo;
 import java.util.ArrayList;
 
 abstract public class Action {
-    
-    public Boolean canHandle( char command ) {
-        return false; // TODO: here shoul be thrown the error
-    }
-    
+    abstract public Boolean canHandle( char command );
     abstract public Direction run( ArrayList<Integer> coords, Direction direction, DepthState depthState );
 }
 
@@ -71,12 +67,23 @@ class Up extends Action {
 
 class DropCapsule extends Action {
 
-        public Boolean canHandle( char command ) {
-            return command == 'm';
-        }
-        
-        public Direction run( ArrayList<Integer> coords, Direction direction, DepthState depthState ) {
-            depthState.dropCapsule();
-            return direction;
-        }
+    public Boolean canHandle( char command ) {
+        return command == 'm';
+    }
+    
+    public Direction run( ArrayList<Integer> coords, Direction direction, DepthState depthState ) {
+        depthState.dropCapsule();
+        return direction;
+    }
+}
+
+class commandNotAccepted extends Action {
+    
+    public Boolean canHandle( char command ) {
+        return true;
+    }
+    
+    public Direction run( ArrayList<Integer> coords, Direction direction, DepthState depthState ) {
+        throw new RuntimeException("Command not available");
+    }
 }

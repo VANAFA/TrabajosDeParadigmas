@@ -9,7 +9,6 @@ public class Submarine {
     private ArrayList<Integer> coords;
     private Direction direction;
     private DepthState depthState;
-    // private DepthState initialDepthState;
 
     public Submarine( ArrayList<Integer> coords, Direction direction ) {
         this.coords = coords;
@@ -30,12 +29,10 @@ public class Submarine {
     }
 
     public void go(String command) {
-        Action[] actions = {new Forward(), new Left(), new Right(), new DropCapsule(), new Down(), new Up()};
+        Action[] actions = {new Forward(), new Left(), new Right(), new DropCapsule(), new Down(), new Up(), new commandNotAccepted()};
         command.chars()
-            .mapToObj(c -> (char) c)
-            .filter(c -> Arrays.stream(actions).anyMatch(action -> action.canHandle(c)))
             .forEach(c -> Arrays.stream(actions)
-                .filter(action -> action.canHandle(c))
+                .filter(action -> action.canHandle((char) c))
                 .findFirst()
                 .ifPresent(action -> direction = action.run(coords, direction, depthState)));
     }
