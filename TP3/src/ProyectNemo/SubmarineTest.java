@@ -49,14 +49,18 @@ public class SubmarineTest {
         assertEquals(moveNewSubmarine("frfrfrfr").getPosition(), basicCoords );
     }
     @Test public void test13ifCapsuleIsDroppedUnderTheDepthLimitNothingHappensToPositionNorDirection() {
-        Submarine sub = moveNewSubmarine( "fflffddfrfuf" );
+        Submarine sub = moveNewSubmarine( "fflffddfrfufl" );
         assertEquals(sub.getPosition(), getPoint(-3, 4));
-        assertEquals(sub.getDirection(), "East");
+        assertEquals(sub.getDirection(), "West");
         assertEquals(sub.getDepth(), 1);
     }
     @Test public void test14theSubThrowsDestroyedErrorIfTheCapsuleIsDropedAboveDepthLimit() {
         Submarine sub = new Submarine( basicCoords, new North());
         assertThrows(RuntimeException.class, () -> sub.go("ddddm"));
+    }
+    @Test public void test15expectAnErrorIfAnInvalidCommandIsGiven() {
+        Submarine sub = new Submarine( basicCoords, new North());
+        assertThrows(RuntimeException.class, () -> sub.go("x"));
     }
 
     private Submarine moveNewSubmarine(String command) {
@@ -68,10 +72,8 @@ public class SubmarineTest {
         ArrayList<Integer> point = new ArrayList<Integer>();
         point.add(x);
         point.add(y);
-        // point.add(0);
         return point;
     }
 
     private ArrayList<Integer> basicCoords = getPoint(0, 0);
 }
-// TODO: chequear que si tiras la capsula, no pasa nada-3

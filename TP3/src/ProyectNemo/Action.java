@@ -5,19 +5,19 @@ import java.util.ArrayList;
 abstract public class Action {
     
     public Boolean canHandle( char command ) {
-        return false;
+        return false; // TODO: here shoul be thrown the error
     }
     
-    abstract public Direction run( ArrayList<Integer> coords, Direction direction );
+    abstract public Direction run( ArrayList<Integer> coords, Direction direction, DepthState depthState );
 }
 
 class Forward extends Action {
     
     public Boolean canHandle( char command ) {
-        return command == 'f';
-    } // TODO: ver si esto es necesario
+        return command == 'f'; // TODO: preguntar si este == puede estar
+    }
 
-    public Direction run( ArrayList<Integer> coords, Direction direction ) {
+    public Direction run( ArrayList<Integer> coords, Direction direction, DepthState depthState ) {
         coords = direction.goForward(coords);
         return direction;
     }
@@ -29,7 +29,7 @@ class Left extends Action {
         return command == 'l';
     }
 
-    public Direction run( ArrayList<Integer> coords, Direction direction ) {
+    public Direction run( ArrayList<Integer> coords, Direction direction, DepthState depthState ) {
         return direction.turnLeft();
     }
 }
@@ -40,7 +40,7 @@ class Right extends Action {
         return command == 'r';
     }
 
-    public Direction run( ArrayList<Integer> coords, Direction direction ) {
+    public Direction run( ArrayList<Integer> coords, Direction direction, DepthState depthState ) {
         return direction.turnRight();
     }
 }
@@ -51,8 +51,8 @@ class Down extends Action {
         return command == 'd';
     }
 
-    public Direction run( ArrayList<Integer> coords, Direction direction ) {
-        coords.set( 2, coords.get( 2 ) + 1 );
+    public Direction run( ArrayList<Integer> coords, Direction direction, DepthState depthState ) {
+        depthState.goDown();
         return direction;
     }
 }
@@ -63,8 +63,8 @@ class Up extends Action {
         return command == 'u';
     }
     
-    public Direction run( ArrayList<Integer> coords, Direction direction ) {
-        coords.set(2, Math.max(coords.get(2) - 1, 0)); // verificar si se puede usar math.max
+    public Direction run( ArrayList<Integer> coords, Direction direction, DepthState depthState ) {
+        depthState.goUp();
         return direction;
     }
 }
@@ -72,10 +72,11 @@ class Up extends Action {
 class DropCapsule extends Action {
 
         public Boolean canHandle( char command ) {
-            return command == 'c';
+            return command == 'm';
         }
         
-        public Direction run( ArrayList<Integer> coords, Direction direction ) {
+        public Direction run( ArrayList<Integer> coords, Direction direction, DepthState depthState ) {
+            depthState.dropCapsule();
             return direction;
         }
 }
