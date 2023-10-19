@@ -1,16 +1,16 @@
 package ProyectNemo;
 
-import java.util.ArrayList;
+import java.util.ArrayList; // TODO:cada clase en un archivo distinto
 
 abstract public class Action {
-    abstract public Boolean canHandle( char command );
+    abstract public Action canHandle( char command );
     abstract public Direction run( ArrayList<Integer> coords, Direction direction, DepthState depthState );
 }
 
 class Forward extends Action {
     
-    public Boolean canHandle( char command ) {
-        return command == 'f'; // TODO: preguntar si este == puede estar
+    public Action canHandle( char command ) { // TODO: tratar de cambiar el canHandle
+        super('f');
     }
 
     public Direction run( ArrayList<Integer> coords, Direction direction, DepthState depthState ) {
