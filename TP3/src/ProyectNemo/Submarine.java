@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 // TODO: cambiar el formato a intellij
 
+import ProyectNemo.actions.*;
+
 public class Submarine {
     
-    private ArrayList<Integer> coords;
-    private Direction direction;
-    private DepthState depthState;
+    public ArrayList<Integer> coords;
+    public Direction direction;
+    public DepthState depthState;
 
     public Submarine( ArrayList<Integer> coords, Direction direction ) {
         this.coords = coords;
@@ -29,11 +31,11 @@ public class Submarine {
     }
 
     public void go(String command) {
-        Action[] actions = {new Forward(), new Left(), new Right(), new DropCapsule(), new Down(), new Up(), new commandNotAccepted()};
+        Action[] actions = {new Forward(), new Left(), new Right(), new DropCapsule(), new Down(), new Up(), new CommandNotAccepted()};
         command.chars()
             .forEach(c -> Arrays.stream(actions)
                 .filter(action -> action.canHandle((char) c))
                 .findFirst()
-                .ifPresent(action -> direction = action.run(coords, direction, depthState)));
+                .ifPresent(action -> action.run( this )));
     }
 }
