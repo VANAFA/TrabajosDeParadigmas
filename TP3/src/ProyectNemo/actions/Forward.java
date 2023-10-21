@@ -1,7 +1,6 @@
 package ProyectNemo.actions;
 
-import ProyectNemo.Action;
-import ProyectNemo.Submarine;
+import ProyectNemo.*;
 
 public class Forward extends Action {
     
@@ -10,6 +9,6 @@ public class Forward extends Action {
     }
 
     public void run( Submarine sub ) {
-        sub.direction.goForward( sub.coords );
+        sub.direction.goForward( sub );
     }
 }

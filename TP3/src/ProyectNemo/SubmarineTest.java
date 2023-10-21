@@ -2,8 +2,9 @@ package ProyectNemo;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
+import ProyectNemo.directions.*;
+
 public class SubmarineTest {
     
     @Test public void test00SubStartsOnSurface() {
@@ -12,7 +13,7 @@ public class SubmarineTest {
     }
     @Test public void test01SubStartsAt00() {
         Submarine sub = new Submarine( basicCoords, new North());
-        assertEquals(sub.getPosition(), basicCoords );
+        assertEquals(sub.position, basicCoords );
     }
     @Test public void test02SubStartsLookingNorth() {
         Submarine sub = new Submarine( basicCoords, new North());
@@ -37,20 +38,20 @@ public class SubmarineTest {
         assertEquals(moveNewSubmarine("rllll").getDirection(),moveNewSubmarine("rrrrr").getDirection() ,moveNewSubmarine("r").getDirection());
     }
     @Test public void test09fCommandMakesItGoForward() {
-        assertEquals(moveNewSubmarine("f").getPosition(), getPoint(0,1) );
+        assertEquals(moveNewSubmarine("f").position, getPoint(0,1) );
     }
     @Test public void test10ffCommandMakesItGoForwardSixTimes() {
-        assertEquals(moveNewSubmarine("ffffff").getPosition(), getPoint(0,6) );
+        assertEquals(moveNewSubmarine("ffffff").position, getPoint(0,6) );
     }
     @Test public void test11frflfCommandMakesItGoToOneTwo() {
-        assertEquals(moveNewSubmarine("frflf").getPosition(), getPoint(1,2) );
+        assertEquals(moveNewSubmarine("frflf").position, getPoint(1,2) );
     }
     @Test public void test12frfrfrfrCommandMakesItGoToStartingPoint() {
-        assertEquals(moveNewSubmarine("frfrfrfr").getPosition(), basicCoords );
+        assertEquals(moveNewSubmarine("frfrfrfr").position, basicCoords );
     }
     @Test public void test13ifCapsuleIsDroppedUnderTheDepthLimitNothingHappensToPositionNorDirection() {
         Submarine sub = moveNewSubmarine( "fflffddfrfufl" );
-        assertEquals(sub.getPosition(), getPoint(-3, 4));
+        assertEquals(sub.position, getPoint(-3, 4));
         assertEquals(sub.getDirection(), "West");
         assertEquals(sub.getDepth(), 1);
     }
@@ -77,7 +78,7 @@ public class SubmarineTest {
 
     private ArrayList<Integer> basicCoords = getPoint(0, 0);
 }
-
+// TODO: Remove this
 // refactroreables in tests:
     // 14, 15 (new sub y assertThrows)
     //

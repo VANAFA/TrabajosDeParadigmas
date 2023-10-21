@@ -1,7 +1,6 @@
 package ProyectNemo.actions;
 
-import ProyectNemo.Action;
-import ProyectNemo.Submarine;
+import ProyectNemo.*;
 
 public class Up extends Action {
 
