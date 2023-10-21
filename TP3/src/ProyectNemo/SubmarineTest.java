@@ -33,7 +33,7 @@ public class SubmarineTest {
     @Test public void test07rCommandMakesItTurnRight() {
         assertEquals(moveNewSubmarine("r").getDirection(), "East");
     }
-    @Test public void test08FourEqualTurnsItGoToTheSameDirection() {
+    @Test public void test08FourEqualTurnsMakeItGoToTheSameDirection() {
         assertEquals(moveNewSubmarine("rllll").getDirection(),moveNewSubmarine("rrrrr").getDirection() ,moveNewSubmarine("r").getDirection());
     }
     @Test public void test09fCommandMakesItGoForward() {
@@ -77,3 +77,7 @@ public class SubmarineTest {
 
     private ArrayList<Integer> basicCoords = getPoint(0, 0);
 }
+
+// refactroreables in tests:
+    // 14, 15 (new sub y assertThrows)
+    //
