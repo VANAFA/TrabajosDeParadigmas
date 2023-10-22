@@ -78,7 +78,3 @@ public class SubmarineTest {
 
     private ArrayList<Integer> basicCoords = getPoint(0, 0);
 }
-// TODO: Remove this
-// refactroreables in tests:
-    // 14, 15 (new sub y assertThrows)
-    //

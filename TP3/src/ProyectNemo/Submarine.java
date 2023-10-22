@@ -2,11 +2,13 @@ package ProyectNemo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-// TODO: cambiar el formato a intellij
-// TODO: ordenar las cosas, métodos variables y constantes
 import ProyectNemo.actions.*;
 
 public class Submarine {
+
+    public ArrayList<Integer> position;
+    public Direction direction;
+    public DepthState depthState;
     
     public Submarine( ArrayList<Integer> position, Direction direction ) {
         this.position = position;
@@ -28,8 +30,4 @@ public class Submarine {
     public String getDirection() {
         return direction.getClass().getSimpleName();
     }
-    
-    public ArrayList<Integer> position;
-    public Direction direction;
-    public DepthState depthState;
 }
