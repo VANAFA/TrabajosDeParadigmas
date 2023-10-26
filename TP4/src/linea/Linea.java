@@ -14,21 +14,22 @@ public class Linea {
         if (gameMode != 'A' && gameMode != 'B' && gameMode != 'C') {
             throw new IllegalArgumentException("Invalid game mode");
         }
-        if (gameMode == 'A') {
-            if (base != 1 && height != 1) {
-                throw new IllegalArgumentException("Invalid dimensions");
-            }
-        }
-        if (gameMode == 'B') {
-            if (base != 1 && height != 1) {
-                throw new IllegalArgumentException("Invalid dimensions");
-            }
-        }
-        if (gameMode == 'C') {
-            if (base != 1 && height != 1) {
-                throw new IllegalArgumentException("Invalid dimensions");
-            }
-        }
+//        if (gameMode == 'A') {
+//            if (base != 1 && height != 1) {
+//                throw new IllegalArgumentException("Invalid dimensions");
+//            }
+//        }
+//        if (gameMode == 'B') {
+//            if (base != 1 && height != 1) {
+//                throw new IllegalArgumentException("Invalid dimensions");
+//            }
+//        }
+//        if (gameMode == 'C') {
+//            if (base != 1 && height != 1) {
+//                throw new IllegalArgumentException("Invalid dimensions");
+//            }
+//        }
+        // Estos 3 ifs causan error porque toma que la unica dimension valida es 1x1
     }
 
     public boolean play(int row, int col) {

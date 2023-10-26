@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb05401a-1a26-4d2c-9819-f26ac244d267" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP3/.vscode/settings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP3/src/ProyectNemo/Submarine.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP3/src/ProyectNemo/Submarine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP3/src/ProyectNemo/SubmarineTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP3/src/ProyectNemo/SubmarineTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +34,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/supre/IdeaProjects/TrabajosDeParadigmas/TP3",
+    "last_opened_file_path": "C:/Users/supre/IdeaProjects/TrabajosDeParadigmas/TP4",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -48,6 +44,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\supre\IdeaProjects\TrabajosDeParadigmas" />
+    </key>
+  </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="SubmarineTest" />
@@ -67,6 +68,7 @@
       <workItem from="1697581088588" duration="2000" />
       <workItem from="1697997395066" duration="108000" />
       <workItem from="1697997812137" duration="367000" />
+      <workItem from="1698345497666" duration="42000" />
     </task>
     <servers />
   </component>
