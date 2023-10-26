@@ -14,7 +14,7 @@ public class Game {
 
     
 
-    while ( !game.finished() ) {
+    while ( !game.isFinished() ) {
 
       game.playRedAt( prompt( "Negras? " ) );
 
@@ -22,7 +22,7 @@ public class Game {
 
       
 
-      if ( !game.finished() ) {
+      if ( !game.isFinished() ) {
 
         game.playBlueAt( prompt( "Blancas? " ) );
 

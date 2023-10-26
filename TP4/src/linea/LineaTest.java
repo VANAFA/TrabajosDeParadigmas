@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 public class LineaTest {
 
     @Test
-    public void testPlay() {
+    public void test01Play() {
         Linea linea = new Linea(4, 4, 'A');
         assertTrue(linea.play(0, 0));
         assertFalse(linea.play(0, 0));
@@ -14,7 +14,7 @@ public class LineaTest {
         assertFalse(linea.play(1, 1));
     }
 
-    @Test public void testNoMovesNoResult() {
+    @Test public void test02NoMovesGiveNoResult() {
         Linea linea = new Linea(4, 4, 'C');
         assertFalse(linea.checkWin(1));
         assertFalse(linea.checkWin(2));
@@ -22,73 +22,53 @@ public class LineaTest {
     }
 
     @Test
-    public void testPlayer1Win() {
+    public void test03PlayerOneWin() {
         Linea linea = new Linea(4, 4, 'A');
-        linea.play(0, 0);
-        linea.play(1, 1);
-        linea.play(0, 1);
-        linea.play(1, 2);
-        linea.play(0, 2);
-        linea.play(2, 2);
-        linea.play(0, 3);
+        playerOneWinningText(linea);
         assertTrue(linea.checkWin(1));
         assertFalse(linea.checkWin(2));
     }
-
-    @Test public void testPlayer2Win() {
+    @Test public void test04PlayerTwoWin() {
         Linea linea = new Linea(4, 4, 'C');
-        linea.play(1, 0);
-        linea.play(0, 1);
-        linea.play(2, 0);
-        linea.play(0, 2);
-        linea.play(3, 2);
-        linea.play(0, 3);
-        linea.play(3, 3);
-        linea.play(0, 0);
+        playerTwoWinningText(linea);
         assertFalse(linea.checkWin(1));
         assertTrue(linea.checkWin(2));
     }
     // Cree este test por separado para ver que lo que falla es la distincion de que jugador gana
     // Este diciendo que es true que el jugador 1 ganó, a pesar de que ganó el jugador 2
 
-    @Test
-    public void testVictoryIsNotDraw() {
+    @Test public void test05VictoryIsNotDraw() {
         Linea linea = new Linea(4, 4, 'A');
         linea.play(0, 0);
+        linea.play(3, 0);
         linea.play(0, 1);
+        linea.play(3, 1);
         linea.play(0, 2);
+        linea.play(3, 2);
         linea.play(1, 0);
-        linea.play(1, 1);
-        linea.play(1, 2);
-        linea.play(2, 0);
-        linea.play(2, 1);
         linea.play(2, 2);
+        linea.play(1, 1);
+        linea.play(0, 3);
+        linea.play(1, 2);
+        linea.play(1, 3);
+        linea.play(2, 0);
+        linea.play(2, 3);
+        linea.play(2, 1);
+        linea.play(3, 3);
         assertFalse(linea.isDraw());
+        // Falla porque isDraw esta construida de forma independiente de checkWin()
+        // Asi que haya ganador o no, isDraw() solo tiene en cuenta las jugadas
+        // Ejemplo, aca el jugador 2, gano en el turno 16, aun asi marca que es Draw porque se jugo 16 veces
     }
 
-    @Test public void testNoWinAtFullBoardIsDraw() {
+    @Test public void test06NoWinAtFullBoardIsDraw() {
         Linea linea = new Linea(4, 4, 'A');
-        linea.play(3, 0);
-        linea.play(3, 1);
-        linea.play(3, 2);
-        linea.play(3, 3);
-        linea.play(2, 3);
-        linea.play(2, 2);
-        linea.play(2, 1);
-        linea.play(2, 0);
-        linea.play(1, 3);
-        linea.play(1, 2);
-        linea.play(1, 1);
-        linea.play(1, 0);
-        linea.play(0, 3);
-        linea.play(0, 2);
-        linea.play(0, 1);
-        linea.play(0, 0);
+        drawGameText(linea);
         assertTrue(linea.isDraw());
     }
 
     @Test
-    public void testSwitchPlayer() {
+    public void test07SwitchPlayer() {
         Linea linea = new Linea(4, 4, 'A');
         assertEquals(1, linea.getCurrentPlayer());
         linea.switchPlayer();
@@ -97,38 +77,38 @@ public class LineaTest {
         assertEquals(1, linea.getCurrentPlayer());
     }
 
-    @Test
-    public void testFinished() {
+    @Test public void test08NewGameIsNotFinished() {
         Linea linea = new Linea(4, 4, 'A');
-        assertFalse(linea.finished());
+        assertFalse(linea.isFinished());
+    }
+    @Test public void test09NoWinNoDrawIsNotFinished() {
+        Linea linea = new Linea(4, 4, 'A');
         linea.play(0, 0);
         linea.play(1, 1);
-        linea.play(0, 1);
+        linea.play(3, 2);
         linea.play(1, 2);
         linea.play(0, 2);
-        assertTrue(linea.finished());
-        linea = new Linea(4, 4, 'C');
-        assertFalse(linea.finished());
-        linea.play(0, 0);
-        linea.play(1, 1);
-        linea.play(0, 1);
-        linea.play(1, 2);
-        linea.play(0, 2);
-        assertTrue(linea.finished());
-        linea = new Linea(4, 4, 'A');
-        assertFalse(linea.finished());
-        linea.play(0, 0);
-        linea.play(1, 1);
-        linea.play(0, 1);
-        linea.play(1, 2);
-        linea.play(0, 2);
-        linea.play(2, 2);
-        linea.play(3, 3);
-        assertFalse(linea.finished());
+        assertFalse(linea.isFinished());
+    }
+    @Test public void test10PlayerOneWinIsFinished() {
+        Linea linea = new Linea(4, 4, 'A');
+        playerOneWinningText(linea);
+        assertTrue(linea.isFinished());
+    }
+    @Test public void test11PlayerTwoWinIsFinished() {
+        Linea linea = new Linea(4, 4, 'C');
+        playerTwoWinningText(linea);
+        assertTrue(linea.isFinished());
+    }
+
+    @Test public void test12DrawIsFinished() {
+        Linea linea = new Linea(4, 4, 'A');
+        drawGameText(linea);
+        assertTrue(linea.isFinished());
     }
 
     @Test
-    public void testPlayRedAt() {
+    public void test13PlayRedAt() {
         Linea linea = new Linea(4, 4, 'A');
         linea.playRedAt(0);
         assertEquals(1, linea.getBoard()[0][0]);
@@ -148,7 +128,7 @@ public class LineaTest {
     }
 
     @Test
-    public void testPlayBlueAt() {
+    public void test14PlayBlueAt() {
         Linea linea = new Linea(4, 4, 'C');
         linea.playBlueAt(0);
         assertEquals(2, linea.getBoard()[0][0]);
@@ -168,7 +148,7 @@ public class LineaTest {
     }
 
     @Test
-    public void testShow() {
+    public void test15Show() {
         Linea linea = new Linea(4, 4, 'A');
         assertEquals("....\n....\n....\n....\n", linea.show());
         linea.play(0, 0);
@@ -185,6 +165,44 @@ public class LineaTest {
         linea.play(1, 2);
         linea.play(0, 2);
         assertEquals("OXX.\nXO..\n....\n....\n", linea.show());
+    }
+    private static void playerOneWinningText(Linea linea) {
+        linea.play(0, 0);
+        linea.play(1, 1);
+        linea.play(0, 1);
+        linea.play(1, 2);
+        linea.play(0, 2);
+        linea.play(2, 2);
+        linea.play(0, 3);
+    }
+    private static void playerTwoWinningText(Linea linea) {
+        linea.play(1, 0);
+        linea.play(0, 1);
+        linea.play(2, 0);
+        linea.play(0, 2);
+        linea.play(3, 2);
+        linea.play(0, 3);
+        linea.play(3, 3);
+        linea.play(0, 0);
+    }
+    private static void drawGameText(Linea linea) {
+        linea.play(3, 0);
+        linea.play(3, 1);
+        linea.play(3, 2);
+        linea.play(3, 3);
+        linea.play(2, 3);
+        linea.play(2, 2);
+        linea.play(2, 1);
+        linea.play(2, 0);
+        linea.play(1, 3);
+        linea.play(1, 2);
+        linea.play(1, 1);
+        linea.play(1, 0);
+        linea.play(0, 3);
+        linea.play(0, 2);
+        linea.play(0, 1);
+        linea.play(0, 0);
+        assertTrue(linea.isDraw());
     }
 }
 

@@ -14,22 +14,22 @@ public class Linea {
         if (gameMode != 'A' && gameMode != 'B' && gameMode != 'C') {
             throw new IllegalArgumentException("Invalid game mode");
         }
-//        if (gameMode == 'A') {
-//            if (base != 1 && height != 1) {
-//                throw new IllegalArgumentException("Invalid dimensions");
-//            }
-//        }
-//        if (gameMode == 'B') {
-//            if (base != 1 && height != 1) {
-//                throw new IllegalArgumentException("Invalid dimensions");
-//            }
-//        }
-//        if (gameMode == 'C') {
-//            if (base != 1 && height != 1) {
-//                throw new IllegalArgumentException("Invalid dimensions");
-//            }
-//        }
-        // Estos 3 ifs causan error porque toma que la unica dimension valida es 1x1
+        if (gameMode == 'A') {
+            if (base != 4 && height != 4) {
+                throw new IllegalArgumentException("Invalid dimensions");
+            }
+        }
+        if (gameMode == 'B') {
+            if (base != 4 && height != 4) {
+                throw new IllegalArgumentException("Invalid dimensions");
+            }
+        }
+        if (gameMode == 'C') {
+            if (base != 4 && height != 4) {
+                throw new IllegalArgumentException("Invalid dimensions");
+            }
+        }
+        // Aca causaban errores porque estaban en 1x1 en vez de 4x4, cambie los 1 por 4 en if base != y height !=
     }
 
     public boolean play(int row, int col) {
@@ -65,7 +65,10 @@ public class Linea {
     }
 
     public boolean isDraw() {
+        // Esta funcion no deberia estar separada de checkWin(), ver LineaTest lines 74-76 en test05
         return moves == 16;
+        // Y aca quizas se podria aplicar la clase Size para verificar si el board esta lleno
+        // Usando las dimensiones en vez de numeros hardcodeados
     }
 
     public void switchPlayer() {
@@ -81,7 +84,7 @@ public class Linea {
     }
 
     // New methods added
-    public boolean finished() {
+    public boolean isFinished() {
         return checkWin(1) || checkWin(2) || isDraw();
     }
 
