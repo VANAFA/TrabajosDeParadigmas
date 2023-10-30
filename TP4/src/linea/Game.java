@@ -1,22 +1,20 @@
 package linea;
 
-public class Game {
+public class Game {  // don't touch nor change this
 
   public static void main( String[] args) throws Exception {
 
     System.out.println( "Dimensiones?");
 
-    Linea game = new Linea( prompt( "Base? " ), prompt( "Altura? " ), 'C' );
-
+    Linea game = new Linea( prompt( "Base: " ), prompt( "Altura: " ), 'C' );
     
 
     System.out.println( game.show() );
 
-    
 
     while ( !game.isFinished() ) {
 
-      game.playRedAt( prompt( "Negras? " ) );
+      game.playRedAt( prompt( "Juega X " ) );
 
       System.out.println( game.show() );
 
@@ -24,7 +22,7 @@ public class Game {
 
       if ( !game.isFinished() ) {
 
-        game.playBlueAt( prompt( "Blancas? " ) );
+        game.playBlueAt( prompt( "Juega O " ) );
 
         System.out.println( game.show() );
 
@@ -36,8 +34,6 @@ public class Game {
 
   }
 
-
-
   private static int prompt( String message ) {
 
     System.out.print( message );
@@ -45,7 +41,6 @@ public class Game {
     return Integer.parseInt( System.console().readLine() );
 
   }
-
 }
 
 // Para compilar el código ejecutar fuera del paquete linea lo siguiente:

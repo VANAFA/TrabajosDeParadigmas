@@ -3,39 +3,26 @@ package linea;
 
 public class Linea {
     
-    private int[][] board = new int[4][4];
+    private int[][] board = new int[10][10]; // hardcoded
     private int currentPlayer = 1;
     private int moves = 0;
+    private int base;
+    private int height;
 
     public Linea (int base, int height, char gameMode) { // char is gameMode, A == only horizontal or veticla win. B == only diagonal win. C == both
-        if (base < 1 || base > 4 || height < 1 || height > 4) {
+        this.base = base;
+        this.height = height;
+
+        if (base < 4 || height < 4) {
             throw new IllegalArgumentException("Invalid dimensions");
         }
         if (gameMode != 'A' && gameMode != 'B' && gameMode != 'C') {
             throw new IllegalArgumentException("Invalid game mode");
         }
-        if (gameMode == 'A') {
-            if (base != 4 && height != 4) {
-                throw new IllegalArgumentException("Invalid dimensions");
-            }
-        }
-        if (gameMode == 'B') {
-            if (base != 4 && height != 4) {
-                throw new IllegalArgumentException("Invalid dimensions");
-            }
-        }
-        if (gameMode == 'C') {
-            if (base != 4 && height != 4) {
-                throw new IllegalArgumentException("Invalid dimensions");
-            }
-        }
-        // Aca causaban errores porque estaban en 1x1 en vez de 4x4, cambie los 1 por 4 en if base != y height !=
+        // make a way to set the game mode
     }
 
     public boolean play(int row, int col) {
-        if (board[row][col] != 0) {
-            return false;
-        }
         board[row][col] = currentPlayer;
         moves++;
         return true;
@@ -65,14 +52,11 @@ public class Linea {
     }
 
     public boolean isDraw() {
-        // Esta funcion no deberia estar separada de checkWin(), ver LineaTest lines 74-76 en test05
-        return moves == 16;
-        // Y aca quizas se podria aplicar la clase Size para verificar si el board esta lleno
-        // Usando las dimensiones en vez de numeros hardcodeados
+        return moves == base * height;
     }
 
     public void switchPlayer() {
-        currentPlayer = currentPlayer == 1 ? 2 : 1;
+        currentPlayer = currentPlayer % 2 + 1;
     }
 
     public int getCurrentPlayer() {
@@ -90,31 +74,31 @@ public class Linea {
 
     public void playRedAt(int col) {
         int row = 0;
-        while (row < 4 && board[row][col] != 0) {
+        while (row < base && board[row][col-1] != 0) {
             row++;
         }
-        if (row < 4) {
-            play(row, col);
+        if (row < base) {
+            play(row, col-1);
             switchPlayer();
         }
     }
 
     public void playBlueAt(int col) {
         int row = 0;
-        while (row < 4 && board[row][col] != 0) {
+        while (row < base && board[row][col-1] != 0) {
             row++;
         }
-        if (row < 4) {
-            play(row, col);
+        if (row < base) {
+            play(row, col-1);
             switchPlayer();
         }
     }
 
     public String show() {
         String result = "";
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                result += board[i][j] == 0 ? "." : board[i][j] == 1 ? "X" : "O";
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < base; j++) {
+                result += board[i][j] == 0 ? "█" : board[i][j] == 1 ? "X" : "O";
             }
             result += "\n";
         }
