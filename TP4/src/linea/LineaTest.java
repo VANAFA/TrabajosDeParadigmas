@@ -9,12 +9,12 @@ public class LineaTest {
 
     @Test
     public void test00baseSizeCanNotBeLessThan4() {
-        assertThrows( IllegalArgumentException.class, () -> new Linea(3, 5, 'A') );
+        assertThrows( IllegalArgumentException.class, () -> new Linea(3, 5, 1) );
     }
 
     @Test 
     public void test01heightSizeCanNotBeLessThan4() {
-        assertThrows( IllegalArgumentException.class, () -> new Linea(5, 3, 'A') );
+        assertThrows( IllegalArgumentException.class, () -> new Linea(5, 3, 1) );
     }
 
     @Test
@@ -24,20 +24,20 @@ public class LineaTest {
 
     @Test
     public void test03xStartsPlaying() {
-        Linea game = new Linea(5, 5, 'A');
+        Linea game = new Linea(5, 5, 1);
         assertEquals(1, game.getCurrentPlayer());
     }
 
     @Test
     public void test04xPlaysAt00() {
-        Linea game = new Linea(5, 5, 'A');
+        Linea game = new Linea(5, 5, 1);
         game.play(0, 0);
         assertEquals(1, game.getBoard()[0][0]);
     }
 
     @Test
     public void test05oPlaysAt00() {
-        Linea game = new Linea(5, 5, 'A');
+        Linea game = new Linea(5, 5, 1);
         game.play(0, 0);
         game.switchPlayer();
         game.play(0, 1);
@@ -46,7 +46,7 @@ public class LineaTest {
 
     @Test
     public void test06verticalWinWorks() {
-        Linea game = new Linea(5, 5, 'A');
+        Linea game = new Linea(5, 5, 1);
         game.play(0, 0);
         game.switchPlayer();
         game.play(1, 0);
@@ -65,7 +65,7 @@ public class LineaTest {
 
     @Test
     public void test07horizontalWinWorks() {
-        Linea game = new Linea(5, 5, 'A');
+        Linea game = new Linea(5, 5, 1);
         game.play(0, 0);
         game.switchPlayer();
         game.play(0, 1);
@@ -84,7 +84,7 @@ public class LineaTest {
 
     @Test
     public void test08diagonalWinWorks() {
-        Linea game = new Linea(5, 5, 'A');
+        Linea game = new Linea(5, 5, 2);
         game.play(0, 0);
         game.switchPlayer();
         game.play(0, 1);
@@ -103,7 +103,7 @@ public class LineaTest {
 
     @Test
     public void test09winWorksOnAnySizeBoard() {
-        Linea game = new Linea(8, 5, 'A');
+        Linea game = new Linea(8, 5, 3);
         game.play(0, 4);
         game.switchPlayer();
         game.play(0, 5);
@@ -122,7 +122,7 @@ public class LineaTest {
 
     @Test
     public void test10DrawWorksIfNoneWins4x4() {
-        Linea game = new Linea(4, 4, 'A');
+        Linea game = new Linea(4, 4, 1);
         game.playRedAt(1);
         game.playBlueAt(1);
         game.playRedAt(1);
@@ -148,4 +148,41 @@ public class LineaTest {
         assertTrue(game.isDraw());
     }
 
+    @Test
+    public void test11GameModeADoesNotAcceptDiagonalWins() {
+        Linea game = new Linea(5, 5, 1);
+        game.play(0, 0);
+        game.switchPlayer();
+        game.play(0, 1);
+        game.switchPlayer();
+        game.play(1, 1);
+        game.switchPlayer();
+        game.play(1, 2);
+        game.switchPlayer();
+        game.play(2, 2);
+        game.switchPlayer();
+        game.play(2, 3);
+        game.switchPlayer();
+        game.play(3, 3);
+        assertFalse(game.checkWin(1));
+    }
+
+    @Test
+    public void test12GameModeBOnlyDiagonalWin() {
+        Linea game = new Linea(5, 5, 2);
+        game.play(0, 0);
+        game.switchPlayer();
+        game.play(0, 1);
+        game.switchPlayer();
+        game.play(1, 1);
+        game.switchPlayer();
+        game.play(1, 2);
+        game.switchPlayer();
+        game.play(2, 2);
+        game.switchPlayer();
+        game.play(2, 3);
+        game.switchPlayer();
+        game.play(3, 3);
+        assertTrue(game.checkWin(1));
+    }
 }

@@ -1,12 +1,12 @@
 package linea;
 
-public class Game {  // don't touch nor change this
+public class Game {
 
   public static void main( String[] args) throws Exception {
 
     System.out.println( "Dimensiones?");
 
-    Linea game = new Linea( prompt( "Base: " ), prompt( "Altura: " ), 'C' );
+    Linea game = new Linea( prompt( "Base: " ), prompt( "Altura: " ), prompt( "Select game mode (1-3): " ) );
     
 
     System.out.println( game.show() );

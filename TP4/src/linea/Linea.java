@@ -3,92 +3,36 @@ package linea;
 
 public class Linea {
     
-    private int[][] board = new int[10][10]; // hardcoded
+    public int base;
+    public int height;
+    public int[][] board = new int[10][10]; // hardcoded
     private int currentPlayer = 1;
     private int moves = 0;
-    private int base;
-    private int height;
+    private GameMode gameMode;
 
     // no hacer una clase board ni una clase ficha, pero hay que aplicar polimorfismo
 
-    public Linea (int base, int height, char gameMode) { // char is gameMode, A == only horizontal or veticla win. B == only diagonal win. C == both
+    public Linea (int base, int height, int gameMode) { // char is gameMode, A == only horizontal or veticla win. B == only diagonal win. C == both
         this.base = base;
         this.height = height;
+        this.gameMode = gameMode;
 
         if (base < 4 || height < 4) {
             throw new IllegalArgumentException("Invalid dimensions");
         }
-        if (gameMode != 'A' && gameMode != 'B' && gameMode != 'C') {
+        if (gameMode < 1 || gameMode > 3) {
             throw new IllegalArgumentException("Invalid game mode");
         }
         // make a way to set the game mode
     }
 
-    public boolean checkWin(int player) {
-        // Check rows
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j <= base - 4; j++) {
-                boolean win = true;
-                for (int k = 0; k < 4; k++) {
-                    if (board[i][j+k] != player) {
-                        win = false;
-                        break;
-                    }
-                }
-                if (win) {
-                    return true;
-                }
-            }
-        }
-        // Check columns
-        for (int i = 0; i <= height - 4; i++) {
-            for (int j = 0; j < base; j++) {
-                boolean win = true;
-                for (int k = 0; k < 4; k++) {
-                    if (board[i+k][j] != player) {
-                        win = false;
-                        break;
-                    }
-                }
-                if (win) {
-                    return true;
-                }
-            }
-        }
-        // Check diagonals
-        for (int i = 0; i <= height - 4; i++) {
-            for (int j = 0; j <= base - 4; j++) {
-                boolean win = true;
-                for (int k = 0; k < 4; k++) {
-                    if (board[i+k][j+k] != player) {
-                        win = false;
-                        break;
-                    }
-                }
-                if (win) {
-                    return true;
-                }
-            }
-        }
-        for (int i = 0; i <= height - 4; i++) {
-            for (int j = base - 1; j >= 3; j--) {
-                boolean win = true;
-                for (int k = 0; k < 4; k++) {
-                    if (board[i+k][j-k] != player) {
-                        win = false;
-                        break;
-                    }
-                }
-                if (win) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    public boolean checkWin(int player) { // repartir a los subtipos de GameMode A B o C
+        
+
     }
 
     public boolean isDraw() { // moves should be equal to the number of empty spaces
-        return moves == (base - 2) * (height - 2);
+        return moves == base * height;
     }
 
     public void switchPlayer() {
@@ -132,7 +76,7 @@ public class Linea {
 
     public void play(int row, int col) {
         board[row][col] = currentPlayer;
-        if ( col > 0 && col < base) {
+        if ( col >= 0 && col < base) {
             moves++;
         }
     }
@@ -149,9 +93,9 @@ public class Linea {
             result += " ^";
         }
         result += " █\n█";
-        for (int i = 0; i < base; i++) {
-            result += " " + (i+1);
-        }
+        // for (int i = 0; i < base; i++) {
+        //     result += " " + (i+1);
+        // } this has an unexpected behaviour when base is greater than 9
         result += " █";
         if (isFinished()) {
             result += " \n";
