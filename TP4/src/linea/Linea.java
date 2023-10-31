@@ -1,5 +1,7 @@
 package linea;
 
+import linea.gameModes.*;
+import linea.size.*;
 
 public class Linea {
     
@@ -8,30 +10,34 @@ public class Linea {
     public int[][] board = new int[10][10]; // hardcoded
     private int currentPlayer = 1;
     private int moves = 0;
-    private GameMode gameMode;
+    private int gameMode;
 
     // no hacer una clase board ni una clase ficha, pero hay que aplicar polimorfismo
 
-    public Linea (int base, int height, int gameMode) { // char is gameMode, A == only horizontal or veticla win. B == only diagonal win. C == both
+    public Linea (int base, int height, int gameMode) {
         this.base = base;
         this.height = height;
         this.gameMode = gameMode;
 
-        if (base < 4 || height < 4) {
-            throw new IllegalArgumentException("Invalid dimensions");
-        }
-        if (gameMode < 1 || gameMode > 3) {
-            throw new IllegalArgumentException("Invalid game mode");
-        }
-        // make a way to set the game mode
+        Size[] sizes = {new InvalidSize(), new Size()};
+        // Size size = 
+
+        // if (base < 4 || height < 4) {
+        //     throw new IllegalArgumentException("Invalid dimensions");
+        // }
+
+        // if (gameMode < 1 || gameMode > 3) {
+        //     throw new IllegalArgumentException("Invalid game mode");
+        // }
     }
 
-    public boolean checkWin(int player) { // repartir a los subtipos de GameMode A B o C
+    public boolean checkWin(int player) {
+        GameMode[] modes = {new GameModeA(this), new GameModeB(this), new GameMode(this)};
         
-
+        return modes[gameMode-1].checkWin(player);
     }
 
-    public boolean isDraw() { // moves should be equal to the number of empty spaces
+    public boolean isDraw() {
         return moves == base * height;
     }
 
@@ -47,8 +53,7 @@ public class Linea {
         return board;
     }
 
-    // New methods added
-    public boolean isFinished() { // this returns true if the game is finished
+    public boolean isFinished() {
         return checkWin(1) || checkWin(2) || isDraw();
     }
 

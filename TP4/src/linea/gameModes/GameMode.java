@@ -1,75 +1,47 @@
 package linea.gameModes;
 
 import linea.Linea;
+import java.util.stream.IntStream;
 
 public class GameMode {
 
-    protected Linea game;
+    private Linea game;
 
     public GameMode( Linea game ) {
         this.game = game;
     }
 
     public boolean checkWin(int player) {
-        // Check rows
-        for (int i = 0; i < game.height; i++) {
-            for (int j = 0; j <= game.base - 4; j++) {
-                boolean win = true;
-                for (int k = 0; k < 4; k++) {
-                    if (game.board[i][j+k] != player) {
-                        win = false;
-                        break;
-                    }
-                }
-                if (win) {
-                    return true;
-                }
-            }
-        }
-        // Check columns
-        for (int i = 0; i <= game.height - 4; i++) {
-            for (int j = 0; j < game.base; j++) {
-                boolean win = true;
-                for (int k = 0; k < 4; k++) {
-                    if (game.board[i+k][j] != player) {
-                        win = false;
-                        break;
-                    }
-                }
-                if (win) {
-                    return true;
-                }
-            }
-        }
-        // Check diagonals
-        for (int i = 0; i <= game.height - 4; i++) {
-            for (int j = 0; j <= game.base - 4; j++) {
-                boolean win = true;
-                for (int k = 0; k < 4; k++) {
-                    if (game.board[i+k][j+k] != player) {
-                        win = false;
-                        break;
-                    }
-                }
-                if (win) {
-                    return true;
-                }
-            }
-        }
-        for (int i = 0; i <= game.height - 4; i++) {
-            for (int j = game.base - 1; j >= 3; j--) {
-                boolean win = true;
-                for (int k = 0; k < 4; k++) {
-                    if (game.board[i+k][j-k] != player) {
-                        win = false;
-                        break;
-                    }
-                }
-                if (win) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return horizontalVerticalWin( player ) || diagonalWin( player );
+    }
+
+    protected boolean horizontalVerticalWin( int player ) {
+
+        boolean horizontalWin = IntStream.range(0, game.height)
+            .anyMatch(i -> IntStream.range(0, game.base - 3)
+                .anyMatch(j -> IntStream.range(j, j + 4)
+                    .allMatch(k -> game.board[i][k] == player)));
+
+        boolean verticalWin = IntStream.range(0, game.base)
+            .anyMatch(i -> IntStream.range(0, game.height - 3)
+                .anyMatch(j -> IntStream.range(j, j + 4)
+                    .allMatch(k -> game.board[k][i] == player)));
+
+        return horizontalWin || verticalWin;
+    }
+
+    protected boolean diagonalWin( int player ) {
+
+        boolean diagonalWin = IntStream.range(0, game.height - 3)
+            .anyMatch(i -> IntStream.range(0, game.base - 3)
+                .anyMatch(j -> IntStream.range(0, 4)
+                    .allMatch(k -> game.board[i + k][j + k] == player)));
+
+        boolean diagonalWin2 = IntStream.range(0, game.height - 3)
+            .anyMatch(i -> IntStream.range(0, game.base - 3)
+                .anyMatch(j -> IntStream.range(0, 4)
+                    .allMatch(k -> game.board[i + k][game.base - j - k - 1] == player)));
+
+        return diagonalWin || diagonalWin2;
     }
 }
