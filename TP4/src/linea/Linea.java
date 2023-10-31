@@ -1,36 +1,72 @@
 package linea;
 
 import linea.gameModes.*;
-import linea.size.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.ArrayList;
 
 public class Linea {
     
     public int base;
     public int height;
-    public int[][] board = new int[10][10]; // hardcoded
+    public int[][] board = new int[10][10]; // hardcoded limit
     private int currentPlayer = 1;
     private int moves = 0;
     private int gameMode;
 
-    // no hacer una clase board ni una clase ficha, pero hay que aplicar polimorfismo
+    // pedir que una columna sea positiva puede tener un if
+    // es el turno correcto?, ganó? estoy usando la estrategia correcta? esto puede usar if
 
+    // Podemos tener un arraylist con arraylist adentro
+
+    // no hacer una clase board ni una clase ficha, pero hay que aplicar polimorfismo. Done
+
+    // no hay que dar un error en un tablero inganable. Done
+    
     public Linea (int base, int height, int gameMode) {
         this.base = base;
         this.height = height;
         this.gameMode = gameMode;
-
-        Size[] sizes = {new InvalidSize(), new Size()};
-        // Size size = 
-
-        // if (base < 4 || height < 4) {
-        //     throw new IllegalArgumentException("Invalid dimensions");
-        // }
-
-        // if (gameMode < 1 || gameMode > 3) {
-        //     throw new IllegalArgumentException("Invalid game mode");
-        // }
+        
+        if (gameMode < 1 || gameMode > 3) { // TODO: preguntar si hay que dar un error en un invalid gameMode
+            throw new IllegalArgumentException("Invalid game mode");
+        }
     }
-
+    
+        public String show() {
+            String result = "█";
+    
+            result += IntStream.range(0, height)
+                    .mapToObj(i -> IntStream.range(0, base)
+                            .mapToObj(j -> board[i][j] == 0 ? " -" : board[i][j] == 1 ? " X" : " O")
+                            .collect(Collectors.joining()))
+                    .collect(Collectors.joining(" █\n█", "", " █\n█"));
+    
+            result += IntStream.range(0, base)
+                    .mapToObj(i -> " ^")
+                    .collect(Collectors.joining());
+    
+            result += " █\n█";
+    
+            result += IntStream.range(0, base)
+                    .mapToObj(i -> " " + (i+1))
+                    .collect(Collectors.joining());
+    
+            result += " █";
+    
+            if (isFinished()) { // estos if son válidos
+                result += " \n";
+                if (checkWin(1)) {
+                    result += " X wins!";
+                } else if (checkWin(2)) {
+                    result += " O wins!";
+                } else {
+                    result += " It's a Draw!";
+                }
+            }
+            return result;
+        }
+    
     public boolean checkWin(int player) {
         GameMode[] modes = {new GameModeA(this), new GameModeB(this), new GameMode(this)};
         
@@ -49,7 +85,7 @@ public class Linea {
         return currentPlayer;
     }
 
-    public int[][] getBoard() {
+    public int[][] getPosition() {
         return board;
     }
 
@@ -84,37 +120,5 @@ public class Linea {
         if ( col >= 0 && col < base) {
             moves++;
         }
-    }
-
-    public String show() {
-        String result = "█";
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < base; j++) {
-                result += board[i][j] == 0 ? " -" : board[i][j] == 1 ? " X" : " O"; // this is an if statement
-            }
-            result += " █\n█";
-        }
-        for (int i = 0; i < base; i++) {
-            result += " ^";
-        }
-        result += " █\n█";
-        // for (int i = 0; i < base; i++) {
-        //     result += " " + (i+1);
-        // } this has an unexpected behaviour when base is greater than 9
-        result += " █";
-        if (isFinished()) {
-            result += " \n";
-            if (checkWin(1)) {
-                result += " X wins!";
-            } else if (checkWin(2)) {
-                result += " O wins!";
-            } else {
-                result += " It's a Draw!";
-            }
-
-        }
-
-        return result;
-        
     }
 }

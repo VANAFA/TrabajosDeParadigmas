@@ -30,7 +30,7 @@ public class GameMode {
         return horizontalWin || verticalWin;
     }
 
-    protected boolean diagonalWin( int player ) {
+    protected boolean diagonalWin( int player ) { // TODO: usar lo del tablero fantasma comienzo en el 0,0 menos la base con xy, y la inversa para la otra diagonal -xy. O ver si lo que está hecho está bueno usarlo
 
         boolean diagonalWin = IntStream.range(0, game.height - 3)
             .anyMatch(i -> IntStream.range(0, game.base - 3)

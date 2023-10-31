@@ -8,40 +8,30 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class LineaTest {
 
     @Test
-    public void test00baseSizeCanNotBeLessThan4() {
-        assertThrows( IllegalArgumentException.class, () -> new Linea(3, 5, 1) );
-    }
-
-    @Test 
-    public void test01heightSizeCanNotBeLessThan4() {
-        assertThrows( IllegalArgumentException.class, () -> new Linea(5, 3, 1) );
-    }
-
-    @Test
-    public void test02gameModeCanNotBeInvalid() {
+    public void test00gameModeCanNotBeInvalid() {
         assertThrows( IllegalArgumentException.class, () -> new Linea(5, 5, 'D') );
     }
 
     @Test
-    public void test03xStartsPlaying() {
+    public void test01xStartsPlaying() {
         Linea game = new Linea(5, 5, 1);
         assertEquals(1, game.getCurrentPlayer());
     }
 
     @Test
-    public void test04xPlaysAt00() {
+    public void test02xPlaysAt00() {
         Linea game = new Linea(5, 5, 1);
         game.play(0, 0);
-        assertEquals(1, game.getBoard()[0][0]);
+        assertEquals(1, game.getPosition()[0][0]);
     }
 
     @Test
-    public void test05oPlaysAt00() {
+    public void test03oPlaysAt00() {
         Linea game = new Linea(5, 5, 1);
         game.play(0, 0);
         game.switchPlayer();
         game.play(0, 1);
-        assertEquals(2, game.getBoard()[0][1]);
+        assertEquals(2, game.getPosition()[0][1]);
     }
 
     @Test
