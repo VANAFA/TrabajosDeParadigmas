@@ -3,7 +3,6 @@ package linea;
 import linea.gameModes.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.ArrayList;
 
 public class Linea {
     
@@ -54,7 +53,7 @@ public class Linea {
     
             result += " █";
     
-            if (isFinished()) { // estos if son válidos
+            if (isFinished()) { // TODO: preguntar si estos if son válidos, pero creo que sí
                 result += " \n";
                 if (checkWin(1)) {
                     result += " X wins!";
@@ -72,13 +71,39 @@ public class Linea {
         
         return modes[gameMode-1].checkWin(player);
     }
+    
+    public void playRedAt(int col) {
+        play(col);
+    }
+    
+    public void playBlueAt(int col) {
+        play(col);
+    }
+    
+    public void play(int col) {
+        int row = base - 1;
+        while (row >= 0 && board[row][col-1] != 0) {
+            row--;
+        }
+        row = Math.max(row, 0);// TODO: preguntar si esto es válido
+
+        board[row][col-1] = currentPlayer;
+        if ( col-1 >= 0 && col-1 < base) {
+            moves++;
+        }
+        switchPlayer();
+    }
+    
+    public void switchPlayer() {
+        currentPlayer = currentPlayer % 2 + 1;
+    }
+
+    public boolean isFinished() {
+        return checkWin(1) || checkWin(2) || isDraw();
+    }
 
     public boolean isDraw() {
         return moves == base * height;
-    }
-
-    public void switchPlayer() {
-        currentPlayer = currentPlayer % 2 + 1;
     }
 
     public int getCurrentPlayer() {
@@ -87,38 +112,5 @@ public class Linea {
 
     public int[][] getPosition() {
         return board;
-    }
-
-    public boolean isFinished() {
-        return checkWin(1) || checkWin(2) || isDraw();
-    }
-
-    public void playRedAt(int col) {
-        int row = base - 1;
-        while (row >= 0 && board[row][col-1] != 0) {
-            row--;
-        }
-        if (row >= 0) {
-            play(row, col-1);
-            switchPlayer();
-        }
-    }
-
-    public void playBlueAt(int col) {
-        int row = base - 1;
-        while (row >= 0 && board[row][col-1] != 0) {
-            row--;
-        }
-        if (row >= 0) {
-            play(row, col-1);
-            switchPlayer();
-        }
-    }
-
-    public void play(int row, int col) {
-        board[row][col] = currentPlayer;
-        if ( col >= 0 && col < base) {
-            moves++;
-        }
     }
 }
