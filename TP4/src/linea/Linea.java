@@ -9,6 +9,8 @@ public class Linea {
     private int base;
     private int height;
 
+    // no hacer una clase board ni una clase ficha, pero hay que aplicar polimorfismo
+
     public Linea (int base, int height, char gameMode) { // char is gameMode, A == only horizontal or veticla win. B == only diagonal win. C == both
         this.base = base;
         this.height = height;
@@ -22,37 +24,71 @@ public class Linea {
         // make a way to set the game mode
     }
 
-    public boolean play(int row, int col) {
-        board[row][col] = currentPlayer;
-        moves++;
-        return true;
-    }
-
     public boolean checkWin(int player) {
         // Check rows
-        for (int i = 0; i < 4; i++) {
-            if (board[i][0] == player && board[i][1] == player && board[i][2] == player && board[i][3] == player) {
-                return true;
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j <= base - 4; j++) {
+                boolean win = true;
+                for (int k = 0; k < 4; k++) {
+                    if (board[i][j+k] != player) {
+                        win = false;
+                        break;
+                    }
+                }
+                if (win) {
+                    return true;
+                }
             }
         }
         // Check columns
-        for (int i = 0; i < 4; i++) {
-            if (board[0][i] == player && board[1][i] == player && board[2][i] == player && board[3][i] == player) {
-                return true;
+        for (int i = 0; i <= height - 4; i++) {
+            for (int j = 0; j < base; j++) {
+                boolean win = true;
+                for (int k = 0; k < 4; k++) {
+                    if (board[i+k][j] != player) {
+                        win = false;
+                        break;
+                    }
+                }
+                if (win) {
+                    return true;
+                }
             }
         }
         // Check diagonals
-        if (board[0][0] == player && board[1][1] == player && board[2][2] == player && board[3][3] == player) {
-            return true;
+        for (int i = 0; i <= height - 4; i++) {
+            for (int j = 0; j <= base - 4; j++) {
+                boolean win = true;
+                for (int k = 0; k < 4; k++) {
+                    if (board[i+k][j+k] != player) {
+                        win = false;
+                        break;
+                    }
+                }
+                if (win) {
+                    return true;
+                }
+            }
         }
-        if (board[0][3] == player && board[1][2] == player && board[2][1] == player && board[3][0] == player) {
-            return true;
+        for (int i = 0; i <= height - 4; i++) {
+            for (int j = base - 1; j >= 3; j--) {
+                boolean win = true;
+                for (int k = 0; k < 4; k++) {
+                    if (board[i+k][j-k] != player) {
+                        win = false;
+                        break;
+                    }
+                }
+                if (win) {
+                    return true;
+                }
+            }
         }
         return false;
     }
 
-    public boolean isDraw() {
-        return moves == base * height;
+    public boolean isDraw() { // moves should be equal to the number of empty spaces
+        return moves == (base - 2) * (height - 2);
     }
 
     public void switchPlayer() {
@@ -68,40 +104,68 @@ public class Linea {
     }
 
     // New methods added
-    public boolean isFinished() {
+    public boolean isFinished() { // this returns true if the game is finished
         return checkWin(1) || checkWin(2) || isDraw();
     }
 
     public void playRedAt(int col) {
-        int row = 0;
-        while (row < base && board[row][col-1] != 0) {
-            row++;
+        int row = base - 1;
+        while (row >= 0 && board[row][col-1] != 0) {
+            row--;
         }
-        if (row < base) {
+        if (row >= 0) {
             play(row, col-1);
             switchPlayer();
         }
     }
 
     public void playBlueAt(int col) {
-        int row = 0;
-        while (row < base && board[row][col-1] != 0) {
-            row++;
+        int row = base - 1;
+        while (row >= 0 && board[row][col-1] != 0) {
+            row--;
         }
-        if (row < base) {
+        if (row >= 0) {
             play(row, col-1);
             switchPlayer();
         }
     }
 
+    public void play(int row, int col) {
+        board[row][col] = currentPlayer;
+        if ( col > 0 && col < base) {
+            moves++;
+        }
+    }
+
     public String show() {
-        String result = "";
+        String result = "█";
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < base; j++) {
-                result += board[i][j] == 0 ? "█" : board[i][j] == 1 ? "X" : "O";
+                result += board[i][j] == 0 ? " -" : board[i][j] == 1 ? " X" : " O"; // this is an if statement
             }
-            result += "\n";
+            result += " █\n█";
         }
+        for (int i = 0; i < base; i++) {
+            result += " ^";
+        }
+        result += " █\n█";
+        for (int i = 0; i < base; i++) {
+            result += " " + (i+1);
+        }
+        result += " █";
+        if (isFinished()) {
+            result += " \n";
+            if (checkWin(1)) {
+                result += " X wins!";
+            } else if (checkWin(2)) {
+                result += " O wins!";
+            } else {
+                result += " It's a Draw!";
+            }
+
+        }
+
         return result;
+        
     }
 }
