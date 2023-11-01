@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 
 public class Linea {
     
-    public ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>(); // ArrayList of ArrayLists
+    public ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>();
     public int base;
     public int height;
     private int gameMode;
@@ -17,23 +17,22 @@ public class Linea {
     // pedir que una columna sea positiva puede tener un if
     // es el turno correcto?, ganó? estoy usando la estrategia correcta? esto puede usar if
 
-    // Podemos tener un arraylist con arraylist adentro
+    // Podemos tener un arraylist con arraylist adentro Done
 
     // no hacer una clase board ni una clase ficha, pero hay que aplicar polimorfismo. Done
 
     // no hay que dar un error en un tablero inganable. Done
     
     public Linea (int base, int height, int gameMode) {
-        this.base = base;
-        this.height = height;
-        this.gameMode = gameMode;
-        for (int i = 0; i < height; i++) {
-            ArrayList<Integer> row = new ArrayList<Integer>();
-            for (int j = 0; j < base; j++) {
-                row.add(0);
-            }
-            board.add(row);
-        }
+    this.base = base;
+    this.height = height;
+    this.gameMode = gameMode;
+    
+    board = IntStream.range(0, height)
+        .mapToObj(i -> IntStream.range(0, base)
+            .mapToObj(j -> 0)
+            .collect(Collectors.toCollection(ArrayList::new)))
+        .collect(Collectors.toCollection(ArrayList::new));
     }
     
     public String show() {
@@ -57,7 +56,7 @@ public class Linea {
     
         result += " █";
     
-        if (isFinished()) { // TODO: preguntar si estos if son válidos, pero creo que sí
+        if (isFinished()) { // Esto es válido
             result += " \n";
             if (checkWin(1)) {
                 result += " X wins!";
@@ -77,19 +76,21 @@ public class Linea {
     }
     
     public void playRedAt(int col) {
+        currentPlayer = 1;
         play(col);
     }
     
     public void playBlueAt(int col) {
+        currentPlayer = 2;
         play(col);
     }
     
     public void play(int col) {
-        int row = base - 1;
+        int row = height - 1;
         while (row >= 0 && board.get(row).get(col) != 0) {
             row--;
         }
-        if (row >= 0 && col >= 0 && row < height && col < base) {
+        if (row >= 0 && col >= 0 && row < height && col < base) { // Esto es válido
             board.get(row).set(col, currentPlayer);
             moves++;
         }
@@ -108,11 +109,11 @@ public class Linea {
         return moves == base * height;
     }
 
-    public int getCurrentPlayer() { // TODO: preguntar si es necesario este método
+    public int getCurrentPlayer() { // Tenemos que tener los getters
         return currentPlayer;
     }
 
-    public ArrayList<ArrayList<Integer>> getPosition() {
-        return board;
+    public int getPlayerAt(int row, int col) {
+        return board.get(row).get(col);
     }
 }
