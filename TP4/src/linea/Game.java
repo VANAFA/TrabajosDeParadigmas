@@ -14,7 +14,7 @@ public class Game {
 
     while ( !game.isFinished() ) {
 
-      game.playRedAt( prompt( "Juega X " ) );
+      game.playRedAt( prompt( "Juega X " ) - 1 );
 
       System.out.println( game.show() );
 
@@ -22,7 +22,7 @@ public class Game {
 
       if ( !game.isFinished() ) {
 
-        game.playBlueAt( prompt( "Juega O " ) );
+        game.playBlueAt( prompt( "Juega O " ) - 1 );
 
         System.out.println( game.show() );
 

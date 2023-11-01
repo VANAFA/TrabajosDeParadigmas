@@ -20,12 +20,12 @@ public class GameMode {
         boolean horizontalWin = IntStream.range(0, game.height)
             .anyMatch(i -> IntStream.range(0, game.base - 3)
                 .anyMatch(j -> IntStream.range(j, j + 4)
-                    .allMatch(k -> game.board[i][k] == player)));
+                    .allMatch(k -> game.board.get(i).get(k) == player)));
 
         boolean verticalWin = IntStream.range(0, game.base)
             .anyMatch(i -> IntStream.range(0, game.height - 3)
                 .anyMatch(j -> IntStream.range(j, j + 4)
-                    .allMatch(k -> game.board[k][i] == player)));
+                    .allMatch(k -> game.board.get(k).get(i) == player)));
 
         return horizontalWin || verticalWin;
     }
@@ -35,12 +35,12 @@ public class GameMode {
         boolean diagonalWin = IntStream.range(0, game.height - 3)
             .anyMatch(i -> IntStream.range(0, game.base - 3)
                 .anyMatch(j -> IntStream.range(0, 4)
-                    .allMatch(k -> game.board[i + k][j + k] == player)));
+                    .allMatch(k -> game.board.get(i + k).get(j + k) == player)));
 
         boolean diagonalWin2 = IntStream.range(0, game.height - 3)
             .anyMatch(i -> IntStream.range(0, game.base - 3)
                 .anyMatch(j -> IntStream.range(0, 4)
-                    .allMatch(k -> game.board[i + k][game.base - j - k - 1] == player)));
+                    .allMatch(k -> game.board.get(i + k).get(game.base - j - k - 1) == player)));
 
         return diagonalWin || diagonalWin2;
     }

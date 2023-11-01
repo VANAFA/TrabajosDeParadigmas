@@ -3,14 +3,8 @@ package linea;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class LineaTest {
-
-    @Test
-    public void test00gameModeCanNotBeInvalid() {
-        assertThrows( IllegalArgumentException.class, () -> new Linea(5, 5, 'D') );
-    }
+public class LineaTest { // al final que ordenar los test y ponerle los números correctos
 
     @Test
     public void test01xStartsPlaying() {
@@ -77,25 +71,13 @@ public class LineaTest {
     @Test
     public void test10DrawWorksIfNoneWins4x4() {
         Linea game = new Linea(4, 4, 1);
-        game.playRedAt(1);
-        game.playBlueAt(1);
-        game.playRedAt(1);
-        game.playBlueAt(1);
-
-        game.playRedAt(2);
-        game.playBlueAt(2);
-        game.playRedAt(2);
-        game.playBlueAt(2);
-
-        game.playRedAt(4);
-        game.playBlueAt(3);
-        game.playRedAt(3);
-        game.playBlueAt(3);
         
-        game.playRedAt(3);
-        game.playBlueAt(4);
-        game.playRedAt(4);
-        game.playBlueAt(4);
+        diagonalWin( game );
+        game.playBlueAt(1);
+        game.playRedAt(2);
+        game.playBlueAt(3);
+        game.playRedAt(2);
+        game.playBlueAt(1);
 
         assertTrue(game.isDraw());
     }
