@@ -10,11 +10,10 @@ public class Linea {
     public ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>(); // Esto es válido
     public int base;
     public int height;
-    private int gameMode;
     private int currentPlayer = 1;
     private int moves;
+    private int gameMode;
 
-    // pedir que una columna sea positiva puede tener un if
     // es el turno correcto?, ganó? estoy usando la estrategia correcta? esto puede usar if
     
     public Linea (int base, int height, int gameMode) {
@@ -22,7 +21,7 @@ public class Linea {
     this.height = height;
     this.gameMode = gameMode;
     
-    board = IntStream.range(0, height)
+    board = IntStream.range(0, height) // TODO: make this simpler
         .mapToObj(i -> IntStream.range(0, base)
             .mapToObj(j -> 0)
             .collect(Collectors.toCollection(ArrayList::new)))
@@ -84,7 +83,7 @@ public class Linea {
         while (row >= 0 && board.get(row).get(col) != 0) {
             row--;
         }
-        if (row >= 0 && col >= 0 && row < height && col < base) { // Esto es válido
+        if (row >= 0 && col >= 0 && row < height && col < base && !finished()) { // Esto es válido
             board.get(row).set(col, currentPlayer);
             moves++;
         }
@@ -109,5 +108,9 @@ public class Linea {
 
     public int getPlayerAt(int row, int col) {
         return board.get(row).get(col);
+    }
+
+    public int getGameMode() {
+        return gameMode;
     }
 }

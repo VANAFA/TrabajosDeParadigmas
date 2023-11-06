@@ -1,8 +1,8 @@
 package linea;
 
+import static org.junit.Assert.*;
 import org.junit.Test;
 import java.util.stream.IntStream;
-import static org.junit.Assert.*;
 
 public class LineaTest { // al final que ordenar los test y ponerle los números correctos
 
@@ -51,13 +51,16 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
         IntStream.range(0, 4)
             .forEach(j -> IntStream.range(j, 4)
                 .forEach(i -> game.playRedAt(j)));
-        game.playRedAt(0);
-        assertEquals(0, game.getPlayerAt(3, 0));
+        assertTrue( game.finished() );
+        game.playBlueAt(0);
+        assertEquals(1, game.getPlayerAt(3, 0));
     }
 
     @Test
     public void test06verticalWinWorks() {
         Linea game = new Linea(5, 5, 'c');
+        IntStream.range(0, 4)
+            .forEach(i -> game.playRedAt(0));
         game.playRedAt(0);
         game.playRedAt(0);
         game.playRedAt(0);
