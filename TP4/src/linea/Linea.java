@@ -13,8 +13,6 @@ public class Linea {
     private int currentPlayer = 1;
     private int moves;
     private int gameMode;
-
-    // es el turno correcto?, ganó? estoy usando la estrategia correcta? esto puede usar if
     
     public Linea (int base, int height, int gameMode) {
     this.base = base;
@@ -68,16 +66,6 @@ public class Linea {
         return modes[ gameMode - 'a' ].checkWin(player);
     }
     
-    public void playRedAt(int col) {
-        currentPlayer = 1;
-        play(col);
-    }
-    
-    public void playBlueAt(int col) {
-        currentPlayer = 2;
-        play(col);
-    }
-    
     public void play(int col) {
         int row = height - 1;
         while (row >= 0 && board.get(row).get(col) != 0) {
@@ -88,6 +76,16 @@ public class Linea {
             moves++;
         }
         switchPlayer();
+    }
+    
+    public void playRedAt(int col) {
+        currentPlayer = 1;
+        play(col);
+    }
+    
+    public void playBlueAt(int col) {
+        currentPlayer = 2;
+        play(col);
     }
     
     public void switchPlayer() {
@@ -102,7 +100,7 @@ public class Linea {
         return moves == base * height;
     }
 
-    public int getCurrentPlayer() { // Tenemos que tener los getters
+    public int getCurrentPlayer() {
         return currentPlayer;
     }
 

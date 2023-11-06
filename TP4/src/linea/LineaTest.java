@@ -7,22 +7,20 @@ import java.util.stream.IntStream;
 public class LineaTest { // al final que ordenar los test y ponerle los números correctos
 
     @Test
-    public void test01xStartsPlaying() {
+    public void test00xStartsPlaying() {
         Linea game = new Linea(5, 5, 'c');
         assertEquals(1, game.getCurrentPlayer());
     }
 
     @Test
-    public void test02xPlaysAt00() {
-        Linea game = new Linea(4, 4, 'c');
-        game.playRedAt(0);
+    public void test01xPlaysAt00() {
+        Linea game = newGamePlayAt0();
         assertEquals(1, game.getPlayerAt(3, 0));
     }
 
     @Test
-    public void test03TurnsAreRespected() {
-        Linea game = new Linea(4, 4, 'c');
-        game.play(0);
+    public void test02TurnsAreRespected() {
+        Linea game = newGamePlayAt0();
         assertEquals(2, game.getCurrentPlayer());
         game.play(0);
         assertEquals(1, game.getCurrentPlayer());
@@ -36,7 +34,7 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
     }
 
     @Test
-    public void test05finishedWorks() {
+    public void test04finishedWorks() {
         Linea game = new Linea(4, 4, 'c');
         assertFalse(game.finished());
         IntStream.range(0, 4)
@@ -46,7 +44,7 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
     }
 
     @Test
-    public void test06CanNotPlayAfterGameIsFinished() {
+    public void test05CanNotPlayAfterGameIsFinished() {
         Linea game = new Linea(4, 4, 'c');
         IntStream.range(0, 4)
             .forEach(j -> IntStream.range(j, 4)
@@ -70,11 +68,10 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
 
     @Test
     public void test07horizontalWinWorks() {
-        Linea game = new Linea(5, 5, 'c');
+        Linea game = newGamePlayAt0();
         game.playRedAt(1);
         game.playRedAt(2);
         game.playRedAt(3);
-        game.playRedAt(4);
         assertTrue(game.checkWin(1));
     }       
 
@@ -94,7 +91,7 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
     }
 
     @Test
-    public void test10DrawWorksIfNoneWins4x4() {
+    public void test10DrawWorksIfNoneWins() {
         Linea game = new Linea(4, 4, 'a');
         
         diagonalWin( game );
@@ -120,8 +117,14 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
         assertTrue(game.checkWin(1));
     }
 
+    private Linea newGamePlayAt0() {
+        Linea game = new Linea(4, 4, 'c');
+        game.play(0);
+        return game;
+    }
+
     private void diagonalWin( Linea game ) { // TODO: try making this with a loop
-        game.playRedAt(0);
+        newGamePlayAt0();
         game.playBlueAt(1);
         game.playRedAt(1);
         game.playBlueAt(2);
