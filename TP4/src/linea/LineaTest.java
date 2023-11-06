@@ -8,58 +8,83 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
 
     @Test
     public void test01xStartsPlaying() {
-        Linea game = new Linea(5, 5, 3);
+        Linea game = new Linea(5, 5, 'c');
         assertEquals(1, game.getCurrentPlayer());
     }
 
     @Test
     public void test02xPlaysAt00() {
-        Linea game = new Linea(4, 4, 3);
+        Linea game = new Linea(4, 4, 'c');
         game.playRedAt(0);
         assertEquals(1, game.getPlayerAt(3, 0));
     }
 
     @Test
+    public void test03TurnsAreRespected() {
+        Linea game = new Linea(4, 4, 'c');
+        game.play(0);
+        assertEquals(2, game.getCurrentPlayer());
+        game.play(0);
+        assertEquals(1, game.getCurrentPlayer());
+    }
+
+    @Test
     public void test03oPlaysAt00() {
-        Linea game = new Linea(4, 4, 3);
+        Linea game = new Linea(4, 4, 'c');
         game.playBlueAt(0);
         assertEquals(2, game.getPlayerAt(3, 0));
     }
 
     @Test
+    public void test05finishedWorks() {
+        Linea game = new Linea(4, 4, 'c');
+        assertFalse(game.finished());
+        IntStream.range(0, 4)
+            .forEach(j -> IntStream.range(j, 4)
+                .forEach(i -> game.playRedAt(j)));
+        assertTrue(game.finished());
+    }
+
+    @Test
+    public void test06CanNotPlayAfterGameIsFinished() {
+        Linea game = new Linea(4, 4, 'c');
+        IntStream.range(0, 4)
+            .forEach(j -> IntStream.range(j, 4)
+                .forEach(i -> game.playRedAt(j)));
+        game.playRedAt(0);
+        assertEquals(0, game.getPlayerAt(3, 0));
+    }
+
+    @Test
     public void test06verticalWinWorks() {
-        Linea game = new Linea(5, 5, 3);
-        game.playRedAt(1);
-        game.playRedAt(1);
-        game.playRedAt(1);
-        game.playRedAt(1);
+        Linea game = new Linea(5, 5, 'c');
+        game.playRedAt(0);
+        game.playRedAt(0);
+        game.playRedAt(0);
+        game.playRedAt(0);
         assertTrue(game.checkWin(1));
     }
 
     @Test
     public void test07horizontalWinWorks() {
-        Linea game = new Linea(5, 5, 3);
+        Linea game = new Linea(5, 5, 'c');
         game.playRedAt(1);
         game.playRedAt(2);
         game.playRedAt(3);
         game.playRedAt(4);
         assertTrue(game.checkWin(1));
-        }       
+    }       
 
     @Test
     public void test08diagonalWinWorks() {
-        Linea game = new Linea(5, 5, 3);
+        Linea game = new Linea(5, 5, 'c');
         diagonalWin(game);
         assertTrue(game.checkWin(1));
     }
 
-
     @Test
     public void test09winWorksOnAnySizeBoard() {
-        Linea game = new Linea(8, 5, 3);
-        
-        System.out.println(game.show());
-        System.out.println(game.board); // TODO: Hacer y usar un getter para board
+        Linea game = new Linea(8, 5, 'c');
 
         diagonalWin(game);
         assertTrue(game.checkWin(1));
@@ -67,7 +92,7 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
 
     @Test
     public void test10DrawWorksIfNoneWins4x4() {
-        Linea game = new Linea(4, 4, 1);
+        Linea game = new Linea(4, 4, 'a');
         
         diagonalWin( game );
 
@@ -80,14 +105,14 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
 
     @Test
     public void test11GameModeADoesNotAcceptDiagonalWins() {
-        Linea game = new Linea(5, 5, 1);
+        Linea game = new Linea(5, 5, 'a');
         diagonalWin(game);
-        assertFalse(game.checkWin(1));
+        assertFalse(game.finished());
     }
 
     @Test
     public void test12GameModeBOnlyDiagonalWin() {
-        Linea game = new Linea(5, 5, 2);
+        Linea game = new Linea(5, 5, 'b');
         diagonalWin(game);
         assertTrue(game.checkWin(1));
     }

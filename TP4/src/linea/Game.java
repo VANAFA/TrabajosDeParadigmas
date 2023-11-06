@@ -6,47 +6,45 @@ public class Game {
 
     System.out.println( "Dimensiones?");
 
-    Linea game = new Linea( prompt( "Base: " ), prompt( "Altura: " ), prompt( "Select game mode (1-3): " ) );
-    
+    Linea game = new Linea( promptAsInt( "Base? " ), 
 
+                            promptAsInt( "Altura? " ), 
+
+                            promptAsChar( "Estartegia de Juego: A, B o C? " ) );
+  
     System.out.println( game.show() );
 
+    while ( !game.finished() ) {
 
-    while ( !game.isFinished() ) {
-
-      game.playRedAt( prompt( "Juega X " ) - 1 );
+      game.playRedAt( promptAsInt( "Rojas? " ) );
 
       System.out.println( game.show() );
 
-      
 
-      if ( !game.isFinished() ) {
+      if ( !game.finished() ) {
 
-        game.playBlueAt( prompt( "Juega O " ) - 1 );
+        game.playBlueAt( promptAsInt( "Azul? " ) );
 
         System.out.println( game.show() );
-
       }
-
     }
-
-    
-
   }
 
-  private static int prompt( String message ) {
+  private static int promptAsInt( String message ) {
 
     System.out.print( message );
 
     return Integer.parseInt( System.console().readLine() );
+  }
 
+  private static char promptAsChar( String message ) {
+
+    System.out.print( message );
+
+    return System.console().readLine().charAt( 0 );
   }
 }
 
-// Para compilar el código ejecutar fuera del paquete linea lo siguiente:
-
 //  javac linea/Linea.java linea/Game.java 
-
-//  Para correr el juego ejecutar los siguiente:
 
 //  java linea.Game 

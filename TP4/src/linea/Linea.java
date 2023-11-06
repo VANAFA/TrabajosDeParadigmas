@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 
 public class Linea {
     
-    public ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>();
+    public ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>(); // Esto es válido
     public int base;
     public int height;
     private int gameMode;
@@ -16,12 +16,6 @@ public class Linea {
 
     // pedir que una columna sea positiva puede tener un if
     // es el turno correcto?, ganó? estoy usando la estrategia correcta? esto puede usar if
-
-    // Podemos tener un arraylist con arraylist adentro Done
-
-    // no hacer una clase board ni una clase ficha, pero hay que aplicar polimorfismo. Done
-
-    // no hay que dar un error en un tablero inganable. Done
     
     public Linea (int base, int height, int gameMode) {
     this.base = base;
@@ -51,12 +45,12 @@ public class Linea {
         result += " █\n█";
     
         result += IntStream.range(0, base)
-                .mapToObj(i -> " " + (i+1))
+                .mapToObj(i -> " " + (i))
                 .collect(Collectors.joining());
     
         result += " █";
     
-        if (isFinished()) { // Esto es válido
+        if (finished()) { // Este if es válido
             result += " \n";
             if (checkWin(1)) {
                 result += " X wins!";
@@ -72,7 +66,7 @@ public class Linea {
     public boolean checkWin(int player) {
         GameMode[] modes = {new GameModeA(this), new GameModeB(this), new GameMode(this)};
         
-        return modes[gameMode-1].checkWin(player);
+        return modes[ gameMode - 'a' ].checkWin(player);
     }
     
     public void playRedAt(int col) {
@@ -101,7 +95,7 @@ public class Linea {
         currentPlayer = currentPlayer % 2 + 1;
     }
 
-    public boolean isFinished() {
+    public boolean finished() {
         return checkWin(1) || checkWin(2) || isDraw();
     }
 
