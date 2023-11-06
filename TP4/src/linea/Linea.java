@@ -5,25 +5,25 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Linea {
+public class Linea { // al final que ordenar el código
     
-    public ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>(); // Esto es válido
+    public ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>();
     public int base;
     public int height;
     private int currentPlayer = 1;
     private int moves;
     private int gameMode;
     
-    public Linea (int base, int height, int gameMode) {
-    this.base = base;
-    this.height = height;
-    this.gameMode = gameMode;
-    
-    board = IntStream.range(0, height) // TODO: make this simpler
-        .mapToObj(i -> IntStream.range(0, base)
-            .mapToObj(j -> 0)
-            .collect(Collectors.toCollection(ArrayList::new)))
-        .collect(Collectors.toCollection(ArrayList::new));
+    public Linea(int base, int height, int gameMode) {
+        this.base = base;
+        this.height = height;
+        this.gameMode = Character.toLowerCase(gameMode);
+
+        board = IntStream.range(0, height)
+            .mapToObj(i -> IntStream.range(0, base)
+                .mapToObj(j -> 0)
+                .collect(Collectors.toCollection(ArrayList::new)))
+            .collect(Collectors.toCollection(ArrayList::new));
     }
     
     public String show() {
@@ -68,6 +68,7 @@ public class Linea {
     
     public void play(int col) {
         int row = height - 1;
+        col %= base;
         while (row >= 0 && board.get(row).get(col) != 0) {
             row--;
         }

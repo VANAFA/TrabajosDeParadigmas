@@ -12,9 +12,6 @@ public class PlayerTwo {
 
     public void play() {
         int col = findWinningMove();
-        if (col == -1) {
-            col = findCounterMove();
-        }
         game.playBlueAt(col);
     }
 
@@ -30,7 +27,7 @@ public class PlayerTwo {
                 return col;
             }
         }
-        return -1;
+        return findCounterMove();
     }
 
     private int findCounterMove() {
