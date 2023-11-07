@@ -47,7 +47,7 @@ public class Linea { // al final que ordenar el código
     
         result += " █";
     
-        if (finished()) { // Este if es válido
+        if (finished()) { // TODO: Este if es válido
             result += " \n";
             if (checkWin(1)) {
                 result += " X wins!";
@@ -72,11 +72,11 @@ public class Linea { // al final que ordenar el código
         while (row >= 0 && board.get(row).get(col) != 0) {
             row--;
         }
-        if (row >= 0 && col >= 0 && row < height && col < base && !finished()) { // Esto es válido
+        if (row >= 0 && col >= 0 && row < height && col < base && !finished()) { // TODO: Esto es válido. estos son los límites // esta verificación no hace falta si hago jugada mod base
             board.get(row).set(col, currentPlayer);
             moves++;
+            switchPlayer();
         }
-        switchPlayer();
     }
     
     public void playRedAt(int col) {
@@ -98,7 +98,7 @@ public class Linea { // al final que ordenar el código
     }
 
     public boolean isDraw() {
-        return moves == base * height;
+        return moves >= base * height;
     }
 
     public int getCurrentPlayer() {
