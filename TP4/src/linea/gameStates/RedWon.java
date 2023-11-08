@@ -9,10 +9,10 @@ public class RedWon extends State {
     }
 
     public void playRed(int col) {
-        throw new RuntimeException("Game over");
+        throw new RuntimeException("Game over, red won");
     }
 
     public void playBlue(int col) {
-        throw new RuntimeException("Game over");
+        throw new RuntimeException("Game over, red won");
     }
 }

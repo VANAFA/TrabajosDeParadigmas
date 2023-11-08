@@ -3,7 +3,7 @@ package linea;
 import linea.gameModes.*;
 import linea.gameStates.*;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -22,35 +22,52 @@ public class Linea { // al final que ordenar el código
         this.height = height;
         this.gameMode = Character.toLowerCase(gameMode);
 
-        board = IntStream.range(0, height)
-            .mapToObj(i -> IntStream.range(0, base)
-                .mapToObj(j -> 0)
-                .collect(Collectors.toCollection(ArrayList::new)))
-            .collect(Collectors.toCollection(ArrayList::new));
+        for (int i = 0; i < height; i++) {
+            board.add(new ArrayList<Integer>());
+        } // TODO: replce the for for a stream
     }
     
     public String show() {
-        String result = "█";
-    
-        result += IntStream.range(0, height)
-                .mapToObj(i -> IntStream.range(0, base)
-                        .mapToObj(j -> board.get(i).get(j) == 0 ? " -" : board.get(i).get(j) == 1 ? " X" : " O")
-                        .collect(Collectors.joining()))
-                .collect(Collectors.joining(" █\n█", "", " █\n█"));
-    
+        // the show should look like this:
+        // █ - - - - █
+        // █ - X O X █
+        // █ X O X O █
+        // █ O X X O █
+        // █ ^ ^ ^ ^ █
+        // █ 0 1 2 3 █
+
+        String result = "";
         result += IntStream.range(0, base)
-                .mapToObj(i -> " ^")
-                .collect(Collectors.joining());
-    
-        result += " █\n█";
-    
+            .mapToObj(i -> "█ ")
+            .collect(Collectors.joining());
+        result += "\n";
+
+        for (int i = height - 1; i >= 0; i--) {
+            result += "█ ";
+            for (int j = 0; j < base; j++) {
+                int player = board.get(i).get(j);
+                if (player == 0) {
+                    result += "- ";
+                } else if (player == 1) {
+                    result += "X ";
+                } else {
+                    result += "O ";
+                }
+            }
+            result += "█\n";
+        }
+
         result += IntStream.range(0, base)
-                .mapToObj(i -> " " + (i))
-                .collect(Collectors.joining());
+            .mapToObj(i -> "█ ")
+            .collect(Collectors.joining());
+        result += "\n";
+
+        result += IntStream.range(0, base)
+            .mapToObj(i -> " " + i)
+            .collect(Collectors.joining());
+        result += "\n";
     
-        result += " █";
-    
-        if (finished()) { // TODO: Este if es válido
+        if (finished()) { // TODO: sacar este if
             result += " \n";
             if (checkWin(1)) {
                 result += " X wins!";
@@ -72,14 +89,12 @@ public class Linea { // al final que ordenar el código
     }
 
     public boolean finished() {
-        return checkWin(1) || checkWin(2) || isDraw();
+        return currentState.isFinished();
     }
 
     public boolean isDraw() {
         int moves = board.stream()
-            .mapToInt(row -> row.stream()
-                .mapToInt(i -> i)
-                .sum())
+            .mapToInt(List::size)
             .sum();
 
         return moves >= base * height;
@@ -90,13 +105,23 @@ public class Linea { // al final que ordenar el código
         
         return modes[ gameMode - 'a' ].checkWin(player);
     }    
+
+    public int safeGet(int i, int j) {
+        if (i >= 0 && i < board.size()) {
+            List<Integer> row = board.get(i);
+            if (j >= 0 && j < row.size()) {
+                return row.get(j);
+            }
+        }
+        return 0;
+    }
     
     public State getCurrentPlayer() {
         return currentState;
     }
-
+    
     public int getPlayerAt(int row, int col) {
-        return board.get(row).get(col);
+        return safeGet(row, col);
     }
 
     public int getGameMode() {

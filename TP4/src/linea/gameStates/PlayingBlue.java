@@ -13,13 +13,19 @@ public class PlayingBlue extends State {
     }
 
     public void playBlue(int col) {
+
         play(col, 2);
-        if (game.checkWin(2)) { // TODO: get rid of the if statement
-            game.currentState = new RedWon(game);
-        } else if (game.finished()) {
+        game.currentState = new PlayingRed(game);
+
+        if (game.checkWin(2)) { // TODO: preguntar por este if
+            game.currentState = new BlueWon(game);
+        } else if (game.isDraw()) {
             game.currentState = new Draw(game);
-        } else {
-            game.currentState = new PlayingBlue(game);
         }
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false;
     }
 }

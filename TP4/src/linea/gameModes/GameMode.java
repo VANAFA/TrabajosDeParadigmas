@@ -1,6 +1,8 @@
 package linea.gameModes;
 
 import linea.Linea;
+
+import java.util.List;
 import java.util.stream.IntStream;
 
 public class GameMode {
@@ -16,33 +18,40 @@ public class GameMode {
     }
 
     protected boolean horizontalVerticalWin( int player ) {
-
-        boolean horizontalWin = IntStream.range(0, game.height)
-            .anyMatch(i -> IntStream.range(0, game.base - 3)
-                .anyMatch(j -> IntStream.range(j, j + 4)
-                    .allMatch(k -> game.board.get(i).get(k) == player)));
-
-        boolean verticalWin = IntStream.range(0, game.base)
-            .anyMatch(i -> IntStream.range(0, game.height - 3)
-                .anyMatch(j -> IntStream.range(j, j + 4)
-                    .allMatch(k -> game.board.get(k).get(i) == player)));
-
         
-        return horizontalWin || verticalWin; // acá tengo que setear el state
+        for (int i = 0; i < game.height; i++) { // TODO: replace the fors
+            for (int j = 0; j < game.base - 3; j++) {
+                if (game.safeGet(i, j) == player && game.safeGet(i, j + 1) == player && game.safeGet(i, j + 2) == player && game.safeGet(i, j + 3) == player) {
+                    return true;
+                }
+            }
+        }
+        for (int i = 0; i < game.base; i++) {
+            for (int j = 0; j < game.height - 3; j++) {
+                if (game.safeGet(i, j) == player && game.safeGet(i, j + 1) == player && game.safeGet(i, j + 2) == player && game.safeGet(i, j + 3) == player) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     protected boolean diagonalWin(int player) {
 
-        boolean diagonalWin = IntStream.range(0, game.height - 3)
-            .anyMatch(i -> IntStream.range(0, game.base - 3)
-                .anyMatch(j -> IntStream.range(0, 4)
-                    .allMatch(k -> game.board.get(i + k).get(j + k) == player)));
-
-        boolean diagonalWin2 = IntStream.range(0, game.height - 3)
-            .anyMatch(i -> IntStream.range(0, game.base - 3)
-                .anyMatch(j -> IntStream.range(0, 4)
-                    .allMatch(k -> game.board.get(i + k).get(game.base - j - k - 1) == player)));
-
-        return diagonalWin || diagonalWin2;
+        for (int i = 0; i < game.height - 3; i++) {
+            for (int j = 0; j < game.base - 3; j++) {
+                if (game.safeGet(i, j) == player && game.safeGet(i + 1, j + 1) == player && game.safeGet(i + 2, j + 2) == player && game.safeGet(i + 3, j + 3) == player) {
+                    return true;
+                }
+            }
+        }
+        for (int i = 0; i < game.height - 3; i++) {
+            for (int j = 3; j < game.base; j++) {
+                if (game.safeGet(i, j) == player && game.safeGet(i + 1, j - 1) == player && game.safeGet(i + 2, j - 2) == player && game.safeGet(i + 3, j - 3) == player) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
