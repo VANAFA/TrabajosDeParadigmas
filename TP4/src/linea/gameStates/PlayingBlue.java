@@ -14,5 +14,12 @@ public class PlayingBlue extends State {
 
     public void playBlue(int col) {
         play(col, 2);
+        if (game.checkWin(2)) { // TODO: get rid of the if statement
+            game.currentState = new RedWon(game);
+        } else if (game.finished()) {
+            game.currentState = new Draw(game);
+        } else {
+            game.currentState = new PlayingBlue(game);
+        }
     }
 }

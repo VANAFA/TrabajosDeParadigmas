@@ -27,6 +27,7 @@ public class GameMode {
                 .anyMatch(j -> IntStream.range(j, j + 4)
                     .allMatch(k -> game.board.get(k).get(i) == player)));
 
+        
         return horizontalWin || verticalWin; // acá tengo que setear el state
     }
 

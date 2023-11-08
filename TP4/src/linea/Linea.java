@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 public class Linea { // al final que ordenar el código
     
     public ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>();
-    private State currentState = new PlayingRed( this );
+    public State currentState = new PlayingRed( this );
     public int base;
     public int height;
     private int gameMode;
@@ -65,26 +65,10 @@ public class Linea { // al final que ordenar el código
     
     public void playRedAt(int col) {
         currentState.playRed(col);
-        currentState = switchState(1);
     }
     
     public void playBlueAt(int col) {
         currentState.playBlue(col);
-        currentState = switchState(0);
-    }
-
-    private State switchState( int state ) {
-        ArrayList<State> states = new ArrayList<State>();
-        Collections.addAll(states, new PlayingRed(this), new PlayingBlue(this), new RedWon(this), new BlueWon(this), new Draw(this));
-
-        if (isDraw()) { // TODO: how do I remove this
-            state = 4;
-        } else if (checkWin(1)) {
-            state = 2;
-        } else if (checkWin(2)) {
-            state = 3;
-        }
-        return states.get(state);
     }
 
     public boolean finished() {
