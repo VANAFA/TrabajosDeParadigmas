@@ -1,17 +1,20 @@
 package linea;
 
 import linea.gameModes.*;
+import linea.gameStates.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+//TODO: sólo usar geters en tests
 
 public class Linea { // al final que ordenar el código
     
     public ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>();
+    private State currentState = new PlayingRed( this );
     public int base;
     public int height;
-    private int currentPlayer = 1;
-    private int moves;
     private int gameMode;
     
     public Linea(int base, int height, int gameMode) {
@@ -60,37 +63,28 @@ public class Linea { // al final que ordenar el código
         return result;
     }
     
-    public boolean checkWin(int player) {
-        GameMode[] modes = {new GameModeA(this), new GameModeB(this), new GameMode(this)};
-        
-        return modes[ gameMode - 'a' ].checkWin(player);
-    }
-    
-    public void play(int col) {
-        int row = height - 1;
-        col %= base;
-        while (row >= 0 && board.get(row).get(col) != 0) {
-            row--;
-        }
-        if (row >= 0 && col >= 0 && row < height && col < base && !finished()) { // TODO: Esto es válido. estos son los límites // esta verificación no hace falta si hago jugada mod base
-            board.get(row).set(col, currentPlayer);
-            moves++;
-            switchPlayer();
-        }
-    }
-    
     public void playRedAt(int col) {
-        currentPlayer = 1;
-        play(col);
+        currentState.playRed(col);
+        currentState = switchState(1);
     }
     
     public void playBlueAt(int col) {
-        currentPlayer = 2;
-        play(col);
+        currentState.playBlue(col);
+        currentState = switchState(0);
     }
-    
-    public void switchPlayer() {
-        currentPlayer = currentPlayer % 2 + 1;
+
+    private State switchState( int state ) {
+        ArrayList<State> states = new ArrayList<State>();
+        Collections.addAll(states, new PlayingRed(this), new PlayingBlue(this), new RedWon(this), new BlueWon(this), new Draw(this));
+
+        if (isDraw()) { // TODO: how do I remove this
+            state = 4;
+        } else if (checkWin(1)) {
+            state = 2;
+        } else if (checkWin(2)) {
+            state = 3;
+        }
+        return states.get(state);
     }
 
     public boolean finished() {
@@ -98,11 +92,23 @@ public class Linea { // al final que ordenar el código
     }
 
     public boolean isDraw() {
+        int moves = board.stream()
+            .mapToInt(row -> row.stream()
+                .mapToInt(i -> i)
+                .sum())
+            .sum();
+
         return moves >= base * height;
     }
-
-    public int getCurrentPlayer() {
-        return currentPlayer;
+    
+    public boolean checkWin(int player) {
+        GameMode[] modes = {new GameModeA(this), new GameModeB(this), new GameMode(this)};
+        
+        return modes[ gameMode - 'a' ].checkWin(player);
+    }    
+    
+    public State getCurrentPlayer() {
+        return currentState;
     }
 
     public int getPlayerAt(int row, int col) {

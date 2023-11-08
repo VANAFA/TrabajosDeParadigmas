@@ -26,7 +26,8 @@ public class Game {
 
       if ( !game.finished() ) {
 
-        new PlayerTwo( game ).play(); // game.playBlueAt( promptAsInt( "Azul? " ) );
+        // new PlayerTwo( game ).play(); 
+        game.playBlueAt( promptAsInt( "Azul? " ) );
 
         System.out.println( game.show() );
       }
