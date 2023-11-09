@@ -127,7 +127,7 @@ public class Linea { // al final que ordenar el código
     }
     
     public int getPlayerAt(int row, int col) {
-        return safeGet(row, col);
+        return safeGet(col, row);
     }
 
     public int getGameMode() {

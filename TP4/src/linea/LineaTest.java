@@ -36,6 +36,7 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
     public void test03oPlaysAt01() {
         Linea game = newGamePlayAt0();
         game.playBlueAt(1);
+        System.out.println( game.show() ); // temporal
         assertEquals(2, game.getPlayerAt(0, 1));
     }
 
