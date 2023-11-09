@@ -17,16 +17,18 @@ public class Game {
   
     System.out.println( game.show() );
 
-    while ( !game.finished() ) {
+    while ( !game.isFinished() ) {
 
       game.playRedAt( promptAsInt( "Rojas? " ) );
 
       System.out.println( game.show() );
 
 
-      if ( !game.finished() ) {
+      if ( !game.isFinished() ) {
 
-        new PlayerTwo( game ).play(); // game.playBlueAt( promptAsInt( "Azul? " ) );
+        // new PlayerTwo( game ).play();
+
+        game.playBlueAt( promptAsInt( "Azul? " ) );
 
         System.out.println( game.show() );
       }

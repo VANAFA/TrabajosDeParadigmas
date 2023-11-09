@@ -5,25 +5,27 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Linea { // al final que ordenar el código
+public class Linea {
     
-    public ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>();
+    public ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>(); // Esto es válido
     public int base;
     public int height;
     private int currentPlayer = 1;
     private int moves;
     private int gameMode;
-    
-    public Linea(int base, int height, int gameMode) {
-        this.base = base;
-        this.height = height;
-        this.gameMode = Character.toLowerCase(gameMode);
 
-        board = IntStream.range(0, height)
-            .mapToObj(i -> IntStream.range(0, base)
-                .mapToObj(j -> 0)
-                .collect(Collectors.toCollection(ArrayList::new)))
-            .collect(Collectors.toCollection(ArrayList::new));
+    // es el turno correcto?, ganó? estoy usando la estrategia correcta? esto puede usar if
+    
+    public Linea (int base, int height, int gameMode) {
+    this.base = base;
+    this.height = height;
+    this.gameMode = gameMode;
+    
+    board = IntStream.range(0, height) // TODO: make this simpler
+        .mapToObj(i -> IntStream.range(0, base)
+            .mapToObj(j -> 0)
+            .collect(Collectors.toCollection(ArrayList::new)))
+        .collect(Collectors.toCollection(ArrayList::new));
     }
     
     public String show() {
@@ -47,7 +49,7 @@ public class Linea { // al final que ordenar el código
     
         result += " █";
     
-        if (finished()) { // TODO: Este if es válido
+        if (isFinished()) { // Este if es válido
             result += " \n";
             if (checkWin(1)) {
                 result += " X wins!";
@@ -66,19 +68,6 @@ public class Linea { // al final que ordenar el código
         return modes[ gameMode - 'a' ].checkWin(player);
     }
     
-    public void play(int col) {
-        int row = height - 1;
-        col %= base;
-        while (row >= 0 && board.get(row).get(col) != 0) {
-            row--;
-        }
-        if (row >= 0 && col >= 0 && row < height && col < base && !finished()) { // TODO: Esto es válido. estos son los límites // esta verificación no hace falta si hago jugada mod base
-            board.get(row).set(col, currentPlayer);
-            moves++;
-            switchPlayer();
-        }
-    }
-    
     public void playRedAt(int col) {
         currentPlayer = 1;
         play(col);
@@ -89,19 +78,31 @@ public class Linea { // al final que ordenar el código
         play(col);
     }
     
+    public void play(int col) {
+        int row = height - 1;
+        while (row >= 0 && board.get(row).get(col) != 0) {
+            row--;
+        }
+        if (row >= 0 && col >= 0 && row < height && col < base && !isFinished()) { // Esto es válido
+            board.get(row).set(col, currentPlayer);
+            moves++;
+        }
+        switchPlayer();
+    }
+    
     public void switchPlayer() {
         currentPlayer = currentPlayer % 2 + 1;
     }
 
-    public boolean finished() {
+    public boolean isFinished() {
         return checkWin(1) || checkWin(2) || isDraw();
     }
 
     public boolean isDraw() {
-        return moves >= base * height;
+        return moves == base * height;
     }
 
-    public int getCurrentPlayer() {
+    public int getCurrentPlayer() { // Tenemos que tener los getters
         return currentPlayer;
     }
 

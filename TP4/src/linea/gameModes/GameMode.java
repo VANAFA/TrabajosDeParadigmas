@@ -15,7 +15,7 @@ public class GameMode {
         return horizontalVerticalWin( player ) || diagonalWin( player );
     }
 
-    protected boolean horizontalVerticalWin( int player ) {
+    public boolean horizontalVerticalWin( int player ) {
 
         boolean horizontalWin = IntStream.range(0, game.height)
             .anyMatch(i -> IntStream.range(0, game.base - 3)

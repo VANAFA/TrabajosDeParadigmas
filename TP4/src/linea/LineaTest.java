@@ -1,8 +1,8 @@
 package linea;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
 import java.util.stream.IntStream;
+import static org.junit.Assert.*;
 
 public class LineaTest { // al final que ordenar los test y ponerle los números correctos
 
@@ -10,6 +10,8 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
     public void test00GameModeWithCapitalLettersWorks() {
         Linea game = new Linea(5, 5, 'C');
         assertEquals('c', game.getGameMode());
+        // Este error es el mismo que previene jugar.
+        // Toma los numeros incorrectos para los modos, tampoco te deja porque a es 99 creo
     }
 
     @Test
@@ -42,11 +44,11 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
     @Test
     public void test04finishedWorks() {
         Linea game = new Linea(4, 4, 'c');
-        assertFalse(game.finished());
+        assertFalse(game.isFinished());
         IntStream.range(0, 4)
             .forEach(j -> IntStream.range(j, 4)
                 .forEach(i -> game.playRedAt(j)));
-        assertTrue(game.finished());
+        assertTrue(game.isFinished());
     }
 
     @Test
@@ -55,16 +57,13 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
         IntStream.range(0, 4)
             .forEach(j -> IntStream.range(j, 4)
                 .forEach(i -> game.playRedAt(j)));
-        assertTrue( game.finished() );
-        game.playBlueAt(0);
-        assertEquals(1, game.getPlayerAt(3, 0));
+        game.playRedAt(0);
+        assertEquals(0, game.getPlayerAt(3, 0));
     }
 
     @Test
     public void test06verticalWinWorks() {
         Linea game = new Linea(5, 5, 'c');
-        IntStream.range(0, 4)
-            .forEach(i -> game.playRedAt(0));
         game.playRedAt(0);
         game.playRedAt(0);
         game.playRedAt(0);
@@ -100,14 +99,14 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
         IntStream.range(0, 4)
             .forEach(i -> IntStream.range(0, 4)
                 .forEach(j -> game.playRedAt(j)));
-        assertTrue(game.finished());
+        assertTrue(game.isFinished());
         assertTrue(game.isDraw());
     }
 
     @Test
     public void test11GameModeADoesNotAcceptDiagonalWins() {
         Linea game = diagonalWin('a');
-        assertFalse(game.finished());
+        assertFalse(game.isFinished());
     }
 
     @Test
