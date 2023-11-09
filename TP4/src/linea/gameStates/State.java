@@ -13,6 +13,9 @@ public abstract class State {
     abstract public void playRed(int col);
     abstract public void playBlue(int col);
     
+    public void show() {
+    }
+    
     public boolean isFinished() {
         return true;
     }

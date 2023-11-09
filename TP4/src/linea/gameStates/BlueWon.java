@@ -15,4 +15,9 @@ public class BlueWon extends State {
     public void playBlue(int col) {
         throw new RuntimeException("Game over, blue won");
     }
+
+    @Override
+    public void show() {
+        System.out.println("Blue won!");
+    }
 }

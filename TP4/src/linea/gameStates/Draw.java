@@ -15,4 +15,9 @@ public class Draw extends State {
     public void playBlue(int col) {
         throw new RuntimeException("Game over");
     }
+
+    @Override
+    public void show() {
+        System.out.println("It's a draw!");
+    }
 }

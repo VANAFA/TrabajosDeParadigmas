@@ -37,46 +37,52 @@ public class Linea { // al final que ordenar el código
         // █ 0 1 2 3 █
 
         String result = "";
-        result += IntStream.range(0, base)
-            .mapToObj(i -> "█ ")
+
+        result += IntStream.range(0, height)
+            .mapToObj(j -> {
+                String row = "█ ";
+                row += IntStream.range(0, base)
+                    .mapToObj(i -> {
+                        int player = safeGet(i, j);
+                        if (player == 0) {
+                            return "- ";
+                        } else if (player == 1) {
+                            return "X ";
+                        } else {
+                            return "O ";
+                        }
+                    })
+                    .collect(Collectors.joining());
+                row += "█\n";
+                return row;
+            })
             .collect(Collectors.joining());
-        result += "\n";
 
-        for (int i = height - 1; i >= 0; i--) {
-            result += "█ ";
-            for (int j = 0; j < base; j++) {
-                int player = board.get(i).get(j);
-                if (player == 0) {
-                    result += "- ";
-                } else if (player == 1) {
-                    result += "X ";
-                } else {
-                    result += "O ";
-                }
-            }
-            result += "█\n";
-        }
-
+        result += "█";
         result += IntStream.range(0, base)
-            .mapToObj(i -> "█ ")
+            .mapToObj(i -> " ^")
             .collect(Collectors.joining());
-        result += "\n";
+        result += " █\n";
 
+        result += "█";
         result += IntStream.range(0, base)
             .mapToObj(i -> " " + i)
             .collect(Collectors.joining());
-        result += "\n";
+        result += " █\n";
     
-        if (finished()) { // TODO: sacar este if
-            result += " \n";
-            if (checkWin(1)) {
-                result += " X wins!";
-            } else if (checkWin(2)) {
-                result += " O wins!";
-            } else {
-                result += " It's a Draw!";
-            }
-        }
+        currentState.show(); // this isnt working
+
+        // if (finished()) {
+        //     result += " \n";
+        //     if (checkWin(1)) {
+        //         result += " X wins!";
+        //     } else if (checkWin(2)) {
+        //         result += " O wins!";
+        //     } else {
+        //         result += " It's a Draw!";
+        //     }
+        // }
+
         return result;
     }
     

@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 import linea.gameStates.*;
 
 public class LineaTest { // al final que ordenar los test y ponerle los números correctos
-
+// revisar que no se pueda hacer un tablero de 0x0 o negativo
     @Test
     public void test00GameModeWithCapitalLettersWorks() {
         Linea game = new Linea(5, 5, 'C');
