@@ -65,7 +65,7 @@ public class Linea {
     public boolean checkWin(int player) {
         GameMode[] modes = {new GameModeA(this), new GameModeB(this), new GameMode(this)};
         
-        return modes[ gameMode - 'a' ].checkWin(player);
+        return modes[ gameMode - 'A' ].checkWin(player);
     }
     
     public void playRedAt(int col) {
