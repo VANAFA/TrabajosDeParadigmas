@@ -27,6 +27,7 @@ public class Game {
       if ( !game.isFinished() ) {
 
         // new PlayerTwo( game ).play();
+        // TODO: sacar esto? xd, me da cosa borrarlo
 
         game.playBlueAt( promptAsInt( "Azul? " ) );
 
