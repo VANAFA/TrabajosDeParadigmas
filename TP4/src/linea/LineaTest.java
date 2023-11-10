@@ -5,7 +5,17 @@ import org.junit.Test;
 import linea.gameStates.*;
 
 public class LineaTest { // al final que ordenar los test y ponerle los números correctos
-// TODO: revisar que no se pueda hacer un tablero de 0x0 o negativo
+    
+   @Test
+   public void test00CanNotMakeBoard00() {
+        assertThrows( RuntimeException.class, () -> new Linea(0, 0, 'c') );
+   } 
+
+   @Test
+   public void test01CanNotMakeBoardNegative() {
+        assertThrows( RuntimeException.class, () -> new Linea(-1, -1, 'c') );
+   }
+
     @Test
     public void test00GameModeWithCapitalLettersWorks() {
         Linea game = new Linea(5, 5, 'C');

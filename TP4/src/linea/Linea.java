@@ -13,13 +13,17 @@ public class Linea { // al final que ordenar el código
     public State currentState = new PlayingRed( this );
     public int base;
     public int height;
-    private int gameMode;
+    public int gameMode;
     
     public Linea(int base, int height, int gameMode) {
         this.base = base;
         this.height = height;
         this.gameMode = Character.toLowerCase(gameMode);
-
+        
+        if (base <= 0 || height <= 0) {
+            throw new IllegalArgumentException("Height and base must be greater than 0.");
+        }
+        
         board = IntStream.range(0, height)
             .mapToObj(i -> new ArrayList<Integer>())
             .collect(Collectors.toCollection(ArrayList::new));

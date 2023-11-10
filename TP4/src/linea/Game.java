@@ -11,6 +11,8 @@ public class Game {
                             promptAsInt( "Altura? " ), 
 
                             promptAsChar( "Estartegia de Juego: A, B o C? " ) );
+    
+    boolean bot = promptAsChar( "Jugar contra la computadora? (s/n) " ) == 's';
   
     System.out.println( game.show() );
 
@@ -23,8 +25,14 @@ public class Game {
 
       if ( !game.finished() ) {
 
-        // new PlayerTwo( game ).play(); 
-        game.playBlueAt( promptAsInt( "Azul? " ) );
+        if ( bot ) {
+
+          new PlayerTwo( game ).play(); 
+
+        } else {
+
+          game.playBlueAt( promptAsInt( "Azul? " ) );
+        }
 
         System.out.println( game.show() );
       }
