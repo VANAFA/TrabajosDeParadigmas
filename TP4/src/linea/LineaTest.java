@@ -2,11 +2,10 @@ package linea;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import java.util.stream.IntStream;
 import linea.gameStates.*;
 
 public class LineaTest { // al final que ordenar los test y ponerle los números correctos
-// revisar que no se pueda hacer un tablero de 0x0 o negativo
+// TODO: revisar que no se pueda hacer un tablero de 0x0 o negativo
     @Test
     public void test00GameModeWithCapitalLettersWorks() {
         Linea game = new Linea(5, 5, 'C');
@@ -36,7 +35,6 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
     public void test03oPlaysAt01() {
         Linea game = newGamePlayAt0();
         game.playBlueAt(1);
-        System.out.println( game.show() ); // temporal
         assertEquals(2, game.getPlayerAt(0, 1));
     }
 
@@ -97,6 +95,7 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
         game.playBlueAt(1);
         game.playRedAt(0);
         assertTrue(game.checkWin(1));
+        System.out.println( game.show() ); // temporal
     }
 
     @Test
@@ -108,9 +107,9 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
         game.playRedAt(2);
         game.playBlueAt(2);
         game.playRedAt(3);
-        assertTrue(game.checkWin(1)); // win isn't working
+        assertTrue(game.checkWin(1));
     }       
-
+    
     @Test
     public void test08diagonalWinWorks() {
         Linea game = diagonalWin('c');
@@ -129,6 +128,8 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
         game.playBlueAt(0);
         game.playRedAt(1);
         game.playBlueAt(2);
+        game.playRedAt(3);
+        game.playBlueAt(0);
         assertTrue(game.finished());
         assertTrue(game.isDraw());
     }
@@ -151,7 +152,7 @@ public class LineaTest { // al final que ordenar los test y ponerle los números
         return game;
     }
 
-    private Linea diagonalWin( char gameMode) { // TODO: try making this with a loop
+    private Linea diagonalWin( char gameMode) {
         Linea game = new Linea(4, 4, gameMode);
         game.playRedAt(0);
         game.playBlueAt(1);

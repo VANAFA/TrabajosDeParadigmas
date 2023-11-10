@@ -13,15 +13,11 @@ public class PlayingRed extends State {
         play(col, 1);
         game.currentState = new PlayingBlue(game);
 
-        if (game.checkWin(1)) { // TODO: preguntar por este if
+        if (game.checkWin(1)) {
             game.currentState = new RedWon(game);
         } else if (game.isDraw()) {
             game.currentState = new Draw(game);
         }
-    }
-    
-    public void playBlue(int col) {
-        throw new RuntimeException("No se puede jugar en el turno del otro jugador");
     }
 
     @Override

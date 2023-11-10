@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-//TODO: sólo usar geters en tests
-
 public class Linea { // al final que ordenar el código
     
     public ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>();
@@ -22,40 +20,28 @@ public class Linea { // al final que ordenar el código
         this.height = height;
         this.gameMode = Character.toLowerCase(gameMode);
 
-        for (int i = 0; i < height; i++) {
-            board.add(new ArrayList<Integer>());
-        } // TODO: replce the for for a stream
+        board = IntStream.range(0, height)
+            .mapToObj(i -> new ArrayList<Integer>())
+            .collect(Collectors.toCollection(ArrayList::new));
     }
     
     public String show() {
-        // the show should look like this:
-        // █ - - - - █
-        // █ - X O X █
-        // █ X O X O █
-        // █ O X X O █
-        // █ ^ ^ ^ ^ █
-        // █ 0 1 2 3 █
-
+        
         String result = "";
-
+        
         result += IntStream.range(0, height)
-            .mapToObj(j -> {
-                String row = "█ ";
-                row += IntStream.range(0, base)
-                    .mapToObj(i -> {
-                        int player = safeGet(i, j);
-                        if (player == 0) {
-                            return "- ";
-                        } else if (player == 1) {
-                            return "X ";
-                        } else {
-                            return "O ";
-                        }
-                    })
-                    .collect(Collectors.joining());
-                row += "█\n";
-                return row;
-            })
+            .mapToObj(i -> "█ " + IntStream.range(0, base)
+                .mapToObj(j -> {
+                    int player = safeGet(j, height - 1 - i);
+                    if (player == 0) {
+                        return "- ";
+                    } else if (player == 1) {
+                        return "X ";
+                    } else {
+                        return "O ";
+                    }
+                })
+                .collect(Collectors.joining()) + "█\n")
             .collect(Collectors.joining());
 
         result += "█";
@@ -69,21 +55,8 @@ public class Linea { // al final que ordenar el código
             .mapToObj(i -> " " + i)
             .collect(Collectors.joining());
         result += " █\n";
-    
-        currentState.show(); // this isnt working
 
-        // if (finished()) {
-        //     result += " \n";
-        //     if (checkWin(1)) {
-        //         result += " X wins!";
-        //     } else if (checkWin(2)) {
-        //         result += " O wins!";
-        //     } else {
-        //         result += " It's a Draw!";
-        //     }
-        // }
-
-        return result;
+        return currentState.getResult(result);
     }
     
     public void playRedAt(int col) {

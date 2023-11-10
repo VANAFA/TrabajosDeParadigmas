@@ -8,16 +8,8 @@ public class Draw extends State {
         super(game);
     }
 
-    public void playRed(int col) {
-        throw new RuntimeException("Game over");
-    }
-
-    public void playBlue(int col) {
-        throw new RuntimeException("Game over");
-    }
-
     @Override
-    public void show() {
-        System.out.println("It's a draw!");
+    public String getResult(String result) {
+        return result += "It's a draw!";
     }
 }

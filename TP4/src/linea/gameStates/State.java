@@ -2,7 +2,7 @@ package linea.gameStates;
 
 import linea.Linea;
 
-public abstract class State {
+public class State {
 
     protected Linea game;
 
@@ -10,21 +10,27 @@ public abstract class State {
         this.game = game;
     }
 
-    abstract public void playRed(int col);
-    abstract public void playBlue(int col);
+    public void playRed(int col) {
+        throw new RuntimeException("Invalid turn");
+    }
     
-    public void show() {
+    public void playBlue(int col) {
+        throw new RuntimeException("Invalid turn");
+    }
+    
+    protected void play(int col, int player) {
+        if (col >= 0 && col < game.base) {
+            game.board.get(col).add(player);
+        } else {
+            throw new RuntimeException("No se puede jugar en esa columna");
+        }
     }
     
     public boolean isFinished() {
         return true;
     }
-
-    protected void play(int col, int player) {
-        if (col >= 0 && col < game.base && !game.finished()) {
-            game.board.get(col).add(player);
-        } else {
-            throw new RuntimeException("No se puede jugar en esa columna");
-        }
+    
+    public String getResult(String result) {
+        return result;
     }
 }

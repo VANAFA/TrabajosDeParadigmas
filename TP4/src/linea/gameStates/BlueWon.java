@@ -8,16 +8,8 @@ public class BlueWon extends State {
         super(game);
     }
 
-    public void playRed(int col) {
-        throw new RuntimeException("Game over, blue won");
-    }
-
-    public void playBlue(int col) {
-        throw new RuntimeException("Game over, blue won");
-    }
-
     @Override
-    public void show() {
-        System.out.println("Blue won!");
+    public String getResult(String result) {
+        return result += "Blue won!";
     }
 }
