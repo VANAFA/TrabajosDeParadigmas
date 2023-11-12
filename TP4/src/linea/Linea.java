@@ -3,17 +3,16 @@ package linea;
 import linea.gameModes.*;
 import linea.gameStates.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Linea { // al final que ordenar el código
     
+    private int gameMode;
     public ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>();
     public State currentState = new PlayingRed( this );
     public int base;
     public int height;
-    public int gameMode;
     
     public Linea(int base, int height, int gameMode) {
         this.base = base;
@@ -25,8 +24,8 @@ public class Linea { // al final que ordenar el código
         }
         
         board = IntStream.range(0, height)
-            .mapToObj(i -> new ArrayList<Integer>())
-            .collect(Collectors.toCollection(ArrayList::new));
+                         .mapToObj(i -> new ArrayList<Integer>())
+                         .collect(Collectors.toCollection(ArrayList::new));
     }
     
     public String show() {
@@ -34,30 +33,30 @@ public class Linea { // al final que ordenar el código
         String result = "";
         
         result += IntStream.range(0, height)
-            .mapToObj(i -> "█ " + IntStream.range(0, base)
-                .mapToObj(j -> {
-                    int player = safeGet(j, height - 1 - i);
-                    if (player == 0) {
-                        return "- ";
-                    } else if (player == 1) {
-                        return "X ";
-                    } else {
-                        return "O ";
-                    }
-                })
-                .collect(Collectors.joining()) + "█\n")
-            .collect(Collectors.joining());
+                           .mapToObj(i -> "█ " + IntStream.range(0, base)
+                                                          .mapToObj(j -> {
+                                                            int player = safeGet(j, height - 1 - i);
+                                                            if (player == 0) {
+                                                                return "- ";
+                                                            } else if (player == 1) {
+                                                                return "X ";
+                                                            } else {
+                                                                return "O ";
+                                                            }
+                                                        })
+                                                          .collect(Collectors.joining()) + "█\n")
+                           .collect(Collectors.joining());
 
         result += "█";
         result += IntStream.range(0, base)
-            .mapToObj(i -> " ^")
-            .collect(Collectors.joining());
+                           .mapToObj(i -> " ^")
+                           .collect(Collectors.joining());
         result += " █\n";
 
         result += "█";
         result += IntStream.range(0, base)
-            .mapToObj(i -> " " + i)
-            .collect(Collectors.joining());
+                           .mapToObj(i -> " " + i)
+                           .collect(Collectors.joining());
         result += " █\n";
 
         return currentState.getResult(result);
@@ -77,8 +76,8 @@ public class Linea { // al final que ordenar el código
 
     public boolean isDraw() {
         int moves = board.stream()
-            .mapToInt(List::size)
-            .sum();
+                         .mapToInt(ArrayList::size)
+                         .sum();
 
         return moves >= base * height;
     }
@@ -89,9 +88,9 @@ public class Linea { // al final que ordenar el código
         return modes[ gameMode - 'a' ].checkWin(player);
     }    
 
-    public int safeGet(int i, int j) {
+    public int safeGet(int i, int j) { // TODO: revise if this can be done without if statements
         if (i >= 0 && i < board.size()) {
-            List<Integer> row = board.get(i);
+            ArrayList<Integer> row = board.get(i);
             if (j >= 0 && j < row.size()) {
                 return row.get(j);
             }

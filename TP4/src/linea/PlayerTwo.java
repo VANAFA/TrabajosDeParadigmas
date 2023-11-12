@@ -2,7 +2,7 @@ package linea;
 
 import java.util.Random;
 
-public class PlayerTwo {
+public class PlayerTwo { // TODO: make this better
 
     private Linea game;
     private Random random;
