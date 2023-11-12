@@ -1,7 +1,9 @@
 package linea.gameModes;
 
 import linea.Linea;
-import java.util.stream.IntStream;
+
+import java.util.List;
+import java.util.stream.*;
 
 public class GameMode {
 
@@ -15,33 +17,26 @@ public class GameMode {
         return horizontalVerticalWin( player ) || diagonalWin( player );
     }
 
-    public boolean horizontalVerticalWin( int player ) {
-
-        boolean horizontalWin = IntStream.range(0, game.height)
-            .anyMatch(i -> IntStream.range(0, game.base - 3)
-                .anyMatch(j -> IntStream.range(j, j + 4)
-                    .allMatch(k -> game.board.get(i).get(k) == player)));
-
-        boolean verticalWin = IntStream.range(0, game.base)
-            .anyMatch(i -> IntStream.range(0, game.height - 3)
-                .anyMatch(j -> IntStream.range(j, j + 4)
-                    .allMatch(k -> game.board.get(k).get(i) == player)));
-
-        return horizontalWin || verticalWin;
+    protected boolean horizontalVerticalWin( int player ) {
+        
+        List<Integer> rows = IntStream.range(0, game.height).boxed().collect(Collectors.toList());
+        List<Integer> cols = IntStream.range(0, game.base - 3).boxed().collect(Collectors.toList());
+        
+        return rows.stream().anyMatch(i -> cols.stream().anyMatch(j -> winCheckerIn(player, i, j, 0, 1)))
+                || cols.stream().anyMatch(j -> rows.stream().anyMatch(i -> winCheckerIn(player, i, j, 1, 0)));
     }
 
-    protected boolean diagonalWin( int player ) { // TODO: usar lo del tablero fantasma comienzo en el 0,0 menos la base con xy, y la inversa para la otra diagonal -xy. O ver si lo que está hecho está bueno usarlo
+    protected boolean diagonalWin(int player) {
 
-        boolean diagonalWin = IntStream.range(0, game.height - 3)
-            .anyMatch(i -> IntStream.range(0, game.base - 3)
-                .anyMatch(j -> IntStream.range(0, 4)
-                    .allMatch(k -> game.board.get(i + k).get(j + k) == player)));
+        List<Integer> rows = IntStream.range(0, game.height - 3).boxed().collect(Collectors.toList());
+        List<Integer> cols1 = IntStream.range(0, game.base - 3).boxed().collect(Collectors.toList());
+        List<Integer> cols2 = IntStream.range(3, game.base).boxed().collect(Collectors.toList());
 
-        boolean diagonalWin2 = IntStream.range(0, game.height - 3)
-            .anyMatch(i -> IntStream.range(0, game.base - 3)
-                .anyMatch(j -> IntStream.range(0, 4)
-                    .allMatch(k -> game.board.get(i + k).get(game.base - j - k - 1) == player)));
-
-        return diagonalWin || diagonalWin2;
+        return rows.stream().anyMatch(i -> cols1.stream().anyMatch(j -> winCheckerIn(player, i, j, 1, 1)))
+                || rows.stream().anyMatch(i -> cols2.stream().anyMatch(j -> winCheckerIn(player, i, j, 1, -1)));
+    }
+    
+    private boolean winCheckerIn(int player, int i, int j, int addi, int addj) {
+        return game.safeGet(i, j) == player && game.safeGet(i + addi, j + addj) == player && game.safeGet(i + addi + 1 * addi, j + addj + 1 * addj) == player && game.safeGet(i + addi + 2 * addi, j + addj + 2 * addj) == player;
     }
 }

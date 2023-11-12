@@ -1,54 +1,25 @@
 package linea;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class PlayerTwo {
-    private Linea game;
+
+    private final Linea game;
+    private final Random random;
 
     public PlayerTwo(Linea game) {
         this.game = game;
+        this.random = new Random();
     }
 
     public void play() {
-        int col = findWinningMove();
+        int col = chooseColumn();
         game.playBlueAt(col);
     }
 
-    private int findWinningMove() {
-        for (int col = 0; col < game.base; col++) {
-            Linea copy = new Linea(game.base, game.height, game.getGameMode());
-            copy.board = new ArrayList<>();
-            for (ArrayList<Integer> row : game.board) {
-                copy.board.add(new ArrayList<>(row));
-            }
-            copy.playBlueAt(col);
-            if (copy.checkWin(2)) {
-                return col;
-            }
-        }
-        return findCounterMove();
-    }
-
-    private int findCounterMove() {
-        for (int col = 0; col < game.base; col++) {
-            Linea copy = new Linea(game.base, game.height, game.getGameMode());
-            copy.board = new ArrayList<>();
-            for (ArrayList<Integer> row : game.board) {
-                copy.board.add(new ArrayList<>(row));
-            }
-            copy.playRedAt(col);
-            if (copy.checkWin(1)) {
-                return col;
-            }
-        }
-        return randomMove();
-    }
-
-    private int randomMove() {
-        Random random = new Random();
+    private int chooseColumn() {
         int col = random.nextInt(game.base);
-        while (game.board.get(0).get(col) != 0) {
+        while (game.safeGet(0, col) != 0) {
             col = random.nextInt(game.base);
         }
         return col;

@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb05401a-1a26-4d2c-9819-f26ac244d267" name="Changes" comment="" />
+    <list default="true" id="925d3aa0-929d-4305-aca7-b1e10b2cf093" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/junit_platform_console_standalone_1_10_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/junit_platform_console_standalone_1_10_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP2/TP2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TP2/TP2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP4/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP4/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP4/src/linea/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP4/src/linea/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP4/src/linea/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP4/src/linea/Linea.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP4/src/linea/Linea.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP4/src/linea/Linea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP4/src/linea/LineaTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP4/src/linea/LineaTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP4/src/linea/PlayerTwo.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP4/src/linea/PlayerTwo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP4/src/linea/gameModes/GameMode.class" beforeDir="false" afterPath="$PROJECT_DIR$/TP4/src/linea/gameModes/GameMode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP4/src/linea/gameModes/GameMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP4/src/linea/gameModes/GameMode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP4/src/linea/gameModes/GameModeA.class" beforeDir="false" afterPath="$PROJECT_DIR$/TP4/src/linea/gameModes/GameModeA.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP4/src/linea/gameModes/GameModeA.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP4/src/linea/gameModes/GameModeA.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP4/src/linea/gameModes/GameModeB.class" beforeDir="false" afterPath="$PROJECT_DIR$/TP4/src/linea/gameModes/GameModeB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP4/src/linea/gameModes/GameModeB.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP4/src/linea/gameModes/GameModeB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/junit-platform-console-standalone-1.10.0.jar" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,15 +32,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 4
 }</component>
-  <component name="ProjectId" id="2WPITmnBAgDxuecOY3uSJAySwS7" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="2Y5fFzzOEDHWNo35BtBZGTpBtZm" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -32,50 +47,45 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/supre/IdeaProjects/TrabajosDeParadigmas/TP4&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;onboarding.page.settings&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\supre\IdeaProjects\TrabajosDeParadigmas" />
-    </key>
-  </component>
-  <component name="RunAnythingCache">
-    <option name="myCommands">
-      <command value="SubmarineTest" />
-    </option>
+  <component name="RunManager">
+    <configuration name="LineaTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TP4" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="linea.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="linea" />
+      <option name="MAIN_CLASS_NAME" value="linea.LineaTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.LineaTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="fb05401a-1a26-4d2c-9819-f26ac244d267" name="Changes" comment="" />
-      <created>1696627802563</created>
+      <changelist id="925d3aa0-929d-4305-aca7-b1e10b2cf093" name="Changes" comment="" />
+      <created>1699820263798</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1696627802563</updated>
-      <workItem from="1696627806823" duration="124000" />
-      <workItem from="1696954133879" duration="74000" />
-      <workItem from="1696954227811" duration="34000" />
-      <workItem from="1697581088588" duration="2000" />
-      <workItem from="1697997395066" duration="108000" />
-      <workItem from="1697997812137" duration="367000" />
-      <workItem from="1698345497666" duration="42000" />
-      <workItem from="1698416028733" duration="53000" />
+      <updated>1699820263798</updated>
+      <workItem from="1699820269375" duration="75000" />
+      <workItem from="1699820365626" duration="116000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>

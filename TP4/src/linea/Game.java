@@ -1,8 +1,5 @@
 package linea;
 
-// throw when input out of bounds
-// check for capital letters
-
 public class Game {
 
   public static void main( String[] args) throws Exception {
@@ -14,22 +11,28 @@ public class Game {
                             promptAsInt( "Altura? " ), 
 
                             promptAsChar( "Estartegia de Juego: A, B o C? " ) );
+    
+    boolean bot = promptAsChar( "Jugar contra la computadora? (s/n) " ) == 's';
   
     System.out.println( game.show() );
 
-    while ( !game.isFinished() ) {
+    while ( !game.finished() ) {
 
       game.playRedAt( promptAsInt( "Rojas? " ) );
 
       System.out.println( game.show() );
 
 
-      if ( !game.isFinished() ) {
+      if ( !game.finished() ) {
 
-        // new PlayerTwo( game ).play();
-        // TODO: sacar esto? xd, me da cosa borrarlo
+        if ( bot ) {
 
-        game.playBlueAt( promptAsInt( "Azul? " ) );
+          new PlayerTwo( game ).play(); 
+
+        } else {
+
+          game.playBlueAt( promptAsInt( "Azul? " ) );
+        }
 
         System.out.println( game.show() );
       }
@@ -50,7 +53,3 @@ public class Game {
     return System.console().readLine().charAt( 0 );
   }
 }
-
-//  javac linea/Linea.java linea/Game.java 
-
-//  java linea.Game 
