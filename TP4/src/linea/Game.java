@@ -53,7 +53,3 @@ public class Game {
     return System.console().readLine().charAt( 0 );
   }
 }
-
-//  javac linea/Linea.java linea/Game.java 
-
-//  java linea.Game 

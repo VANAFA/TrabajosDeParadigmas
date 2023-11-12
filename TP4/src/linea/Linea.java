@@ -88,7 +88,7 @@ public class Linea { // al final que ordenar el código
         return modes[ gameMode - 'a' ].checkWin(player);
     }    
 
-    public int safeGet(int i, int j) { // TODO: revise if this can be done without if statements
+    public int safeGet(int i, int j) {
         if (i >= 0 && i < board.size()) {
             ArrayList<Integer> row = board.get(i);
             if (j >= 0 && j < row.size()) {
